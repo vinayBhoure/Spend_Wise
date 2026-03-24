@@ -24,23 +24,24 @@ const signupSchema = z.object({
 
 export default function Auth() {
   const [activeTab, setActiveTab] = useState('login');
-  const [signupSuccess, setSignupSuccess] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const authActionLoading = useSelector(selectAuthActionLoading);
   const authError = useSelector(selectAuthError);
 
-  // Clear errors when switching tabs
+  // Clear errors and reset forms when switching tabs
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setSignupSuccess(false);
+    resetLogin();
+    resetSignup();
     if (authError) dispatch(clearAuthError());
   };
 
   const {
     register: registerLogin,
     handleSubmit: handleLoginSubmit,
+    reset: resetLogin,
     watch: watchLogin,
     formState: { errors: loginErrors },
   } = useForm({
@@ -51,6 +52,7 @@ export default function Auth() {
   const {
     register: registerSignup,
     handleSubmit: handleSignupSubmit,
+    reset: resetSignup,
     watch: watchSignup,
     formState: { errors: signupErrors },
   } = useForm({
@@ -80,7 +82,7 @@ export default function Auth() {
     try {
       await dispatch(signupUserThunk({ username: data.username, email: data.email, password: data.password })).unwrap();
       toast.success('Account created successfully!');
-      setSignupSuccess(true);
+      navigate('/verify-email');
     } catch (err) {
       toast.error(err || 'Signup failed. Please try again.');
     }
@@ -148,16 +150,6 @@ export default function Auth() {
               )}
             </button>
           </form>
-        ) : signupSuccess ? (
-          <div className="flex flex-col items-center justify-center py-8 text-center space-y-4">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-2">
-              <Mail className="text-primary w-8 h-8" />
-            </div>
-            <h3 className="text-xl font-bold text-white">Check Your Email</h3>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-[280px]">
-              We have sent a verification link to your email address. Please verify to continue.
-            </p>
-          </div>
         ) : (
           <form onSubmit={handleSignupSubmit(onSignup)} className="space-y-6">
             <Input
@@ -227,3 +219,4 @@ export default function Auth() {
     </div>
   );
 }
+

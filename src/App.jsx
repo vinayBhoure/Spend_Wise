@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Onboarding from './pages/Onboarding'
 import Auth from './pages/Auth'
 import OTPVerification from './pages/OTPVerification'
+import EmailVerification from './pages/EmailVerification'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import AddAccount from './pages/AddAccount'
@@ -52,6 +53,7 @@ function App() {
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/otp" element={<OTPVerification />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 
