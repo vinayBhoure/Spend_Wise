@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpendWise Transfer Funds - Emerald Zenith</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00e6cb",
+                        "transfer-accent": "#A78BFA",
+                        "background-dark": "#0A0F1E",
+                        "surface-dark": "#161B2E",
+                        "slate-850": "#1e293b",
+                    },
+                    fontFamily: {
+                        "sans": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-slate-100 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between p-4 sticky top-0 z-10 bg-background-dark/80 backdrop-blur-md border-b border-slate-800/50">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-100">arrow_back_ios_new</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight text-slate-100 uppercase">Transfer Funds</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-100">info</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col px-6 pt-6 max-w-md mx-auto w-full pb-10">
+<!-- Transaction Type Switcher -->
+<div class="mb-8">
+<div class="flex h-12 items-center justify-center rounded-xl bg-surface-dark border border-slate-800/50 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 text-slate-500 text-xs font-extrabold uppercase transition-all has-[:checked]:bg-slate-800/80 has-[:checked]:text-primary has-[:checked]:shadow-sm">
+<span>Income</span>
+<input class="hidden" name="txn-type" type="radio" value="Income"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 text-slate-500 text-xs font-extrabold uppercase transition-all has-[:checked]:bg-slate-800/80 has-[:checked]:text-primary has-[:checked]:shadow-sm">
+<span>Expense</span>
+<input class="hidden" name="txn-type" type="radio" value="Expense"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 text-slate-500 text-xs font-extrabold uppercase transition-all has-[:checked]:bg-slate-800/80 has-[:checked]:text-primary has-[:checked]:shadow-sm">
+<span>Transfer</span>
+<input checked="" class="hidden" name="txn-type" type="radio" value="Transfer"/>
+</label>
+</div>
+</div>
+<!-- Standardized Amount Input Segment -->
+<div class="flex flex-col items-center mb-12">
+<span class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4">Enter Amount</span>
+<div class="flex items-center gap-2">
+<span class="text-3xl font-bold text-primary">₹</span>
+<input autofocus="" class="bg-transparent border-none text-center text-7xl font-extrabold focus:ring-0 p-0 w-full text-slate-100 placeholder:text-slate-800" placeholder="0" type="text"/>
+</div>
+<!-- Decorative line removed as per request -->
+</div>
+<!-- Standardized Account Selector Cards -->
+<div class="relative flex flex-col gap-4">
+<!-- From Account -->
+<div class="bg-surface-dark rounded-xl p-5 border border-slate-800 flex items-center gap-4 transition-all active:scale-[0.98] group">
+<div class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700">
+<span class="material-symbols-outlined text-slate-400 text-2xl">account_balance</span>
+</div>
+<div class="flex-1">
+<p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-0.5">From</p>
+<h3 class="text-base font-bold text-slate-100">Savings Account</h3>
+<p class="text-sm text-slate-400">Balance: ₹45,200.00</p>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-active:text-primary">expand_more</span>
+</div>
+<!-- Flow Indicator -->
+<div class="absolute left-1/2 -translate-x-1/2 top-[50%] -translate-y-1/2 z-10">
+<div class="bg-background-dark border border-slate-700 w-10 h-10 rounded-full flex items-center justify-center shadow-2xl shadow-black">
+<span class="material-symbols-outlined text-primary text-xl font-bold">south</span>
+</div>
+</div>
+<!-- To Account -->
+<div class="bg-surface-dark rounded-xl p-5 border border-primary/20 flex items-center gap-4 transition-all active:scale-[0.98] group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary text-2xl">account_balance_wallet</span>
+</div>
+<div class="flex-1">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest mb-0.5">To</p>
+<h3 class="text-base font-bold text-slate-100">Digital Wallet</h3>
+<p class="text-sm text-slate-400">Balance: ₹1,240.50</p>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-active:text-primary">expand_more</span>
+</div>
+</div>
+<!-- Add Note Field -->
+<div class="mt-8">
+<div class="relative">
+<input class="w-full bg-surface-dark border border-slate-800 rounded-lg py-4 px-5 text-slate-200 placeholder-slate-600 focus:ring-1 focus:ring-primary/30 focus:border-primary/30 transition-all outline-none" placeholder="Add a note (e.g. Rent, Dinner)" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-600">sticky_note_2</span>
+</div>
+</div>
+<!-- Quick Select Amounts -->
+<div class="flex gap-2 mt-6 overflow-x-auto no-scrollbar">
+<button class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-slate-850 border border-slate-700 text-sm font-semibold text-slate-300 hover:bg-slate-800 transition-colors">+₹500</button>
+<button class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-slate-850 border border-slate-700 text-sm font-semibold text-slate-300 hover:bg-slate-800 transition-colors">+₹1,000</button>
+<button class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-slate-850 border border-slate-700 text-sm font-semibold text-slate-300 hover:bg-slate-800 transition-colors">+₹5,000</button>
+<button class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-slate-850 border border-slate-700 text-sm font-semibold text-slate-300 hover:bg-slate-800 transition-colors">Max</button>
+</div>
+<!-- Primary Action Button -->
+<div class="mt-12">
+<button class="w-full bg-transfer-accent hover:opacity-90 text-background-dark font-extrabold py-4 rounded-lg shadow-xl shadow-transfer-accent/10 transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-wider">
+<span>Transfer Funds</span>
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</main>
+<!-- Decorative Elements -->
+<div class="fixed top-[-5%] right-[-5%] w-72 h-72 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-[10%] left-[-10%] w-64 h-64 bg-transfer-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+</body></html>

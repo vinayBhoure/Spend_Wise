@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Delete Account Confirmation - Emerald Zenith</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00e6cb",
+                        "destructive": "#ff4d4d",
+                        "background-light": "#f8fdfc",
+                        "background-dark": "#0a0f0e",
+                        "surface-dark": "#121a19",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "sans": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "1.5rem", // 24px
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            min-height: max(884px, 100dvh);
+        }
+        .blur-bg {
+            backdrop-filter: blur(12px);
+        }
+        input:focus {
+            box-shadow: 0 0 0 2px rgba(0, 230, 203, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col items-center justify-center overflow-hidden">
+<!-- Background Screen (Edit Account UI - Blurred) -->
+<div class="relative w-full max-w-[390px] h-[844px] bg-background-light dark:bg-background-dark overflow-hidden blur-md pointer-events-none border border-primary/5">
+<!-- Header -->
+<div class="flex items-center justify-between px-6 py-12">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back_ios</span>
+<h1 class="text-xl font-bold">Edit Account</h1>
+<span class="text-primary font-bold">Save</span>
+</div>
+<!-- Profile Section -->
+<div class="flex flex-col items-center px-6">
+<div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-4 border border-primary/20">
+<span class="material-symbols-outlined text-4xl text-primary">person</span>
+</div>
+<h2 class="text-lg font-bold">Main Savings</h2>
+<p class="text-slate-500 dark:text-slate-400">Created March 2024</p>
+</div>
+<!-- Form Fields -->
+<div class="mt-8 px-6 space-y-4">
+<div class="space-y-2">
+<label class="text-sm font-semibold opacity-60">Account Name</label>
+<div class="p-4 bg-white/5 rounded-lg border border-white/10 text-slate-900 dark:text-slate-100">Main Savings</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold opacity-60">Currency</label>
+<div class="p-4 bg-white/5 rounded-lg border border-white/10 flex justify-between">
+<span>USD ($)</span>
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Delete Button (Original position) -->
+<div class="mt-auto p-6 absolute bottom-0 w-full">
+<button class="w-full py-4 text-destructive font-bold">Delete Account</button>
+</div>
+</div>
+<!-- Overlay / Bottom Sheet Backdrop -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-[4px] z-40 flex items-end justify-center">
+<!-- Bottom Sheet Modal -->
+<div class="w-full max-w-[390px] bg-surface-dark border-t border-white/10 rounded-t-[24px] overflow-hidden shadow-2xl animate-slide-up">
+<!-- BottomSheetHandle -->
+<div class="flex flex-col items-stretch">
+<!-- Handle -->
+<div class="flex h-8 w-full items-center justify-center">
+<div class="h-1.5 w-12 rounded-full bg-white/10"></div>
+</div>
+<div class="px-6 pt-4 pb-10">
+<!-- Icon Accent -->
+<div class="flex justify-center mb-6">
+<div class="w-20 h-20 rounded-full bg-destructive/10 flex items-center justify-center border border-destructive/20">
+<span class="material-symbols-outlined text-destructive text-4xl">warning</span>
+</div>
+</div>
+<!-- Content -->
+<div class="text-center space-y-3 mb-8">
+<h3 class="text-slate-100 text-2xl font-extrabold tracking-tight">Delete Account?</h3>
+<p class="text-slate-400 text-base font-medium leading-relaxed max-w-[300px] mx-auto">
+                            This action is permanent. All transactions associated with this account will be lost forever.
+                        </p>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-4">
+<div class="space-y-2 mb-2 text-left">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Confirm your email address</label>
+<input class="w-full h-14 px-4 bg-white/5 rounded-xl border border-white/10 text-slate-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-slate-600 transition-all text-base" placeholder="Enter your email" type="email"/>
+</div>
+<button class="flex items-center justify-center rounded-xl h-14 px-5 bg-destructive hover:bg-destructive/90 text-white text-lg font-bold tracking-wide w-full transition-all shadow-lg shadow-destructive/10 active:scale-[0.98]">
+<span class="truncate">Delete Account</span>
+</button>
+<button class="flex cursor-pointer items-center justify-center rounded-xl h-14 px-5 bg-transparent hover:bg-white/5 transition-colors text-slate-400 text-base font-semibold tracking-wide w-full active:scale-[0.98]">
+<span class="truncate">Keep Account</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Safe Area Spacer for iOS -->
+<div class="h-8 bg-surface-dark"></div>
+</div>
+</div>
+</body></html>

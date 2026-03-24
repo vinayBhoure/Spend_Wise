@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpendWise Spending Statistics - Emerald Zenith</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00e6cb",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0A0F1E",
+                        "card-dark": "#161D2F",
+                        "accent-pink": "#FF5A7E",
+                        "accent-purple": "#A78BFA",
+                        "accent-orange": "#FB923C",
+                        "slate-850": "#111827"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "sans": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .donut-gradient {
+            background: conic-gradient(
+                #FF5A7E 0% 35%, 
+                #00e6cb 35% 55%, 
+                #A78BFA 55% 80%, 
+                #FB923C 80% 100%
+            );
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display pb-32">
+<nav class="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<button class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">chevron_left</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight">Spending Overview</h1>
+<button class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">calendar_today</span>
+</button>
+</nav>
+<main class="px-6 space-y-8">
+<section class="flex flex-col items-center justify-center pt-4">
+<div class="relative flex items-center justify-center w-64 h-64 rounded-full donut-gradient">
+<div class="flex flex-col items-center justify-center w-48 h-48 rounded-full bg-background-light dark:bg-background-dark shadow-inner">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Spent</span>
+<span class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">$3,450.00</span>
+</div>
+</div>
+<div class="flex gap-3 mt-8 overflow-x-auto no-scrollbar w-full pb-2">
+<div class="flex items-center gap-2 px-4 py-2 shrink-0 rounded-xl bg-accent-pink/10 border border-accent-pink/20">
+<span class="text-sm">🍔</span>
+<span class="text-xs font-bold text-accent-pink">Food 35%</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 shrink-0 rounded-xl bg-primary/10 border border-primary/20">
+<span class="text-sm">🚗</span>
+<span class="text-xs font-bold text-primary">Transport 20%</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 shrink-0 rounded-xl bg-accent-purple/10 border border-accent-purple/20">
+<span class="text-sm">🛍️</span>
+<span class="text-xs font-bold text-accent-purple">Shopping 25%</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 shrink-0 rounded-xl bg-accent-orange/10 border border-accent-orange/20">
+<span class="text-sm">💳</span>
+<span class="text-xs font-bold text-accent-orange">Bills 20%</span>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold tracking-tight">Account Breakdown</h2>
+<div class="space-y-3">
+<div class="p-5 rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Savings Bank</span>
+</div>
+<span class="text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">$2,100.00</span>
+</div>
+<div class="w-full h-2 bg-slate-200 dark:bg-slate-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 61%"></div>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-10 h-10 rounded-xl bg-accent-pink/10 text-accent-pink">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Physical Cash</span>
+</div>
+<span class="text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">$450.00</span>
+</div>
+<div class="w-full h-2 bg-slate-200 dark:bg-slate-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-accent-pink" style="width: 13%"></div>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-10 h-10 rounded-xl bg-accent-purple/10 text-accent-purple">
+<span class="material-symbols-outlined">qr_code_2</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Digital Wallet</span>
+</div>
+<span class="text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">$900.00</span>
+</div>
+<div class="w-full h-2 bg-slate-200 dark:bg-slate-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-accent-purple" style="width: 26%"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold tracking-tight">Last Records</h2>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-850 text-xl">🍔</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Burger King</p>
+<p class="text-xs text-slate-500">Today, 2:45 PM</p>
+</div>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100 tracking-tight">-$24.50</span>
+</div>
+<div class="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-850 text-xl">🚗</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Taxi Ride</p>
+<p class="text-xs text-slate-500">Yesterday, 9:15 PM</p>
+</div>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100 tracking-tight">-$12.00</span>
+</div>
+<div class="flex items-center justify-between p-4 rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-850 text-xl">🛍️</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Apparel Store</p>
+<p class="text-xs text-slate-500">Oct 24, 4:20 PM</p>
+</div>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100 tracking-tight">-$89.90</span>
+</div>
+</div>
+<div class="flex justify-center pt-2">
+<button class="text-primary font-bold text-sm tracking-widest uppercase">View More</button>
+</div>
+</section>
+</main>
+<div class="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-2 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-around">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined active-icon">pie_chart</span>
+<span class="text-[10px] font-bold">Stats</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-bold">Wallet</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpendWise Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00e6cb",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0a0a0a",
+                        "card-dark": "#111817",
+                        "border-dark": "rgba(255, 255, 255, 0.05)",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "manrope": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-effect {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .streak-glow {
+            box-shadow: 0 0 15px rgba(0, 230, 203, 0.3);
+        }
+        .card-emerald {
+            background: linear-gradient(145deg, #111817 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-28 font-manrope antialiased">
+<!-- Top Header -->
+<header class="flex items-center justify-between px-6 pt-8 pb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full border-2 border-primary/30 p-0.5">
+<div class="w-full h-full rounded-full bg-cover bg-center" data-alt="User profile avatar showing a smiling man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuArBGdLK-SaRp-tF7KE9JxANMqTUgc0IBVP7KAfYo3eSGZNGg-YaOu-jsPwmp0Jc5VsFL7AVEe8HQEtczwilRjDMo5mU-_jUTD8lxfNYB468gVsXINoTYwE0rp0DIDbLKAPJdfxCAtCiInmzuUGhdM7KUcMeGIVsEBz91xzOFUmwytBT2ktOZ3z5fXKgXPRaAgB5Hd5_jOGqwLhubrElYIwQLsbFdKkBFSf2i2-_-gvF_sTc0UmwONHo1lG1lk14i30aVMtVjJJX7cO");'></div>
+</div>
+<div>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-[0.15em]">Welcome back</p>
+<h1 class="text-lg font-bold tracking-tight">Alex Johnson</h1>
+</div>
+</div>
+<button class="relative p-2 rounded-lg bg-card-dark border border-white/5 text-slate-400">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-2.5 right-2.5 size-1.5 bg-primary rounded-full"></span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="px-6 space-y-8">
+<!-- Hero Balance Card -->
+<div class="card-emerald rounded-xl p-6 shadow-2xl relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Available to Spend</p>
+<span class="bg-primary/10 text-primary text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Safe Area</span>
+</div>
+<h2 class="text-4xl font-extrabold tracking-tight mb-8">$1,284.50</h2>
+<div class="space-y-3">
+<div class="flex justify-between text-[11px] font-bold uppercase tracking-wider">
+<span class="text-slate-500">Monthly Budget: $3,000.00</span>
+<span class="text-primary">42% used</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-[0_0_8px_rgba(0,230,203,0.5)]" style="width: 42.8%"></div>
+</div>
+</div>
+</div>
+<div class="absolute -top-24 -right-24 size-48 bg-primary/5 blur-[80px] rounded-full"></div>
+</div>
+<!-- Habit Streak Tracker -->
+<section>
+<div class="flex justify-between items-center mb-5">
+<h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Log Habit Streak</h3>
+<span class="text-primary text-xs font-bold tracking-tight">12 DAYS 🔥</span>
+</div>
+<div class="flex justify-between gap-2 overflow-x-auto pb-2">
+<!-- Completed Days -->
+<div class="flex flex-col items-center gap-3">
+<div class="size-11 rounded-xl bg-primary text-background-dark flex items-center justify-center streak-glow">
+<span class="material-symbols-outlined text-lg font-bold">check</span>
+</div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Mon</span>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="size-11 rounded-xl bg-primary text-background-dark flex items-center justify-center streak-glow">
+<span class="material-symbols-outlined text-lg font-bold">check</span>
+</div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Tue</span>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="size-11 rounded-xl bg-primary text-background-dark flex items-center justify-center streak-glow">
+<span class="material-symbols-outlined text-lg font-bold">check</span>
+</div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Wed</span>
+</div>
+<!-- Today (Active) -->
+<div class="flex flex-col items-center gap-3">
+<div class="size-11 rounded-xl border-2 border-primary border-dashed flex items-center justify-center text-primary animate-pulse">
+<span class="text-[9px] font-extrabold tracking-tighter uppercase">TODAY</span>
+</div>
+<span class="text-[10px] text-primary font-bold uppercase tracking-tighter">Thu</span>
+</div>
+<!-- Future Days -->
+<div class="flex flex-col items-center gap-3 opacity-30">
+<div class="size-11 rounded-xl bg-card-dark border border-white/10"></div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Fri</span>
+</div>
+<div class="flex flex-col items-center gap-3 opacity-30">
+<div class="size-11 rounded-xl bg-card-dark border border-white/10"></div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Sat</span>
+</div>
+<div class="flex flex-col items-center gap-3 opacity-30">
+<div class="size-11 rounded-xl bg-card-dark border border-white/10"></div>
+<span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Sun</span>
+</div>
+</div>
+</section>
+<!-- Spending Trend Graph -->
+<section class="card-emerald rounded-xl p-6">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Weekly Activity</h3>
+<div class="flex items-baseline gap-2">
+<p class="text-2xl font-extrabold tracking-tight">$420.30</p>
+<span class="text-red-500 text-[11px] font-bold">↑ 12%</span>
+</div>
+</div>
+<button class="text-[10px] text-primary font-bold px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 uppercase tracking-widest">Details</button>
+</div>
+<div class="w-full h-32 relative">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 400 120">
+<defs>
+<lineargradient id="lineGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00e6cb" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#00e6cb" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,80 C50,75 70,110 120,60 C170,10 220,90 280,40 C340,-10 380,30 400,20 L400,120 L0,120 Z" fill="url(#lineGradient)"></path>
+<path d="M0,80 C50,75 70,110 120,60 C170,10 220,90 280,40 C340,-10 380,30 400,20" fill="none" stroke="#00e6cb" stroke-linecap="round" stroke-width="3"></path>
+<circle class="streak-glow" cx="120" cy="60" fill="#00e6cb" r="4"></circle>
+<circle class="streak-glow" cx="280" cy="40" fill="#00e6cb" r="4"></circle>
+</svg>
+<div class="flex justify-between mt-4 text-[9px] font-bold text-slate-600 uppercase tracking-widest">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+</section>
+<!-- Recent Transactions -->
+<section class="space-y-5">
+<div class="flex justify-between items-center">
+<h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Recent Logs</h3>
+<button class="text-[10px] text-primary font-bold uppercase tracking-widest">View All</button>
+</div>
+<div class="space-y-3">
+<!-- Transaction 1 -->
+<div class="flex items-center justify-between p-4 rounded-xl card-emerald">
+<div class="flex items-center gap-4">
+<div class="size-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400">coffee</span>
+</div>
+<div>
+<p class="text-[14px] font-bold tracking-tight">Blue Bottle Coffee</p>
+<p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Today, 9:41 AM</p>
+</div>
+</div>
+<p class="text-sm font-extrabold tracking-tight">-$6.50</p>
+</div>
+<!-- Transaction 2 -->
+<div class="flex items-center justify-between p-4 rounded-xl card-emerald">
+<div class="flex items-center gap-4">
+<div class="size-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400">directions_car</span>
+</div>
+<div>
+<p class="text-[14px] font-bold tracking-tight">Uber Ride</p>
+<p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Yesterday, 6:12 PM</p>
+</div>
+</div>
+<p class="text-sm font-extrabold tracking-tight">-$24.20</p>
+</div>
+<!-- Transaction 3 -->
+<div class="flex items-center justify-between p-4 rounded-xl card-emerald">
+<div class="flex items-center gap-4">
+<div class="size-11 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400">shopping_bag</span>
+</div>
+<div>
+<p class="text-[14px] font-bold tracking-tight">Grocery Mart</p>
+<p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Yesterday, 11:30 AM</p>
+</div>
+</div>
+<p class="text-sm font-extrabold tracking-tight">-$112.00</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation -->
+<nav class="fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-safe bg-slate-950/80 backdrop-blur-xl border-t border-white/5 z-50 shadow-[0_-4px_20px_rgba(0,230,203,0.1)]">
+<a class="flex flex-col items-center justify-center text-[#00e6cb] scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="font-manrope antialiased text-[10px] uppercase tracking-widest font-bold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#00e6cb]/80 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]">receipt_long</span>
+<span class="font-manrope antialiased text-[10px] uppercase tracking-widest font-bold mt-1">Transactions</span>
+</a>
+<!-- FAB Style adapted to Nav center position as requested in visual context -->
+<div class="relative -top-6">
+<button class="size-16 rounded-2xl bg-primary text-background-dark shadow-[0_8px_30px_rgb(0,230,203,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl font-extrabold">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#00e6cb]/80 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]">leaderboard</span>
+<span class="font-manrope antialiased text-[10px] uppercase tracking-widest font-bold mt-1">Statistics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 opacity-60 hover:text-[#00e6cb]/80 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="font-manrope antialiased text-[10px] uppercase tracking-widest font-bold mt-1">Settings</span>
+</a>
+</nav>
+<!-- Habit Suggestion Toast -->
+<div class="fixed bottom-24 left-6 right-6 pointer-events-none">
+<div class="bg-slate-900/90 backdrop-blur-md border border-primary/20 p-4 rounded-xl flex items-center gap-3 shadow-2xl max-w-sm mx-auto">
+<div class="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-lg">tips_and_updates</span>
+</div>
+<p class="text-[11px] font-bold text-slate-300 uppercase tracking-wide">
+            Spent on lunch? <span class="text-primary">Tap + to log</span> and keep your streak!
+        </p>
+</div>
+</div>
+</body></html>

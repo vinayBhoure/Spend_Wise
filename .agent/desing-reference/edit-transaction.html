@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpendWise Edit Transaction</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#0A0F1E",
+                        "danger": "#FF5A7E",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.625rem", // 10px as requested
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between px-4 pt-6 pb-2 sticky top-0 bg-background-dark/80 backdrop-blur-md z-10">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-100">close</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight text-slate-100">Edit Transaction</h1>
+<button class="text-primary font-bold text-base hover:opacity-80 transition-opacity px-2">Save</button>
+</header>
+<main class="flex-1 px-4 py-4 max-w-md mx-auto w-full space-y-8">
+<!-- Amount Section -->
+<div class="text-center py-6">
+<label class="block text-slate-400 text-sm font-medium mb-1">Amount</label>
+<div class="relative inline-flex items-center">
+<span class="text-4xl font-extrabold text-slate-100 mr-1">₹</span>
+<input class="bg-transparent border-none text-center text-4xl font-extrabold text-slate-100 p-0 focus:ring-0 w-48" type="text" value="1,250.00"/>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="space-y-5">
+<!-- Category & Account Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-slate-400 text-xs font-semibold uppercase tracking-wider ml-1">Category</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-primary text-xl">restaurant</span>
+</div>
+<select class="w-full bg-slate-900/50 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm font-medium focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option>Dining Out</option>
+<option>Travel</option>
+<option>Groceries</option>
+<option>Shopping</option>
+</select>
+<div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 text-sm">expand_more</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-slate-400 text-xs font-semibold uppercase tracking-wider ml-1">Account</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-emerald-400 text-xl">account_balance_wallet</span>
+</div>
+<select class="w-full bg-slate-900/50 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm font-medium focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option>HDFC Bank</option>
+<option>ICICI Credit</option>
+<option>Cash</option>
+</select>
+<div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 text-sm">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Date & Time Row -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-slate-400 text-xs font-semibold uppercase tracking-wider ml-1">Date</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-lg">calendar_today</span>
+</div>
+<input class="w-full bg-slate-900/50 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm font-medium focus:border-primary focus:ring-1 focus:ring-primary" type="text" value="Oct 24, 2023"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-slate-400 text-xs font-semibold uppercase tracking-wider ml-1">Time</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-lg">schedule</span>
+</div>
+<input class="w-full bg-slate-900/50 border border-slate-800 rounded-lg pl-10 pr-4 py-3 text-sm font-medium focus:border-primary focus:ring-1 focus:ring-primary" type="text" value="08:30 PM"/>
+</div>
+</div>
+</div>
+<!-- Note Section -->
+<div class="space-y-2">
+<label class="text-slate-400 text-xs font-semibold uppercase tracking-wider ml-1">Note</label>
+<textarea class="w-full bg-slate-900/50 border border-slate-800 rounded-lg px-4 py-3 text-sm font-medium focus:border-primary focus:ring-1 focus:ring-primary resize-none placeholder:text-slate-600" placeholder="Add a description..." rows="3">Dinner with the team at the new bistro downtown. Split the bill with Sarah.</textarea>
+</div>
+<!-- Labels Section -->
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<label class="text-slate-400 text-xs font-semibold uppercase tracking-wider ml-1">Labels</label>
+<button class="text-primary text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">add</span>
+                        Add Labels
+                    </button>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-full px-3 py-1.5 gap-2">
+<span class="text-xs font-medium text-slate-300">#Travel</span>
+<button class="material-symbols-outlined text-sm text-slate-500 hover:text-danger">close</button>
+</div>
+<div class="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-full px-3 py-1.5 gap-2">
+<span class="text-xs font-medium text-slate-300">#Lunch</span>
+<button class="material-symbols-outlined text-sm text-slate-500 hover:text-danger">close</button>
+</div>
+<div class="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-full px-3 py-1.5 gap-2">
+<span class="text-xs font-medium text-slate-300">#Social</span>
+<button class="material-symbols-outlined text-sm text-slate-500 hover:text-danger">close</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Danger Zone -->
+<div class="pt-12 pb-8">
+<button class="w-full bg-danger/10 hover:bg-danger/20 text-danger border border-danger/20 font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined">delete</span>
+                Delete Transaction
+            </button>
+</div>
+</main>
+<!-- Bottom Indicator (iOS style) -->
+<div class="flex justify-center pb-2">
+<div class="w-32 h-1 bg-slate-800 rounded-full"></div>
+</div>
+</body></html>

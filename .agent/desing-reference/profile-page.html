@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpendWise Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#e2e8f0",
+              "surface-container-lowest": "#050d0c",
+              "on-error-container": "#fda4af",
+              "on-background": "#f1f5f9",
+              "surface-tint": "#00e6cb",
+              "primary-fixed": "#99f6e4",
+              "inverse-on-surface": "#0f2321",
+              "on-surface": "#f1f5f9",
+              "on-error": "#ffffff",
+              "on-primary-container": "#0f2321",
+              "surface-dim": "#0a1817",
+              "surface-variant": "#1e293b",
+              "surface-bright": "#1a3a37",
+              "secondary-fixed-dim": "#cbd5e1",
+              "on-surface-variant": "#94a3b8",
+              "surface": "#0f2321",
+              "on-tertiary-fixed-variant": "#92400e",
+              "on-secondary-fixed": "#0f172a",
+              "primary": "#00e6cb",
+              "secondary": "#94a3b8",
+              "outline-variant": "#1e293b",
+              "on-tertiary-container": "#fbbf24",
+              "tertiary-fixed-dim": "#fcd34d",
+              "outline": "#334155",
+              "error": "#f43f5e",
+              "secondary-container": "#1e293b",
+              "surface-container-high": "#1f3e3a",
+              "error-container": "#4c0519",
+              "on-secondary": "#0f2321",
+              "on-tertiary": "#0f2321",
+              "on-primary": "#0f2321",
+              "on-secondary-container": "#f1f5f9",
+              "primary-container": "#00e6cb",
+              "surface-container": "#142c2a",
+              "on-primary-fixed-variant": "#0d9488",
+              "on-tertiary-fixed": "#451a03",
+              "surface-container-highest": "#2a4f4a",
+              "tertiary-fixed": "#fef3c7",
+              "surface-container-low": "#0d201e",
+              "on-primary-fixed": "#042f2e",
+              "tertiary": "#f59e0b",
+              "inverse-surface": "#f1f5f9",
+              "on-secondary-fixed-variant": "#334155",
+              "primary-fixed-dim": "#5eead4",
+              "tertiary-container": "#451a03",
+              "background": "#0f2321",
+              "inverse-primary": "#006b5d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0f2321;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-background selection:bg-primary selection:text-on-primary min-h-screen">
+<!-- Top App Bar -->
+<header class="bg-background/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 flex items-center justify-between px-6 h-16">
+<div class="flex items-center gap-4">
+<button class="text-primary active:scale-95 duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline text-[18px] font-bold tracking-tight text-primary">Profile</h1>
+</div>
+<div class="text-primary font-bold text-xl tracking-tight">SpendWise</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center mb-10">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full border-2 border-primary/20 p-1 mb-6">
+<img alt="User Profile" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAktvC7QnIt_XhUdmACVP5RYloBR74i7UeJ_PkZjoANyPHcs5EBGFZ2uSN6hEKrzk4muUtY3zHsAI90fCPhDO2Ptixnp_gPLgTCha5Cb6H9gjNUtIoPOVro0JxXJ4zaQkQdB9ftezgVSPydphlDCMntFnS3hadptw-FQyx-bfnORU2rsHOJ_VbZOCFDhKCBF25YOD2zu6dwmIDJpnviIrYF1dinnVfCjaz5-Y2mjjPj52hR8xSL0Y_GT3tjgSOHUcxfzpOAsii1GqIA"/>
+</div>
+<button class="absolute bottom-6 right-0 bg-primary text-on-primary p-2 rounded-full shadow-lg shadow-primary/20 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+<div class="text-center">
+<h2 class="text-[30px] font-headline font-bold tracking-tight text-on-surface mb-1">Alex Thompson</h2>
+<p class="text-on-surface-variant font-medium text-[14px]">alex.t@spendwise.io</p>
+</div>
+<!-- Current Plan Badge -->
+<div class="mt-6">
+<div class="bg-surface-container-high px-4 py-2 rounded-lg border border-primary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label text-[10px] uppercase tracking-widest font-extrabold text-primary">SPENDWISE PRO</span>
+</div>
+</div>
+</section>
+<!-- Settings List -->
+<section class="space-y-4">
+<h3 class="font-label text-[10px] uppercase tracking-widest font-bold text-on-surface-variant ml-2 mb-2">Account Settings</h3>
+<div class="bg-surface-container rounded-lg overflow-hidden border border-outline-variant/30">
+<!-- Edit Profile -->
+<button class="w-full flex items-center justify-between p-4 hover:bg-on-surface/[0.04] transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div class="text-left">
+<p class="text-[14px] font-semibold">Edit Profile</p>
+<p class="text-[12px] text-on-surface-variant">Update your personal details</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/30 ml-16"></div>
+<!-- Change Password -->
+<button class="w-full flex items-center justify-between p-4 hover:bg-on-surface/[0.04] transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="key">key</span>
+</div>
+<div class="text-left">
+<p class="text-[14px] font-semibold">Change Password</p>
+<p class="text-[12px] text-on-surface-variant">Keep your account secure</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/30 ml-16"></div>
+<!-- Subscription Plan -->
+<button class="w-full flex items-center justify-between p-4 hover:bg-on-surface/[0.04] transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="text-left">
+<p class="text-[14px] font-semibold">Current Plan</p>
+<p class="text-[12px] text-primary font-bold">Pro Member</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<h3 class="font-label text-[10px] uppercase tracking-widest font-bold text-on-surface-variant ml-2 mt-8 mb-2">Notifications &amp; Privacy</h3>
+<div class="bg-surface-container rounded-lg overflow-hidden border border-outline-variant/30">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</div>
+<p class="text-[14px] font-semibold">Push Notifications</p>
+</div>
+<div class="w-10 h-5 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-4 h-4 bg-on-primary rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Danger Zone -->
+<h3 class="font-label text-[10px] uppercase tracking-widest font-bold text-error/60 ml-2 mt-8 mb-2">Danger Zone</h3>
+<div class="bg-error/5 border border-error/20 rounded-lg overflow-hidden p-1">
+<button class="w-full flex items-center justify-between p-3 hover:bg-error/10 transition-colors rounded-lg group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" data-icon="delete_forever">delete_forever</span>
+</div>
+<p class="text-[14px] font-bold text-error">Delete Account</p>
+</div>
+<span class="material-symbols-outlined text-error/40 group-hover:text-error" data-icon="warning">warning</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Standardized 4 tabs) -->
+<nav class="fixed bottom-0 left-0 w-full h-20 bg-background/90 backdrop-blur-xl flex justify-around items-center px-4 pb-safe z-50 border-t border-outline-variant/30">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label text-[10px] uppercase tracking-widest font-bold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label text-[10px] uppercase tracking-widest font-bold mt-1">Ledger</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label text-[10px] uppercase tracking-widest font-bold mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary active:scale-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label text-[10px] uppercase tracking-widest font-bold mt-1">Settings</span>
+</a>
+</nav>
+</body></html>
