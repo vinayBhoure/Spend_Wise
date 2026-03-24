@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginWithEmail, signupWithEmail, logoutUser, getSession } from '../../services/auth';
+import { loginWithEmail, signupWithEmail, logoutUser, getSession, signInWithGoogle, resetPasswordForEmail, updateUserPassword } from '../../services/auth';
 
 const initialState = {
   user: null,
@@ -53,6 +53,42 @@ export const logoutUserThunk = createAsyncThunk(
     try {
       await logoutUser();
       return null;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const googleLoginThunk = createAsyncThunk(
+  'auth/googleLogin',
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await signInWithGoogle();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const resetPasswordThunk = createAsyncThunk(
+  'auth/resetPassword',
+  async (email, { rejectWithValue }) => {
+    try {
+      const data = await resetPasswordForEmail(email);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updatePasswordThunk = createAsyncThunk(
+  'auth/updatePassword',
+  async (newPassword, { rejectWithValue }) => {
+    try {
+      const data = await updateUserPassword(newPassword);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -131,6 +167,45 @@ const authSlice = createSlice({
         state.session = null;
         state.user = null;
         state.isAuthenticated = false;
+      })
+      
+      // googleLoginThunk
+      .addCase(googleLoginThunk.pending, (state) => {
+        state.authActionLoading = true;
+        state.error = null;
+      })
+      .addCase(googleLoginThunk.fulfilled, (state) => {
+        state.authActionLoading = false;
+      })
+      .addCase(googleLoginThunk.rejected, (state, action) => {
+        state.authActionLoading = false;
+        state.error = action.payload;
+      })
+
+      // resetPasswordThunk
+      .addCase(resetPasswordThunk.pending, (state) => {
+        state.authActionLoading = true;
+        state.error = null;
+      })
+      .addCase(resetPasswordThunk.fulfilled, (state) => {
+        state.authActionLoading = false;
+      })
+      .addCase(resetPasswordThunk.rejected, (state, action) => {
+        state.authActionLoading = false;
+        state.error = action.payload;
+      })
+
+      // updatePasswordThunk
+      .addCase(updatePasswordThunk.pending, (state) => {
+        state.authActionLoading = true;
+        state.error = null;
+      })
+      .addCase(updatePasswordThunk.fulfilled, (state) => {
+        state.authActionLoading = false;
+      })
+      .addCase(updatePasswordThunk.rejected, (state, action) => {
+        state.authActionLoading = false;
+        state.error = action.payload;
       });
   },
 });
