@@ -1,5 +1,6 @@
 import React, { forwardRef, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Using forwardRef so react-hook-form can inject its refs.
 export const Input = forwardRef(({
@@ -8,6 +9,7 @@ export const Input = forwardRef(({
   type = 'text',
   placeholder,
   error,
+  showForgotPassword = false, // New prop
   className = '',
   ...props
 }, ref) => {
@@ -20,10 +22,10 @@ export const Input = forwardRef(({
       {label && (
         <div className="flex justify-between items-center ml-1">
           <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{label}</label>
-          {isPassword && (
-            <a href="#" className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors">
+          {isPassword && showForgotPassword && (
+            <Link to="/forgot-password" title="Go to forgot password page" className="text-xs font-semibold text-primary hover:text-[#00d1b8] transition-colors cursor-pointer">
               Forgot password?
-            </a>
+            </Link>
           )}
         </div>
       )}

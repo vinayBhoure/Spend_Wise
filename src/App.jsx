@@ -5,9 +5,13 @@ import { checkSession, setSession } from './store/slices/authSlice'
 import { supabase } from './lib/supabase'
 import { ProtectedRoute } from './components/layout/ProtectedRoute'
 import ScrollToTop from './components/layout/ScrollToTop'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Onboarding from './pages/Onboarding'
 import Auth from './pages/Auth'
 import OTPVerification from './pages/OTPVerification'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import AddAccount from './pages/AddAccount'
 import { Dashboard } from './pages/Dashboard'
 import Transactions from './pages/Transactions'
@@ -41,12 +45,15 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <ToastContainer position="top-center" autoClose={3000} theme="dark" />
       <div className='max-w-[430px] mx-auto'>
         <Routes>
           {/* Public Routes */}
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/otp" element={<OTPVerification />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
