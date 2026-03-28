@@ -74,7 +74,7 @@ export const CURRENCIES = [
  */
 const EXCHANGE_RATES = {
   USD: 1,
-  INR: 83.12,
+  INR: 93.12,
   EUR: 0.92,
   GBP: 0.79,
   JPY: 151.34,

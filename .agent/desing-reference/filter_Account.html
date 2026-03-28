@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#94a3b8",
+              "on-tertiary-fixed-variant": "#92400e",
+              "tertiary-fixed": "#fef3c7",
+              "outline-variant": "#1e293b",
+              "outline": "#334155",
+              "tertiary-fixed-dim": "#fcd34d",
+              "on-secondary-container": "#f1f5f9",
+              "inverse-surface": "#f1f5f9",
+              "on-error-container": "#fda4af",
+              "surface-tint": "#00e6cb",
+              "tertiary-container": "#451a03",
+              "on-primary": "#0f2321",
+              "surface-variant": "#1e293b",
+              "primary": "#00e6cb",
+              "on-primary-fixed": "#042f2e",
+              "secondary-fixed-dim": "#cbd5e1",
+              "surface-container": "#142c2a",
+              "on-background": "#f1f5f9",
+              "inverse-primary": "#006b5d",
+              "on-secondary-fixed": "#0f172a",
+              "on-primary-fixed-variant": "#0d9488",
+              "error": "#f43f5e",
+              "surface-container-lowest": "#050d0c",
+              "surface-bright": "#1a3a37",
+              "surface": "#0f2321",
+              "secondary-container": "#1e293b",
+              "primary-container": "#00e6cb",
+              "surface-container-highest": "#2a4f4a",
+              "inverse-on-surface": "#0f2321",
+              "error-container": "#4c0519",
+              "on-primary-container": "#0f2321",
+              "on-surface": "#f1f5f9",
+              "on-error": "#ffffff",
+              "background": "#0f2321",
+              "secondary-fixed": "#e2e8f0",
+              "on-tertiary": "#0f2321",
+              "on-secondary-fixed-variant": "#334155",
+              "primary-fixed": "#99f6e4",
+              "surface-container-low": "#0d201e",
+              "on-surface-variant": "#94a3b8",
+              "surface-dim": "#0a1817",
+              "surface-container-high": "#1f3e3a",
+              "primary-fixed-dim": "#5eead4",
+              "on-tertiary-fixed": "#451a03",
+              "on-tertiary-container": "#fbbf24",
+              "tertiary": "#f59e0b",
+              "on-secondary": "#0f2321"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-slate-950/80 backdrop-blur-md text-emerald-400 font-manrope font-bold text-[18px] tracking-tight fixed top-0 w-full z-50 border-b border-white/10 flex items-center justify-between px-6 h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer active:scale-95 duration-200" data-icon="close">close</span>
+<h1 class="font-bold">Filters</h1>
+</div>
+<button class="text-emerald-400 hover:text-emerald-300 transition-colors active:scale-95 duration-200 text-[14px] font-medium">Reset</button>
+</header>
+<main class="flex flex-1 pt-16 pb-20">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="bg-slate-900 fixed left-0 top-16 bottom-20 w-64 border-r border-white/10 flex flex-col py-4 hidden md:flex">
+<div class="px-6 py-4">
+<p class="text-emerald-400 font-bold uppercase tracking-widest text-[10px] mb-6">Filter By</p>
+<nav class="space-y-1">
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-all cursor-pointer group active:translate-x-1 duration-150">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-manrope text-[14px] font-medium tracking-normal">Date Range</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-all cursor-pointer group active:translate-x-1 duration-150">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span class="font-manrope text-[14px] font-medium tracking-normal">Transaction Type</span>
+</div>
+<!-- Active State: Accounts -->
+<div class="flex items-center gap-3 px-4 py-3 bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-400 font-bold cursor-pointer group active:translate-x-1 duration-150">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-manrope text-[14px] tracking-normal">Accounts</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-all cursor-pointer group active:translate-x-1 duration-150">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-manrope text-[14px] font-medium tracking-normal">Amount</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-white/5 transition-all cursor-pointer group active:translate-x-1 duration-150">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="font-manrope text-[14px] font-medium tracking-normal">Category</span>
+</div>
+</nav>
+</div>
+</aside>
+<!-- Right Content Area (Canvas) -->
+<section class="flex-1 md:ml-64 p-6 lg:p-10 max-w-4xl mx-auto w-full">
+<header class="mb-8">
+<h2 class="text-[30px] font-bold tracking-tight text-on-surface mb-2">Select Accounts</h2>
+<p class="text-on-surface-variant text-[14px]">Choose the accounts you want to include in your current view.</p>
+</header>
+<div class="space-y-4">
+<!-- Account Item: Main Checking -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-5 rounded-xl flex items-center justify-between border border-white/5 shadow-sm group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface text-[18px]">Main Checking</h3>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider">**** 4421</p>
+</div>
+</div>
+<div class="w-6 h-6 rounded border-2 border-primary bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-surface font-bold" data-icon="check">check</span>
+</div>
+</div>
+<!-- Account Item: Savings Account -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-5 rounded-xl flex items-center justify-between border border-white/5 shadow-sm group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="savings">savings</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface text-[18px]">Savings Account</h3>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider">**** 9088</p>
+</div>
+</div>
+<div class="w-6 h-6 rounded border-2 border-outline group-hover:border-primary transition-colors"></div>
+</div>
+<!-- Account Item: Physical Cash -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-5 rounded-xl flex items-center justify-between border border-white/5 shadow-sm group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface text-[18px]">Physical Cash</h3>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider">Pocket Ledger</p>
+</div>
+</div>
+<div class="w-6 h-6 rounded border-2 border-outline group-hover:border-primary transition-colors"></div>
+</div>
+<!-- Account Item: Digital Wallet -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-5 rounded-xl flex items-center justify-between border border-white/5 shadow-sm group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<div>
+<h3 class="font-bold text-on-surface text-[18px]">Digital Wallet</h3>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider">Encrypted Portal</p>
+</div>
+</div>
+<div class="w-6 h-6 rounded border-2 border-primary bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-surface font-bold" data-icon="check">check</span>
+</div>
+</div>
+<!-- Info Card -->
+<div class="mt-10 p-6 rounded-xl bg-surface-container-low border border-primary/10 relative overflow-hidden group">
+<div class="relative z-10 flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="info">info</span>
+<div>
+<p class="text-on-surface font-semibold text-[14px]">Sovereign Control</p>
+<p class="text-on-surface-variant text-[12px] mt-1 leading-relaxed">
+                                Filtering accounts allows you to focus on specific financial flows. Balances and analytics will update instantly based on your selection.
+                            </p>
+</div>
+</div>
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<footer class="bg-slate-950/80 backdrop-blur-xl fixed bottom-0 left-0 w-full z-50 h-20 border-t border-white/10 flex justify-between items-center px-6 gap-4 shadow-[0_-4px_20px_rgba(0,230,203,0.1)]">
+<!-- Close Action -->
+<button class="flex items-center justify-center text-slate-300 bg-white/5 rounded-lg px-8 py-3 w-full mx-2 font-manrope font-bold text-[14px] hover:brightness-110 transition-all active:scale-[0.98] duration-200">
+<span class="material-symbols-outlined mr-2" data-icon="close">close</span>
+            Close
+        </button>
+<!-- Apply Action (Active) -->
+<button class="flex items-center justify-center bg-emerald-400 text-slate-950 rounded-lg px-8 py-3 w-full mx-2 font-manrope font-bold text-[14px] hover:brightness-110 transition-all active:scale-[0.98] duration-200">
+<span class="material-symbols-outlined mr-2" data-icon="check_circle">check_circle</span>
+            Apply Filters
+        </button>
+</footer>
+</body></html>

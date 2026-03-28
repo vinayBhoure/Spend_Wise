@@ -4,6 +4,7 @@ import { ArrowLeft, Landmark, Banknote, QrCode, CreditCard, Delete, ChevronRight
 import { useAccounts } from '../hooks/useAccounts';
 import { useProfile } from '../hooks/useProfile';
 import { getCurrencySymbol } from '../utils/currency';
+import { PageHeader } from '../components/layout/PageHeader';
 
 const ACCOUNT_TYPES = [
   { id: 'bank', label: 'Bank' },
@@ -99,25 +100,21 @@ export default function EditAccount() {
   }
 
   return (
-    <div className="relative flex h-screen w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark font-manrope antialiased overflow-hidden">
-      <header className="flex items-center p-4 pb-2 justify-between sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-10 shrink-0">
-        <div className="flex items-center gap-4">
+    <div className="relative flex min-h-screen w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark font-manrope antialiased overflow-hidden text-slate-900 dark:text-slate-100">
+      <PageHeader 
+        title="Edit Account"
+        showBack={true}
+        onBack={() => navigate('/accounts')}
+        rightElement={
           <button
-            onClick={() => navigate('/accounts')}
-            className="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            onClick={handleSave}
+            disabled={loading}
+            className="text-primary font-bold text-base px-2 disabled:opacity-50 active:scale-95 transition-transform"
           >
-            <ArrowLeft className="size-6 text-slate-900 dark:text-slate-100" />
+            {loading ? <Loader2 className="size-5 animate-spin" /> : 'Save'}
           </button>
-          <h1 className="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Edit Account</h1>
-        </div>
-        <button
-          onClick={handleSave}
-          disabled={loading}
-          className="text-primary font-bold text-base px-2 disabled:opacity-50"
-        >
-          {loading ? <Loader2 className="size-5 animate-spin" /> : 'Save'}
-        </button>
-      </header>
+        }
+      />
 
       <main className="flex-1 px-4 py-3 flex flex-col gap-5 overflow-y-auto hide-scrollbar">
         {error && (

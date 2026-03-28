@@ -96,11 +96,10 @@ export const StyledSelect = ({
                 key={opt.value}
                 type="button"
                 onClick={() => handleSelect(opt.value)}
-                className={`w-full flex items-center justify-between px-4 py-3 text-sm transition-colors ${
-                  opt.value === value
+                className={`w-full flex items-center justify-between px-4 py-3 text-sm transition-colors ${opt.value === value
                     ? 'bg-primary/10 text-primary'
                     : 'text-slate-300 hover:bg-white/5'
-                }`}
+                  }`}
               >
                 <span className="font-medium truncate">
                   {opt.icon ? `${opt.icon}  ${opt.label}` : opt.label}

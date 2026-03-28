@@ -13,7 +13,9 @@ export const BottomNav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed bottom-0 w-full max-w-[430px] mx-auto h-20 flex justify-around items-center px-4 pb-safe bg-slate-950/80 backdrop-blur-xl border-t border-white/5 z-50 shadow-[0_-4px_20px_rgba(0,230,203,0.1)]">
+    <nav className="fixed bottom-0 w-full max-w-[430px] left-1/2 -translate-x-1/2 flex justify-around items-center px-4 pb-[env(safe-area-inset-bottom)] h-[calc(5rem+env(safe-area-inset-bottom))] bg-slate-950/90 backdrop-blur-xl border-t border-white/5 z-50 shadow-[0_-4px_25px_rgba(0,0,0,0.5)]">
+      {/* Bottom background filler to prevent gaps during scroll jitters */}
+      <div className="absolute inset-x-0 top-full h-20 bg-slate-950/90" aria-hidden="true" />
       {navItems.map((item, index) => {
         const Icon = item.icon;
 

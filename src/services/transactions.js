@@ -17,11 +17,44 @@ export const transactionsService = {
           categories:category_id (name, emoji, type),
           accounts:account_id (name, type, currency)
         `)
-        .eq('user_id', userId)
-        .order('date', { ascending: false })
-        .order('time', { ascending: false });
+        .eq('user_id', userId);
 
-      if (filters.limit) {
+      // Apply Date Filter
+      if (filters?.startDate) {
+        query = query.gte('date', filters.startDate);
+      }
+      if (filters?.endDate) {
+        query = query.lte('date', filters.endDate);
+      }
+
+      // Apply Type Filter
+      if (filters?.type && filters.type !== 'all') {
+        query = query.eq('type', filters.type);
+      }
+
+      // Apply Amount Filter
+      if (filters?.minAmount) {
+        query = query.gte('amount', filters.minAmount);
+      }
+      if (filters?.maxAmount) {
+        query = query.lte('amount', filters.maxAmount);
+      }
+
+      // Apply Categories Filter
+      if (filters?.categories && filters.categories.length > 0) {
+        query = query.in('category_id', filters.categories);
+      }
+
+      // Apply Accounts Filter
+      if (filters?.accounts && filters.accounts.length > 0) {
+        query = query.in('account_id', filters.accounts);
+      }
+
+      // Order by date and time
+      query = query.order('date', { ascending: false })
+                   .order('time', { ascending: false });
+
+      if (filters?.limit) {
         query = query.limit(filters.limit);
       }
 

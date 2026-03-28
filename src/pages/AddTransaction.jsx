@@ -13,9 +13,10 @@ import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 
 import { AmountInput } from '../components/transactions/AmountInput';
-import { CategoryGrid } from '../components/transactions/CategoryGrid';
+import { CategorySelect } from '../components/categories/CategorySelect';
 import { DateTimeSelector } from '../components/transactions/DateTimeSelector';
 import { StyledSelect } from '../components/ui/StyledSelect';
+import { PageHeader } from '../components/layout/PageHeader';
 
 export default function AddTransaction() {
   const dispatch = useDispatch();
@@ -112,19 +113,19 @@ export default function AddTransaction() {
       <div className="fixed top-[-5%] right-[-5%] w-72 h-72 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
       <div className="fixed bottom-[10%] left-[-10%] w-64 h-64 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-      {/* Header */}
-      <header className="flex items-center justify-between p-4 sticky top-0 z-10 bg-background-dark/80 backdrop-blur-md border-b border-slate-800/50">
-        <button 
-          onClick={() => navigate('/dashboard')}
-          className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-800 transition-colors"
-        >
-          <ChevronLeft className="text-slate-100" />
-        </button>
-        <h1 className="text-lg font-bold tracking-tight text-slate-100 uppercase">Add Transaction</h1>
-        <button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-800 transition-colors">
-          <Info className="text-slate-100" size={20} />
-        </button>
-      </header>
+      <PageHeader 
+        title="Add Transaction"
+        showBack={true}
+        onBack={() => navigate('/dashboard')}
+        rightElement={
+          <button 
+            aria-label="Info"
+            className="size-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-900 dark:text-slate-100 active:scale-95 transition-transform hover:bg-slate-300/50 dark:hover:bg-slate-700/50"
+          >
+            <Info className="size-5" />
+          </button>
+        }
+      />
 
       <main className="flex-1 overflow-y-auto no-scrollbar pb-32">
         {/* Transaction Type Switcher */}
@@ -168,11 +169,12 @@ export default function AddTransaction() {
 
         <AmountInput value={amount} onChange={setAmount} currencyCode={selectedCurrency} />
         
-        <CategoryGrid 
+        <CategorySelect 
           categories={filteredCategories} 
-          selectedCategoryId={categoryId} 
-          onSelect={setCategoryId} 
-          onSeeAll={() => console.log('See all categories')} 
+          value={categoryId} 
+          onChange={setCategoryId}
+          loading={status === 'loading'}
+          error={status === 'failed'}
         />
         
         <DateTimeSelector 

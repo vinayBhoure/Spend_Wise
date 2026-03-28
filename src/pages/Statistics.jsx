@@ -9,6 +9,7 @@ import { fetchTransactions, selectAllTransactions } from '../store/slices/transa
 import { fetchAccountsData, selectAccounts } from '../store/slices/accountsSlice';
 
 import { BottomNav } from '../components/layout/BottomNav';
+import { PageHeader } from '../components/layout/PageHeader';
 import { DonutChart } from '../components/statistics/DonutChart';
 import { CategoryBreakdown } from '../components/statistics/CategoryBreakdown';
 import { DetailedCategoryBreakdown } from '../components/statistics/DetailedCategoryBreakdown';
@@ -115,19 +116,18 @@ export default function Statistics() {
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display pb-32">
-      {/* Header */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 hover:bg-slate-300/50 dark:hover:bg-slate-700/50 transition-colors"
-        >
-          <ChevronLeft className="size-6 text-slate-900 dark:text-slate-100" />
-        </button>
-        <h1 className="text-lg font-bold tracking-tight">Spending Overview</h1>
-        <button className="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50">
-          <Calendar className="size-5 text-slate-900 dark:text-slate-100" />
-        </button>
-      </nav>
+      <PageHeader 
+        title="Spending Overview"
+        showBack={true}
+        rightElement={
+          <button 
+            aria-label="Calendar"
+            className="size-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-900 dark:text-slate-100 active:scale-95 transition-transform hover:bg-slate-300/50 dark:hover:bg-slate-700/50"
+          >
+            <Calendar className="size-5" />
+          </button>
+        }
+      />
 
       <main className="px-6 space-y-8 mt-4">
         <section className="flex flex-col items-center justify-center pt-4">

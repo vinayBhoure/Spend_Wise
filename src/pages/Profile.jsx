@@ -14,6 +14,7 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 import { BottomNav } from '../components/layout/BottomNav';
+import { PageHeader } from '../components/layout/PageHeader';
 import { Toggle } from '../components/ui/Toggle';
 
 export default function Profile() {
@@ -56,19 +57,14 @@ export default function Profile() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background-dark/80 backdrop-blur-md flex items-center justify-between px-6 h-16 border-b border-white/5">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => navigate('/settings')}
-            className="text-primary active:scale-95 transition-transform p-2 rounded-full"
-          >
-            <ChevronLeft className="size-5" strokeWidth={2.5} />
-          </button>
-          <h1 className="text-lg font-bold tracking-tight text-primary">Profile</h1>
-        </div>
-        <div className="text-primary font-bold text-xl tracking-tight">SpendWise</div>
-      </header>
+      <PageHeader 
+        title="Profile"
+        showBack={true}
+        onBack={() => navigate('/settings')}
+        rightElement={
+          <div className="text-primary font-bold text-xl tracking-tight pr-2">SpendWise</div>
+        }
+      />
 
       {/* Main Content */}
       <main className="flex-1 px-6 pt-8 pb-32 overflow-y-auto">

@@ -5,6 +5,7 @@ import { useAccounts } from '../hooks/useAccounts';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 import { supabase } from '../lib/supabase';
+import { PageHeader } from '../components/layout/PageHeader';
 
 export default function DeleteConfirmation() {
   const navigate = useNavigate();
@@ -52,10 +53,17 @@ export default function DeleteConfirmation() {
   };
 
   return (
-    <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-4 font-manrope antialiased">
-      {/* Bottom sheet card */}
-      <div className="w-full max-w-[400px] bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
-        <div className="px-6 pt-8 pb-10">
+    <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col font-manrope antialiased">
+      <PageHeader 
+        title="Confirm Deletion"
+        showBack={true}
+        onBack={() => navigate(-1)}
+      />
+
+      <main className="flex-1 flex flex-col items-center justify-center p-4">
+        {/* Bottom sheet card */}
+        <div className="w-full max-w-[400px] bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="px-6 pt-8 pb-10">
           {/* Icon Accent */}
           <div className="flex justify-center mb-6">
             <div className="w-20 h-20 rounded-full bg-rose-500/10 flex items-center justify-center border border-rose-500/20">
@@ -112,6 +120,7 @@ export default function DeleteConfirmation() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
+  </div>
   );
 }
