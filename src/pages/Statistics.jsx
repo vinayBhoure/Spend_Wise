@@ -14,6 +14,7 @@ import { CategoryBreakdown } from '../components/statistics/CategoryBreakdown';
 import { DetailedCategoryBreakdown } from '../components/statistics/DetailedCategoryBreakdown';
 import { AccountBreakdown } from '../components/statistics/AccountBreakdown';
 import { TransactionRow } from '../components/transactions/TransactionRow';
+import { getCurrencySymbol, formatCurrency, convertCurrency } from '../utils/currency';
 import { STATS_COLORS, DEFAULT_COLOR } from '../components/statistics/colors';
 
 export default function Statistics() {
@@ -41,8 +42,12 @@ export default function Statistics() {
     transactions.forEach(tx => {
       // Look at expenses only
       if (tx.type !== 'expense') return;
-      const amount = Number(tx.amount) || 0;
-      total += amount;
+      
+      const originalAmount = Number(tx.amount) || 0;
+      const txCurrency = tx.accounts?.currency || 'INR';
+      const convertedAmount = convertCurrency(originalAmount, txCurrency, currencyCode);
+      
+      total += convertedAmount;
 
       const catName = tx.categories?.name || 'Uncategorized';
       const catEmoji = tx.categories?.emoji || '❔';
@@ -50,7 +55,7 @@ export default function Statistics() {
       if (!groups[catName]) {
         groups[catName] = { name: catName, emoji: catEmoji, amount: 0 };
       }
-      groups[catName].amount += amount;
+      groups[catName].amount += convertedAmount;
     });
 
     // Convert to array
@@ -68,7 +73,7 @@ export default function Statistics() {
     }));
 
     return { categoryData: coloredCats, totalExpense: total };
-  }, [transactions]);
+  }, [transactions, currencyCode]);
 
   // Compute account breakdown data
   const { accountsWithColors, totalBalance } = useMemo(() => {
@@ -77,9 +82,14 @@ export default function Statistics() {
 
     rawAccounts.forEach(acc => {
       const bal = Number(acc.current_balance) || 0;
+      const convertedBal = convertCurrency(bal, acc.currency || 'INR', currencyCode);
+      
       if (bal > 0) {
-        validAccounts.push(acc);
-        total += bal;
+        validAccounts.push({
+          ...acc,
+          converted_balance: convertedBal
+        });
+        total += convertedBal;
       }
     });
 
@@ -88,11 +98,11 @@ export default function Statistics() {
       color: STATS_COLORS[index % STATS_COLORS.length]
     }));
 
-    // Sort by balance desc
-    coloredAccounts.sort((a, b) => (Number(b.current_balance) || 0) - (Number(a.current_balance) || 0));
+    // Sort by converted_balance desc
+    coloredAccounts.sort((a, b) => b.converted_balance - a.converted_balance);
 
     return { accountsWithColors: coloredAccounts, totalBalance: total };
-  }, [rawAccounts]);
+  }, [rawAccounts, currencyCode]);
 
   // Get last 3 records
   const recentTransactions = useMemo(() => {

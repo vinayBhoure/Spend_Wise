@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Landmark, PiggyBank, Wallet, CreditCard, Smartphone } from 'lucide-react';
-import { getCurrencySymbol, formatCurrency } from '../../utils/currency';
+import { useSelector } from 'react-redux';
+import { getCurrencySymbol, formatCurrency, convertCurrency } from '../../utils/currency';
+import { selectProfileData } from '../../store/slices/profileSlice';
 
 /**
  * @typedef {Object} AccountCardProps
@@ -25,18 +27,22 @@ const TYPE_LABELS = {
 
 export const AccountCard = ({ account, netWorth }) => {
   const navigate = useNavigate();
-  const { id, name, type, current_balance, currency } = account;
-  const balance = Number(current_balance) || 0;
+  const profile = useSelector(selectProfileData);
+  const userCurrency = profile?.currency || 'INR';
+  
+  const { id, name, type, current_balance, currency: accountCurrency } = account;
+  const originalBalance = Number(current_balance) || 0;
   const isDebt = type === 'credit_card';
 
   const iconConfig = ICON_MAP[type] || ICON_MAP.bank;
   const Icon = iconConfig.icon;
 
-  const formattedBalance = formatCurrency(balance, currency || 'INR');
+  const balanceInUserCurrency = convertCurrency(originalBalance, accountCurrency || 'INR', userCurrency);
+  const formattedBalance = formatCurrency(balanceInUserCurrency, userCurrency);
 
   // Progress bar ratio — only for non-debt accounts
   const absNetWorth = Math.abs(netWorth) || 1;
-  const progressPercent = Math.min(100, Math.round((Math.abs(balance) / absNetWorth) * 100));
+  const progressPercent = Math.min(100, Math.round((Math.abs(balanceInUserCurrency) / absNetWorth) * 100));
 
   return (
     <button

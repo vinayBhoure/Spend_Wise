@@ -12,7 +12,7 @@ export const loginWithEmail = async (email, password) => {
   if (error) {
     throw new Error(error.message);
   }
-  
+
   return data;
 };
 
@@ -52,11 +52,11 @@ export const logoutUser = async () => {
  */
 export const getSession = async () => {
   const { data, error } = await supabase.auth.getSession();
-  
+
   if (error) {
     throw new Error(error.message);
   }
-  
+
   return data.session;
 };
 
@@ -68,8 +68,11 @@ export const signInWithGoogle = async () => {
     provider: 'google',
     options: {
       redirectTo: `${window.location.origin}/dashboard`,
+      // redirectTo: `https://spendwise-vinaybhoure.vercel.app/dashboard`,
     }
   });
+
+  console.log('login using google');
 
   if (error) {
     throw new Error(error.message);

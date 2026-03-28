@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
-import { Avatar } from '../components/ui/Avatar';
 import { BottomNav } from '../components/layout/BottomNav';
 import { Toggle } from '../components/ui/Toggle';
 
@@ -75,16 +74,28 @@ export default function Profile() {
       <main className="flex-1 px-6 pt-8 pb-32 overflow-y-auto">
         {/* Profile Header Section */}
         <section className="flex flex-col items-center mb-10">
-          <div className="relative group">
-            <div className="w-32 h-32 rounded-full border-2 border-primary/20 p-1 mb-6">
-              <Avatar
-                src={avatarUrl}
-                alt={displayName}
-                className="w-full h-full border-0"
-                fallbackText={displayName ? displayName.charAt(0).toUpperCase() : '?'}
-              />
+          <div className="relative mb-6">
+            <div className="w-32 h-32 rounded-full border-2 border-primary/20 p-1 bg-card-dark overflow-hidden">
+              {avatarUrl ? (
+                <div
+                  className="w-full h-full rounded-full bg-cover bg-center"
+                  style={{ backgroundImage: `url("${avatarUrl}")` }}
+                  role="img"
+                  aria-label={displayName}
+                />
+              ) : (
+                <div className="w-full h-full rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-primary">
+                    {displayName.charAt(0).toUpperCase()}
+                  </span>
+                </div>
+              )}
             </div>
-            <button className="absolute bottom-6 right-0 bg-primary text-background-dark p-2 rounded-full shadow-lg shadow-primary/20 active:scale-90 transition-transform">
+            <button
+              onClick={() => navigate('/edit-profile')}
+              className="absolute bottom-0 right-0 bg-primary text-background-dark p-2 rounded-full shadow-lg shadow-primary/20 active:scale-90 transition-transform"
+              aria-label="Edit profile photo"
+            >
               <User className="size-4" />
             </button>
           </div>
@@ -110,7 +121,10 @@ export default function Profile() {
           </h3>
           <div className="bg-card-dark rounded-xl overflow-hidden border border-white/5">
             {/* Edit Profile */}
-            <button className="w-full flex items-center justify-between p-4 hover:bg-white/[0.03] transition-colors group">
+            <button
+              onClick={() => navigate('/edit-profile')}
+              className="w-full flex items-center justify-between p-4 hover:bg-white/[0.03] transition-colors group"
+            >
               <div className="flex items-center gap-4">
                 <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                   <User className="size-5" strokeWidth={2} />

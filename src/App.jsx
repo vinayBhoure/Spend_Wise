@@ -24,6 +24,7 @@ import Settings from './pages/Settings'
 import Accounts from './pages/Accounts'
 import EditAccount from './pages/EditAccount'
 import Profile from './pages/Profile'
+import EditProfile from './pages/EditProfile'
 import DeleteConfirmation from './pages/DeleteConfirmation'
 import Plans from './pages/Plans'
 import ManageCategories from './pages/ManageCategories'
@@ -71,6 +72,7 @@ function App() {
             <Route path="/accounts" element={<Accounts />} />
             <Route path="/edit-account/:id" element={<EditAccount />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/delete-confirmation" element={<DeleteConfirmation />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/manage-categories" element={<ManageCategories />} />

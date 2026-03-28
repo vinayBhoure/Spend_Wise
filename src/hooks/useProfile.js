@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchUserProfileThunk,
   updateCurrencyThunk,
+  updateProfileThunk,
   deleteUserAccountThunk,
   selectProfileData,
   selectProfileLoading,
   selectProfileError,
   selectCurrencyUpdating,
+  selectProfileUpdating,
   selectProfileDeleting,
   clearProfileError,
 } from '../store/slices/profileSlice';
@@ -21,6 +23,7 @@ export const useProfile = (autoFetch = false) => {
   const loading = useSelector(selectProfileLoading);
   const error = useSelector(selectProfileError);
   const currencyUpdating = useSelector(selectCurrencyUpdating);
+  const profileUpdating = useSelector(selectProfileUpdating);
   const deleting = useSelector(selectProfileDeleting);
 
   const fetchUserProfile = useCallback(() => {
@@ -44,6 +47,17 @@ export const useProfile = (autoFetch = false) => {
     [dispatch, user?.id]
   );
 
+  const updateProfileDetails = useCallback(
+    ({ username, fullName, avatarFile }) => {
+      if (user?.id) {
+        return dispatch(
+          updateProfileThunk({ userId: user.id, username, fullName, avatarFile })
+        ).unwrap();
+      }
+    },
+    [dispatch, user?.id]
+  );
+
   const deleteAccount = useCallback(() => {
     return dispatch(deleteUserAccountThunk()).unwrap();
   }, [dispatch]);
@@ -57,9 +71,11 @@ export const useProfile = (autoFetch = false) => {
     loading,
     error,
     currencyUpdating,
+    profileUpdating,
     deleting,
     fetchUserProfile,
     updateCurrency,
+    updateProfileDetails,
     deleteAccount,
     clearError,
   };

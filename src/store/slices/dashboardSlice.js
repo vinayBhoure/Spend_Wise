@@ -3,9 +3,11 @@ import { dashboardService } from '../../services/dashboard';
 
 export const fetchDashboardData = createAsyncThunk(
   'dashboard/fetchDashboardData',
-  async (userId, { rejectWithValue }) => {
+  async (userId, { rejectWithValue, getState }) => {
     try {
-      const data = await dashboardService.fetchDashboardSummary(userId);
+      const state = getState();
+      const targetCurrency = state.profile.data?.currency || 'INR';
+      const data = await dashboardService.fetchDashboardSummary(userId, targetCurrency);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { formatCurrency } from '../../utils/currency';
+import { formatCurrency, convertCurrency } from '../../utils/currency';
 import { 
   Coffee, 
   ShoppingBag, 
@@ -67,7 +67,9 @@ export const TransactionRow = ({ transaction, onClick, currencyCode = 'INR' }) =
 
   const isIncome = type === 'income';
   
-  const formattedAmount = formatCurrency(amount, currencyCode);
+  const txCurrency = accounts?.currency || 'INR';
+  const convertedAmount = convertCurrency(amount, txCurrency, currencyCode);
+  const formattedAmount = formatCurrency(convertedAmount, currencyCode);
   const displayAmount = isIncome ? `+${formattedAmount}` : `-${formattedAmount}`;
   const amountColor = isIncome ? 'text-emerald-400' : 'text-white';
   
@@ -132,7 +134,8 @@ TransactionRow.propTypes = {
       type: PropTypes.string
     }),
     accounts: PropTypes.shape({
-      name: PropTypes.string
+      name: PropTypes.string,
+      currency: PropTypes.string
     })
   }).isRequired,
   onClick: PropTypes.func
