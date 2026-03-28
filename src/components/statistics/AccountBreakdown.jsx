@@ -26,7 +26,7 @@ export const AccountBreakdown = ({ accounts, currencyCode, totalBalance }) => {
       <h2 className="text-xl font-bold tracking-tight">Account Breakdown</h2>
       <div className="space-y-3">
         {accounts.map((acc) => {
-          const balance = Number(acc.current_balance) || 0;
+          const balance = acc.converted_balance || 0;
           if (balance <= 0) return null; // Only show accounts with positive balance
           
           const Icon = getAccountIcon(acc.type);

@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Onboarding from './pages/Onboarding'
 import Auth from './pages/Auth'
 import OTPVerification from './pages/OTPVerification'
+import EmailVerification from './pages/EmailVerification'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import AddAccount from './pages/AddAccount'
@@ -23,6 +24,7 @@ import Settings from './pages/Settings'
 import Accounts from './pages/Accounts'
 import EditAccount from './pages/EditAccount'
 import Profile from './pages/Profile'
+import EditProfile from './pages/EditProfile'
 import DeleteConfirmation from './pages/DeleteConfirmation'
 import Plans from './pages/Plans'
 import ManageCategories from './pages/ManageCategories'
@@ -52,6 +54,7 @@ function App() {
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/otp" element={<OTPVerification />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 
@@ -69,6 +72,7 @@ function App() {
             <Route path="/accounts" element={<Accounts />} />
             <Route path="/edit-account/:id" element={<EditAccount />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/delete-confirmation" element={<DeleteConfirmation />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/manage-categories" element={<ManageCategories />} />

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
-  fetchTransactions, 
+import {
+  fetchTransactions,
   fetchTransactionsSummary,
   selectAllTransactions,
   selectTransactionsStatus,
@@ -20,22 +20,22 @@ import { formatCurrency } from '../utils/currency';
 // Helper to group transactions by date
 const groupTransactionsByDate = (transactions) => {
   const groups = {};
-  
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   const yesterday = new Date(today);
   yesterday.setDate(yesterday.getDate() - 1);
-  
+
   transactions.forEach(tx => {
     const txDateStr = tx.date; // format: "2023-10-15"
     if (!txDateStr) return;
-    
+
     const [year, month, day] = txDateStr.split('-').map(Number);
     const txDate = new Date(year, month - 1, day);
-    
+
     let groupLabel = txDateStr;
-    
+
     if (txDate.getTime() === today.getTime()) {
       groupLabel = 'Today';
     } else if (txDate.getTime() === yesterday.getTime()) {
@@ -44,7 +44,7 @@ const groupTransactionsByDate = (transactions) => {
       // Format as "Oct 15, 2023"
       groupLabel = txDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
-    
+
     if (!groups[groupLabel]) {
       groups[groupLabel] = {
         title: groupLabel,
@@ -52,7 +52,7 @@ const groupTransactionsByDate = (transactions) => {
         totalBase: 0 // to sum expenses
       };
     }
-    
+
     groups[groupLabel].transactions.push(tx);
     if (tx.type === 'expense') {
       groups[groupLabel].totalBase -= Number(tx.amount);
@@ -60,7 +60,7 @@ const groupTransactionsByDate = (transactions) => {
       groups[groupLabel].totalBase += Number(tx.amount);
     }
   });
-  
+
   // Convert object to array
   return Object.values(groups);
 };
@@ -70,7 +70,7 @@ export const Transactions = () => {
   const { user } = useAuth();
   const { data: profileData } = useProfile(true);
   const currencyCode = profileData?.currency || 'INR';
-  
+
   const transactions = useSelector(selectAllTransactions);
   const status = useSelector(selectTransactionsStatus);
   const error = useSelector(selectTransactionsError);
@@ -88,10 +88,10 @@ export const Transactions = () => {
   return (
     <div className="bg-background-dark text-slate-100 font-display min-h-screen flex flex-col">
       <TransactionsHeader />
-      
+
       <main className="flex-1 px-6 pb-32">
         {/* Summary Mini-Cards */}
-        <div className="flex gap-4 overflow-x-auto custom-scrollbar mb-10 -mx-1 px-1">
+        {/* <div className="flex gap-4 overflow-x-auto custom-scrollbar mb-10 -mx-1 px-1">
           <SummaryCard 
             title="Total Spent"
             amount={formatCurrency(summary.totalSpent, currencyCode)}
@@ -108,7 +108,7 @@ export const Transactions = () => {
             variant="primary"
             progress={summary.percentageUsed}
           />
-        </div>
+        </div> */}
 
         {/* State Handling */}
         {status === 'loading' && (
@@ -122,10 +122,10 @@ export const Transactions = () => {
           <div className="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-6 text-center">
             <p className="text-rose-500 font-bold mb-2">Failed to load data</p>
             <p className="text-slate-400 text-sm">{error}</p>
-            <button 
+            <button
               onClick={() => {
-                 dispatch(fetchTransactions(user.id));
-                 dispatch(fetchTransactionsSummary(user.id));
+                dispatch(fetchTransactions(user.id));
+                dispatch(fetchTransactionsSummary(user.id));
               }}
               className="mt-4 px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-bold"
             >
@@ -147,7 +147,7 @@ export const Transactions = () => {
         {status === 'succeeded' && transactions.length > 0 && (
           <div className="space-y-10">
             {groupedTransactions.map((group) => (
-              <TransactionGroup 
+              <TransactionGroup
                 key={group.title}
                 title={group.title}
                 transactions={group.transactions}
@@ -158,7 +158,7 @@ export const Transactions = () => {
           </div>
         )}
       </main>
-      
+
       <BottomNav />
     </div>
   );

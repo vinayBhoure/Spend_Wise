@@ -1,10 +1,18 @@
 import { Building2, Wallet, ChevronDown, ArrowDown } from 'lucide-react';
-import { getCurrencySymbol } from '../../utils/currency';
+import { useSelector } from 'react-redux';
+import { getCurrencySymbol, formatCurrency, convertCurrency } from '../../utils/currency';
+import { selectProfileData } from '../../store/slices/profileSlice';
 
 export const TransferAccountCard = ({ type, accountId, accounts, onSelect }) => {
   const isFrom = type === 'from';
+  const profile = useSelector(selectProfileData);
+  const userCurrency = profile?.currency || 'INR';
   const selectedAccount = accounts.find(a => a.id === accountId);
   
+  const balanceText = selectedAccount 
+    ? formatCurrency(convertCurrency(selectedAccount.current_balance || 0, selectedAccount.currency || 'INR', userCurrency), userCurrency)
+    : formatCurrency(0, userCurrency);
+
   return (
     <div className={`relative bg-surface-dark rounded-xl p-5 border flex items-center gap-4 transition-all group ${isFrom ? 'border-slate-800' : 'border-primary/20 mt-4'}`}>
       <div className={`w-12 h-12 rounded-lg flex items-center justify-center border ${isFrom ? 'bg-slate-800 border-slate-700' : 'bg-primary/10 border-primary/20'}`}>
@@ -38,7 +46,7 @@ export const TransferAccountCard = ({ type, accountId, accounts, onSelect }) => 
           {selectedAccount ? selectedAccount.name : 'Select Account'}
         </h3>
         <p className="text-sm text-slate-400">
-          Balance: {selectedAccount ? `${getCurrencySymbol(selectedAccount.currency || 'INR')}${parseFloat(selectedAccount.current_balance || 0).toFixed(2)}` : `${getCurrencySymbol('INR')}0.00`}
+          Balance: {balanceText}
         </p>
       </div>
       

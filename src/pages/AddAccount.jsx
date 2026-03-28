@@ -51,7 +51,7 @@ export default function AddAccount() {
         initial_balance: parseFloat(formData.initial_balance) || 0,
         currency: selectedCurrency
       });
-      navigate('/settings');
+      navigate('/accounts');
     } catch (err) {
       setError(err.message || 'Failed to create account');
     } finally {
@@ -66,7 +66,7 @@ export default function AddAccount() {
         {/* Header */}
         <div className="flex items-center justify-between p-5 pb-1">
           <button
-            onClick={() => navigate('/settings')}
+            onClick={() => navigate('/accounts')}
             className="text-slate-400 hover:text-primary transition-colors"
           >
             <ChevronLeft className="size-8" />

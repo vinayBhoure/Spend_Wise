@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAccounts, createAccount, archiveAccount, updateAccount, deleteAccountPermanent } from '../../services/accounts';
+import { convertCurrency } from '../../utils/currency';
 
 // ---------- Async Thunks ----------
 
@@ -128,10 +129,12 @@ export const selectAccountsError = (state) => state.accounts.error;
 export const selectActiveFilter = (state) => state.accounts.filter;
 
 export const selectNetWorth = (state) => {
-  return state.accounts.accounts.reduce(
-    (sum, acc) => sum + (Number(acc.current_balance) || 0),
-    0
-  );
+  const userCurrency = state.profile.data?.currency || 'INR';
+  return state.accounts.accounts.reduce((sum, acc) => {
+    const balance = Number(acc.current_balance) || 0;
+    const converted = convertCurrency(balance, acc.currency || 'INR', userCurrency);
+    return sum + converted;
+  }, 0);
 };
 
 export const selectFilteredAccounts = (state) => {

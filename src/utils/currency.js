@@ -67,3 +67,42 @@ export const CURRENCIES = [
   { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
   { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
 ];
+
+/** 
+ * Basic exchange rates (Base: USD)
+ * In a production app, these would come from an API 
+ */
+const EXCHANGE_RATES = {
+  USD: 1,
+  INR: 83.12,
+  EUR: 0.92,
+  GBP: 0.79,
+  JPY: 151.34,
+  KRW: 1345.50,
+  AUD: 1.53,
+  CAD: 1.36,
+};
+
+/**
+ * Converts an amount from one currency to another using fixed exchange rates.
+ * @param {number} amount
+ * @param {string} fromCurrency
+ * @param {string} toCurrency
+ * @returns {number}
+ */
+export function convertCurrency(amount, fromCurrency, toCurrency) {
+  if (!fromCurrency || !toCurrency || fromCurrency === toCurrency) {
+    return Number(amount);
+  }
+
+  const rateFrom = EXCHANGE_RATES[fromCurrency];
+  const rateTo = EXCHANGE_RATES[toCurrency];
+
+  if (!rateFrom || !rateTo) {
+    return Number(amount);
+  }
+
+  // Convert to USD first, then to target currency
+  const amountInUSD = amount / rateFrom;
+  return amountInUSD * rateTo;
+}

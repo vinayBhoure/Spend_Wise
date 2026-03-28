@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchProfile, updateProfileCurrency, deleteUserAccount } from '../../services/profiles';
+import { fetchProfile, updateProfileCurrency, updateProfile, uploadAvatar, deleteUserAccount } from '../../services/profiles';
 
 const initialState = {
   data: null,
   loading: false,
   error: null,
   currencyUpdating: false,
+  profileUpdating: false,
   deleting: false,
 };
 
@@ -25,6 +26,25 @@ export const updateCurrencyThunk = createAsyncThunk(
   async ({ userId, currency }, { rejectWithValue }) => {
     try {
       return await updateProfileCurrency(userId, currency);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateProfileThunk = createAsyncThunk(
+  'profile/updateProfile',
+  async ({ userId, username, fullName, avatarFile }, { rejectWithValue }) => {
+    try {
+      let avatar_url;
+      if (avatarFile) {
+        avatar_url = await uploadAvatar(userId, avatarFile);
+      }
+      const updates = {};
+      if (username !== undefined) updates.username = username;
+      if (fullName !== undefined) updates.full_name = fullName;
+      if (avatar_url !== undefined) updates.avatar_url = avatar_url;
+      return await updateProfile(userId, updates);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -82,6 +102,19 @@ const profileSlice = createSlice({
         state.currencyUpdating = false;
         state.error = action.payload;
       })
+      // Update profile
+      .addCase(updateProfileThunk.pending, (state) => {
+        state.profileUpdating = true;
+        state.error = null;
+      })
+      .addCase(updateProfileThunk.fulfilled, (state, action) => {
+        state.data = { ...state.data, ...action.payload };
+        state.profileUpdating = false;
+      })
+      .addCase(updateProfileThunk.rejected, (state, action) => {
+        state.profileUpdating = false;
+        state.error = action.payload;
+      })
       // Delete user account
       .addCase(deleteUserAccountThunk.pending, (state) => {
         state.deleting = true;
@@ -104,6 +137,7 @@ export const selectProfileData = (state) => state.profile.data;
 export const selectProfileLoading = (state) => state.profile.loading;
 export const selectProfileError = (state) => state.profile.error;
 export const selectCurrencyUpdating = (state) => state.profile.currencyUpdating;
+export const selectProfileUpdating = (state) => state.profile.profileUpdating;
 export const selectProfileDeleting = (state) => state.profile.deleting;
 
 export default profileSlice.reducer;

@@ -13,9 +13,9 @@ import { Loader2, WifiOff, AlertCircle } from 'lucide-react';
 export const Dashboard = () => {
   const { user } = useAuth();
   const { data, loading, error, refreshData } = useDashboard();
-  const { data: profileData } = useProfile(true);
+  const { data: profileData, loading: profileLoading } = useProfile(true);
   const currencyCode = profileData?.currency || 'INR';
-  
+
   // Basic internet connectivity check
   const isOnline = navigator.onLine;
 
@@ -35,7 +35,7 @@ export const Dashboard = () => {
         <p className="text-slate-400 text-center text-sm mb-6">
           Please check your internet connection and try again to view your dashboard.
         </p>
-        <button 
+        <button
           onClick={() => window.location.reload()}
           className="bg-primary text-background-dark font-bold px-6 py-3 rounded-xl active:scale-95 transition-transform"
         >
@@ -62,7 +62,7 @@ export const Dashboard = () => {
         <AlertCircle className="size-16 text-destructive mb-4" />
         <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
         <p className="text-slate-400 text-center text-sm mb-6">{error}</p>
-        <button 
+        <button
           onClick={refreshData}
           className="bg-primary text-background-dark font-bold px-6 py-3 rounded-xl active:scale-95 transition-transform"
         >
@@ -73,38 +73,40 @@ export const Dashboard = () => {
   }
 
   // Empty State handled implicitly if data exists but zero balance, etc.
-  
+
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 pb-28 font-manrope antialiased">
       <DashboardHeader 
         user={user} 
-        notificationsCount={1} // Example notification count
+        profile={profileData}
+        profileLoading={profileLoading}
+        notificationsCount={1}
       />
-      
+
       <main className="px-6 space-y-8 mt-2">
         {data ? (
           <>
-            <BalanceCard 
-              balance={data.balance} 
+            <BalanceCard
+              balance={data.balance}
               budgetTotal={data.budget.total}
               budgetUsed={data.budget.used}
               budgetPercentage={data.budget.percentage}
               currencyCode={currencyCode}
             />
-            
-            <HabitStreakTracker 
+
+            <HabitStreakTracker
               streakDays={data.streak.days}
               logs={data.streak.logs}
             />
-            
-            <SpendingTrendGraph 
+
+            <SpendingTrendGraph
               total={data.weeklyActivity.total}
               trendPercentage={data.weeklyActivity.trendPercentage}
               isPositive={data.weeklyActivity.isPositive}
               chartData={data.weeklyActivity.chartData}
               currencyCode={currencyCode}
             />
-            
+
             <RecentTransactionsList logs={data.recentLogs} currencyCode={currencyCode} />
           </>
         ) : (
@@ -113,7 +115,7 @@ export const Dashboard = () => {
           </div>
         )}
       </main>
-      
+
       <BottomNav />
     </div>
   );

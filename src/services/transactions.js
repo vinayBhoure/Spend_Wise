@@ -15,7 +15,7 @@ export const transactionsService = {
         .select(`
           id, amount, date, time, type, note, is_transfer,
           categories:category_id (name, emoji, type),
-          accounts:account_id (name, type)
+          accounts:account_id (name, type, currency)
         `)
         .eq('user_id', userId)
         .order('date', { ascending: false })
