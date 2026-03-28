@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpendWise - Advanced Filters</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary": "#94a3b8",
+                        "on-tertiary-fixed-variant": "#92400e",
+                        "tertiary-fixed": "#fef3c7",
+                        "outline-variant": "#1e293b",
+                        "outline": "#334155",
+                        "tertiary-fixed-dim": "#fcd34d",
+                        "on-secondary-container": "#f1f5f9",
+                        "inverse-surface": "#f1f5f9",
+                        "on-error-container": "#fda4af",
+                        "surface-tint": "#00e6cb",
+                        "tertiary-container": "#451a03",
+                        "on-primary": "#0f2321",
+                        "surface-variant": "#1e293b",
+                        "primary": "#00e6cb",
+                        "on-primary-fixed": "#042f2e",
+                        "secondary-fixed-dim": "#cbd5e1",
+                        "surface-container": "#142c2a",
+                        "on-background": "#f1f5f9",
+                        "inverse-primary": "#006b5d",
+                        "on-secondary-fixed": "#0f172a",
+                        "on-primary-fixed-variant": "#0d9488",
+                        "error": "#f43f5e",
+                        "surface-container-lowest": "#050d0c",
+                        "surface-bright": "#1a3a37",
+                        "surface": "#0f2321",
+                        "secondary-container": "#1e293b",
+                        "primary-container": "#00e6cb",
+                        "surface-container-highest": "#2a4f4a",
+                        "inverse-on-surface": "#0f2321",
+                        "error-container": "#4c0519",
+                        "on-surface": "#f1f5f9",
+                        "on-error": "#ffffff",
+                        "background": "#0f2321",
+                        "secondary-fixed": "#e2e8f0",
+                        "on-tertiary": "#0f2321",
+                        "on-secondary-fixed-variant": "#334155",
+                        "primary-fixed": "#99f6e4",
+                        "surface-container-low": "#0d201e",
+                        "on-surface-variant": "#94a3b8",
+                        "surface-dim": "#0a1817",
+                        "surface-container-high": "#1f3e3a",
+                        "primary-fixed-dim": "#5eead4",
+                        "on-tertiary-fixed": "#451a03",
+                        "on-tertiary-container": "#fbbf24",
+                        "tertiary": "#f59e0b",
+                        "on-secondary": "#0f2321"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #0f2321;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 230, 203, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased text-on-surface overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-slate-950/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-white/10 flex items-center justify-between px-6 h-16">
+<div class="flex items-center gap-4">
+<button class="text-slate-400 active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<h1 class="font-manrope font-bold text-[18px] tracking-tight text-emerald-400">Filters</h1>
+</div>
+<button class="font-manrope font-bold text-[14px] text-emerald-400 hover:text-emerald-300 transition-colors active:scale-95 duration-200">
+            Reset
+        </button>
+</header>
+<div class="flex h-screen pt-16 pb-20">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="fixed left-0 top-16 bottom-20 w-64 border-r border-white/10 bg-slate-900 flex flex-col py-4 hidden md:flex">
+<div class="px-6 mb-4">
+<span class="text-emerald-400 font-bold uppercase tracking-widest text-[10px]">Filter By</span>
+</div>
+<nav class="flex flex-col">
+<a class="flex items-center gap-3 px-6 py-4 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>Date Range</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-4 bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-400 font-bold transition-all active:translate-x-1 duration-150 font-manrope text-[14px]" href="#">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span>Transaction Type</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-4 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span>Accounts</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-4 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Amount</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-4 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Category</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area (Canvas) -->
+<main class="flex-1 md:ml-64 bg-surface-container-low custom-scrollbar overflow-y-auto">
+<div class="p-6 max-w-2xl mx-auto">
+<header class="mb-8">
+<h2 class="text-[30px] font-bold tracking-tight text-on-surface">Transaction Type</h2>
+<p class="text-on-surface-variant text-[14px] mt-1">Select the flow of funds to include in your results.</p>
+</header>
+<!-- Filter Options Stack -->
+<div class="space-y-3">
+<!-- All -->
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container-high border border-white/5 group hover:border-primary/20 transition-all">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="select_all">select_all</span>
+</div>
+<span class="font-bold text-on-surface">All</span>
+</div>
+<div class="size-6 rounded-full border-2 border-slate-700 flex items-center justify-center">
+<!-- Inactive state -->
+</div>
+</button>
+<!-- Income -->
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container-high border border-white/5 group hover:border-primary/20 transition-all">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<span class="font-bold text-on-surface">Income</span>
+</div>
+<div class="size-6 rounded-full border-2 border-slate-700"></div>
+</button>
+<!-- Expense -->
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-primary/10 border border-primary/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="trending_down">trending_down</span>
+</div>
+<span class="font-bold text-on-surface">Expense</span>
+</div>
+<div class="size-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-on-primary font-bold" data-icon="check">check</span>
+</div>
+</button>
+<!-- Transfer -->
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container-high border border-white/5 group hover:border-primary/20 transition-all">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+</div>
+<span class="font-bold text-on-surface">Transfer</span>
+</div>
+<div class="size-6 rounded-full border-2 border-slate-700"></div>
+</button>
+</div>
+<!-- Advanced Setting (Toggle) -->
+<div class="mt-12 pt-8 border-t border-white/5">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-bold text-on-surface">Include Transfers</h3>
+<p class="text-[12px] text-on-surface-variant uppercase tracking-wider mt-1">Sovereign Ledger Setting</p>
+</div>
+<!-- Toggle Component -->
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none">
+<span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
+</button>
+</div>
+<!-- Informational Card (Bento Style) -->
+<div class="mt-8 p-6 rounded-xl bg-surface-container border border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[80px]" data-icon="info">info</span>
+</div>
+<h4 class="text-emerald-400 font-bold text-[12px] uppercase tracking-widest mb-2">Pro Tip</h4>
+<p class="text-on-surface-variant text-[14px] leading-relaxed max-w-[85%]">
+                            Filtering by <span class="text-on-surface font-semibold">Expense</span> is the most common way to track your spending habits across all linked accounts.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile & Desktop Actions) -->
+<nav class="fixed bottom-0 left-0 w-full bg-slate-950/80 backdrop-blur-xl z-50 h-20 border-t border-white/10 flex justify-between items-center px-6 gap-4 shadow-[0_-4px_20px_rgba(0,230,203,0.1)]">
+<button class="flex items-center justify-center text-slate-300 bg-white/5 rounded-lg px-8 py-3 w-full mx-2 font-manrope font-bold text-[14px] hover:brightness-110 transition-all active:scale-[0.98] duration-200">
+<span class="material-symbols-outlined mr-2" data-icon="close">close</span>
+<span>Close</span>
+</button>
+<button class="flex items-center justify-center bg-emerald-400 text-slate-950 rounded-lg px-8 py-3 w-full mx-2 font-manrope font-bold text-[14px] hover:brightness-110 transition-all active:scale-[0.98] duration-200">
+<span class="material-symbols-outlined mr-2" data-icon="check_circle">check_circle</span>
+<span>Apply Filters</span>
+</button>
+</nav>
+</body></html>

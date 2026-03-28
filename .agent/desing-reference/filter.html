@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed": "#042f2e",
+              "tertiary-fixed-dim": "#fcd34d",
+              "surface": "#0A0F1E",
+              "on-tertiary-container": "#fbbf24",
+              "surface-container-lowest": "#050d0c",
+              "secondary-fixed-dim": "#cbd5e1",
+              "surface-container-high": "#161D2F",
+              "inverse-primary": "#006b5d",
+              "on-surface-variant": "#94a3b8",
+              "secondary-fixed": "#e2e8f0",
+              "tertiary-fixed": "#fef3c7",
+              "surface-bright": "#1a3a37",
+              "surface-container-highest": "#1F2937",
+              "surface-container-low": "#0F172A",
+              "on-surface": "#f1f5f9",
+              "on-tertiary-fixed": "#451a03",
+              "surface-dim": "#0a1817",
+              "surface-container": "#111827",
+              "primary": "#00e6cb",
+              "secondary-container": "#1e293b",
+              "surface-tint": "#00e6cb",
+              "on-background": "#f1f5f9",
+              "on-secondary-fixed": "#0f172a",
+              "secondary": "#94a3b8",
+              "primary-fixed": "#99f6e4",
+              "outline-variant": "#1e293b",
+              "primary-fixed-dim": "#5eead4",
+              "outline": "#334155",
+              "on-secondary": "#0A0F1E",
+              "on-primary-container": "#0A0F1E",
+              "inverse-on-surface": "#0A0F1E",
+              "background": "#0A0F1E",
+              "tertiary": "#f59e0b",
+              "on-tertiary-fixed-variant": "#92400e",
+              "on-tertiary": "#0A0F1E",
+              "on-secondary-fixed-variant": "#334155",
+              "inverse-surface": "#f1f5f9",
+              "on-secondary-container": "#f1f5f9",
+              "error-container": "#4c0519",
+              "on-primary": "#0A0F1E",
+              "on-error-container": "#fda4af",
+              "error": "#f43f5e",
+              "tertiary-container": "#451a03",
+              "on-error": "#ffffff",
+              "surface-variant": "#1e293b",
+              "primary-container": "#00e6cb",
+              "on-primary-fixed-variant": "#0d9488"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0A0F1E;
+            color: #f1f5f9;
+            font-family: 'Manrope', sans-serif;
+            overflow: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="antialiased h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-md text-primary font-bold text-[20px] tracking-tight antialiased top-0 sticky z-50 border-b border-white/5 flex items-center justify-between px-6 h-16 w-full shrink-0">
+<div class="flex items-center gap-4">
+<button class="hover:bg-white/5 transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<h1 class="text-primary font-bold tracking-tight">Filters</h1>
+</div>
+<button class="text-slate-400 font-medium text-[12px] uppercase tracking-widest hover:text-primary transition-colors">
+            Reset
+        </button>
+</header>
+<main class="flex-grow flex overflow-hidden">
+<!-- NavigationDrawer (Left Sidebar) -->
+<aside class="bg-slate-900/40 flex flex-col w-[120px] sm:w-64 border-r border-white/5 shrink-0 overflow-y-auto custom-scrollbar">
+<div class="px-4 sm:px-6 py-6">
+<p class="text-primary text-[10px] uppercase tracking-[0.2em] font-bold">Categories</p>
+</div>
+<nav class="flex flex-col">
+<!-- Date Range (Active) -->
+<a class="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-5 transition-all duration-200 bg-primary/10 text-primary font-bold border-r-4 border-primary" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_today">calendar_today</span>
+<span class="font-medium text-[13px] text-center sm:text-left">Date Range</span>
+</a>
+<!-- Transaction Type -->
+<a class="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="swap_horiz">swap_horiz</span>
+<span class="font-medium text-[13px] text-center sm:text-left">Type</span>
+</a>
+<!-- Accounts -->
+<a class="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_balance">account_balance</span>
+<span class="font-medium text-[13px] text-center sm:text-left">Accounts</span>
+</a>
+<!-- Amount -->
+<a class="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="payments">payments</span>
+<span class="font-medium text-[13px] text-center sm:text-left">Amount</span>
+</a>
+<!-- Category -->
+<a class="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="sell">sell</span>
+<span class="font-medium text-[13px] text-center sm:text-left">Category</span>
+</a>
+</nav>
+</aside>
+<!-- Right Content Area -->
+<section class="flex-grow p-6 sm:p-8 bg-surface overflow-y-auto custom-scrollbar">
+<div class="max-w-xl mx-auto">
+<!-- Period Section -->
+<div class="mb-10">
+<label class="block text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-6">Select Period</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<button class="bg-primary text-on-primary py-4 px-6 rounded-xl font-bold flex flex-col items-start gap-1 transition-transform active:scale-[0.98] shadow-lg shadow-primary/20">
+<span class="text-[10px] opacity-80 font-semibold uppercase">Standard</span>
+<span class="text-sm">This Month</span>
+</button>
+<button class="bg-surface-container-low border border-white/5 hover:border-primary/30 text-on-surface py-4 px-6 rounded-xl font-bold flex flex-col items-start gap-1 transition-all">
+<span class="text-[10px] opacity-40 font-semibold uppercase">Standard</span>
+<span class="text-sm">This Week</span>
+</button>
+<button class="bg-surface-container-low border border-white/5 hover:border-primary/30 text-on-surface py-4 px-6 rounded-xl font-bold flex flex-col items-start gap-1 transition-all">
+<span class="text-[10px] opacity-40 font-semibold uppercase">Standard</span>
+<span class="text-sm">Last 6 Months</span>
+</button>
+<button class="bg-surface-container-low border border-white/5 hover:border-primary/30 text-on-surface py-4 px-6 rounded-xl font-bold flex flex-col items-start gap-1 transition-all">
+<span class="text-[10px] opacity-40 font-semibold uppercase">Standard</span>
+<span class="text-sm">This Year</span>
+</button>
+</div>
+</div>
+<!-- Custom Range Option -->
+<div class="mb-10 p-5 bg-surface-container-low rounded-xl border border-white/5 flex items-center justify-between group cursor-pointer hover:border-primary/20 transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="date_range">date_range</span>
+</div>
+<div>
+<h3 class="font-bold text-[14px] text-on-surface">Custom Range</h3>
+<p class="text-[11px] text-on-surface-variant">Pick specific start and end dates</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Type Section -->
+<div class="mb-10">
+<label class="block text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-6">Transaction Type</label>
+<div class="flex bg-surface-container-low p-1 rounded-full border border-white/5">
+<button class="flex-1 py-2 rounded-full text-[13px] font-bold bg-primary text-on-primary">All</button>
+<button class="flex-1 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-on-surface transition-colors">Income</button>
+<button class="flex-1 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-on-surface transition-colors">Expense</button>
+<button class="flex-1 py-2 rounded-full text-[13px] font-bold text-slate-400 hover:text-on-surface transition-colors">Transfer</button>
+</div>
+</div>
+<!-- Toggles -->
+<div class="space-y-3 pb-8">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-white/5">
+<div>
+<p class="font-bold text-[14px] text-on-surface">Include Transfers</p>
+<p class="text-[11px] text-on-surface-variant">Show internal account movements</p>
+</div>
+<div class="w-10 h-5 bg-primary rounded-full relative flex items-center px-1 cursor-pointer">
+<div class="w-3 h-3 bg-on-primary rounded-full shadow-sm ml-auto"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-white/5">
+<div>
+<p class="font-bold text-[14px] text-on-surface">Exclude Hidden</p>
+<p class="text-[11px] text-on-surface-variant">Hide manually excluded items</p>
+</div>
+<div class="w-10 h-5 bg-slate-700 rounded-full relative flex items-center px-1 cursor-pointer">
+<div class="w-3 h-3 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Bar -->
+<footer class="bg-surface-container-high border-t border-white/10 p-4 sm:p-5 flex items-center justify-between shrink-0">
+<div class="hidden sm:block">
+<p class="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider">
+                Current Filter: <span class="text-primary font-bold">This Month • All Types</span>
+</p>
+</div>
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<button class="flex-1 sm:px-10 py-4 bg-slate-800 text-white text-[13px] font-bold rounded-xl tracking-tight transition-all active:scale-95 border border-white/5 hover:bg-slate-700">
+                CLOSE
+            </button>
+<button class="flex-[2] sm:px-12 py-4 bg-primary text-on-primary text-[13px] font-bold rounded-xl tracking-tight transition-all active:scale-95 shadow-lg shadow-primary/10 hover:brightness-110">
+                APPLY FILTERS
+            </button>
+</div>
+</footer>
+</body></html>

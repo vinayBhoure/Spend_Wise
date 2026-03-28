@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchTransactions,
@@ -6,10 +6,13 @@ import {
   selectAllTransactions,
   selectTransactionsStatus,
   selectTransactionsError,
-  selectTransactionsSummary
+  selectTransactionsSummary,
+  selectTransactionsFilters,
+  setFilters
 } from '../store/slices/transactionsSlice';
 import { TransactionsHeader } from '../components/transactions/TransactionsHeader';
 import { TransactionGroup } from '../components/transactions/TransactionGroup';
+import { TransactionFilter } from '../components/ui/TransactionFilter';
 import { SummaryCard } from '../components/ui/SummaryCard';
 import { BottomNav } from '../components/layout/BottomNav';
 import { TrendingUp, TrendingDown, ReceiptText } from 'lucide-react';
@@ -75,19 +78,31 @@ export const Transactions = () => {
   const status = useSelector(selectTransactionsStatus);
   const error = useSelector(selectTransactionsError);
   const summary = useSelector(selectTransactionsSummary);
+  const filters = useSelector(selectTransactionsFilters);
+
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // Calculate active filter count
+  let activeFilterCount = 0;
+  if (filters.period !== 'all') activeFilterCount += 1;
+  if (filters.type !== 'all') activeFilterCount += 1;
+  if (!filters.includeTransfers) activeFilterCount += 1;
 
   useEffect(() => {
     if (user?.id) {
-      dispatch(fetchTransactions(user.id));
+      dispatch(fetchTransactions({ userId: user.id, filters }));
       dispatch(fetchTransactionsSummary(user.id));
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, filters]);
 
   const groupedTransactions = groupTransactionsByDate(transactions);
 
   return (
     <div className="bg-background-dark text-slate-100 font-display min-h-screen flex flex-col">
-      <TransactionsHeader />
+      <TransactionsHeader
+        onOpenFilter={() => setIsFilterOpen(true)}
+        activeFilterCount={activeFilterCount}
+      />
 
       <main className="flex-1 px-6 pb-32">
         {/* Summary Mini-Cards */}
@@ -124,7 +139,7 @@ export const Transactions = () => {
             <p className="text-slate-400 text-sm">{error}</p>
             <button
               onClick={() => {
-                dispatch(fetchTransactions(user.id));
+                dispatch(fetchTransactions({ userId: user.id, filters }));
                 dispatch(fetchTransactionsSummary(user.id));
               }}
               className="mt-4 px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-bold"
@@ -158,6 +173,16 @@ export const Transactions = () => {
           </div>
         )}
       </main>
+
+      <TransactionFilter
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        currentFilters={filters}
+        onApply={(newFilters) => {
+          dispatch(setFilters(newFilters));
+          setIsFilterOpen(false);
+        }}
+      />
 
       <BottomNav />
     </div>

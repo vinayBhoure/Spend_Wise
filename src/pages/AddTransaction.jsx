@@ -13,7 +13,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 
 import { AmountInput } from '../components/transactions/AmountInput';
-import { CategoryGrid } from '../components/transactions/CategoryGrid';
+import { CategorySelect } from '../components/categories/CategorySelect';
 import { DateTimeSelector } from '../components/transactions/DateTimeSelector';
 import { StyledSelect } from '../components/ui/StyledSelect';
 
@@ -168,11 +168,12 @@ export default function AddTransaction() {
 
         <AmountInput value={amount} onChange={setAmount} currencyCode={selectedCurrency} />
         
-        <CategoryGrid 
+        <CategorySelect 
           categories={filteredCategories} 
-          selectedCategoryId={categoryId} 
-          onSelect={setCategoryId} 
-          onSeeAll={() => console.log('See all categories')} 
+          value={categoryId} 
+          onChange={setCategoryId}
+          loading={status === 'loading'}
+          error={status === 'failed'}
         />
         
         <DateTimeSelector 

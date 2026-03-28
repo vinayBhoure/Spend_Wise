@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#94a3b8",
+            "on-tertiary-fixed-variant": "#92400e",
+            "tertiary-fixed": "#fef3c7",
+            "outline-variant": "#1e293b",
+            "outline": "#334155",
+            "tertiary-fixed-dim": "#fcd34d",
+            "on-secondary-container": "#f1f5f9",
+            "inverse-surface": "#f1f5f9",
+            "on-error-container": "#fda4af",
+            "surface-tint": "#00e6cb",
+            "tertiary-container": "#451a03",
+            "on-primary": "#0f2321",
+            "surface-variant": "#1e293b",
+            "primary": "#00e6cb",
+            "on-primary-fixed": "#042f2e",
+            "secondary-fixed-dim": "#cbd5e1",
+            "surface-container": "#142c2a",
+            "on-background": "#f1f5f9",
+            "inverse-primary": "#006b5d",
+            "on-secondary-fixed": "#0f172a",
+            "on-primary-fixed-variant": "#0d9488",
+            "error": "#f43f5e",
+            "surface-container-lowest": "#050d0c",
+            "surface-bright": "#1a3a37",
+            "surface": "#0f2321",
+            "secondary-container": "#1e293b",
+            "primary-container": "#00e6cb",
+            "surface-container-highest": "#2a4f4a",
+            "inverse-on-surface": "#0f2321",
+            "error-container": "#4c0519",
+            "on-primary-container": "#0f2321",
+            "on-surface": "#f1f5f9",
+            "on-error": "#ffffff",
+            "background": "#0f2321",
+            "secondary-fixed": "#e2e8f0",
+            "on-tertiary": "#0f2321",
+            "on-secondary-fixed-variant": "#334155",
+            "primary-fixed": "#99f6e4",
+            "surface-container-low": "#0d201e",
+            "on-surface-variant": "#94a3b8",
+            "surface-dim": "#0a1817",
+            "surface-container-high": "#1f3e3a",
+            "primary-fixed-dim": "#5eead4",
+            "on-tertiary-fixed": "#451a03",
+            "on-tertiary-container": "#fbbf24",
+            "tertiary": "#f59e0b",
+            "on-secondary": "#0f2321"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Manrope"],
+            "label": ["Manrope"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(0, 230, 203, 0.1);
+      border-radius: 10px;
+    }
+    input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      background: #00e6cb;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(0, 230, 203, 0.4);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-slate-950/80 backdrop-blur-md text-emerald-400 font-manrope font-bold text-[18px] tracking-tight fixed top-0 w-full z-50 border-b border-white/10 flex items-center justify-between px-6 h-16">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-400" data-icon="close">close</span>
+</button>
+<span class="text-emerald-400 font-bold">Filters</span>
+</div>
+<button class="text-emerald-400 font-bold hover:text-emerald-300 transition-colors active:scale-95 duration-200">
+      Reset
+    </button>
+</header>
+<div class="flex flex-1 pt-16 pb-20 overflow-hidden">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="bg-slate-900 fixed left-0 top-16 bottom-20 w-64 border-r border-white/10 flex flex-col py-4 hidden md:flex">
+<div class="px-6 py-4">
+<span class="text-emerald-400 font-bold uppercase tracking-widest text-[10px]">Filter By</span>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Date Range -->
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium tracking-normal" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>Date Range</span>
+</a>
+<!-- Transaction Type -->
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium tracking-normal" href="#">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span>Transaction Type</span>
+</a>
+<!-- Accounts -->
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium tracking-normal" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span>Accounts</span>
+</a>
+<!-- Amount (Active) -->
+<a class="flex items-center gap-3 px-6 py-3 bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-400 font-bold transition-all active:translate-x-1 duration-150 font-manrope text-[14px] tracking-normal" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Amount</span>
+</a>
+<!-- Category -->
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-white/5 transition-all active:translate-x-1 duration-150 font-manrope text-[14px] font-medium tracking-normal" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Category</span>
+</a>
+</nav>
+</aside>
+<!-- Main Filter Content Canvas -->
+<main class="flex-1 md:ml-64 overflow-y-auto custom-scrollbar p-6 md:p-10 flex flex-col gap-10">
+<!-- Amount Filter Section -->
+<section class="max-w-2xl">
+<div class="flex flex-col gap-2 mb-8">
+<h1 class="text-[30px] font-bold tracking-tight font-headline">Amount range</h1>
+<p class="text-on-surface-variant text-[14px] font-medium">Define the precision range for your transaction search.</p>
+</div>
+<!-- Input Fields Bento-style Card -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+<div class="bg-surface-container border border-white/5 rounded-xl p-5 group focus-within:border-emerald-400/30 transition-all">
+<label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Min Amount</label>
+<div class="flex items-center gap-2">
+<span class="text-emerald-400 font-bold">$</span>
+<input class="bg-transparent border-none focus:ring-0 text-xl font-bold p-0 w-full text-on-surface" type="number" value="200"/>
+</div>
+</div>
+<div class="bg-surface-container border border-white/5 rounded-xl p-5 group focus-within:border-emerald-400/30 transition-all">
+<label class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Max Amount</label>
+<div class="flex items-center gap-2">
+<span class="text-emerald-400 font-bold">$</span>
+<input class="bg-transparent border-none focus:ring-0 text-xl font-bold p-0 w-full text-on-surface" type="number" value="500"/>
+</div>
+</div>
+</div>
+<!-- Range Slider -->
+<div class="bg-surface-container-low rounded-xl p-8 mb-10 relative border border-white/5">
+<div class="flex justify-between mb-6 text-[12px] font-bold text-slate-500 uppercase tracking-tighter">
+<span>$0</span>
+<span>$10,000+</span>
+</div>
+<div class="relative h-2 w-full bg-slate-800 rounded-full mb-2">
+<!-- Active Track -->
+<div class="absolute left-[20%] right-[50%] h-full bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(0,230,203,0.3)]"></div>
+<!-- Range Thumb Mockup -->
+<div class="absolute left-[20%] top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-400 rounded-full shadow-[0_0_15px_rgba(0,230,203,0.4)] cursor-pointer"></div>
+<div class="absolute right-[50%] top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-400 rounded-full shadow-[0_0_15px_rgba(0,230,203,0.4)] cursor-pointer"></div>
+</div>
+<input class="absolute inset-0 opacity-0 cursor-pointer pointer-events-none" max="10000" min="0" type="range"/>
+</div>
+<!-- Preset Chips -->
+<div class="space-y-4">
+<h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Quick presets</h3>
+<div class="flex flex-wrap gap-3">
+<button class="px-5 py-2.5 rounded-full bg-white/5 text-[14px] font-medium text-on-surface hover:bg-emerald-400/10 hover:text-emerald-400 border border-white/5 transition-all">
+              Under $50
+            </button>
+<button class="px-5 py-2.5 rounded-full bg-white/5 text-[14px] font-medium text-on-surface hover:bg-emerald-400/10 hover:text-emerald-400 border border-white/5 transition-all">
+              $50 - $200
+            </button>
+<button class="px-5 py-2.5 rounded-full bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 text-[14px] font-bold transition-all">
+              $200 - $500
+            </button>
+<button class="px-5 py-2.5 rounded-full bg-white/5 text-[14px] font-medium text-on-surface hover:bg-emerald-400/10 hover:text-emerald-400 border border-white/5 transition-all">
+              $500+
+            </button>
+</div>
+</div>
+</section>
+<!-- Decorative Visual Placeholder -->
+<section class="mt-auto hidden lg:block">
+<div class="relative rounded-2xl overflow-hidden h-48 group">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent z-10"></div>
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="abstract digital visualization of financial data points and crystalline shapes in deep emerald and teal tones with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsgzw7TpwX_0r5Q36cMVRcPQg_O9RnsL861zYNQ77o2D3cN845plpt0G1AlHyxkWLNVbVAltIdFBsmbb_6O-rm-OlulGmLQzUAie2NnZnwBQ1Dd6m0jGKIJBpm6Z1PiYxuhBMe4wSu95UbE6E9PuNNVxF9nGg7P-SU6YYIbTtWAUcJiFdDID0oBbTVL4t7zoGdtl8VgVv2sQv-45HwWoUUgPqv2TGjnNAGeYCh-je9m7VaFAhhYlnOiWwyTyboTMriAHOfxv8-u6cX"/>
+<div class="absolute bottom-6 left-6 z-20">
+<p class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 mb-1">Financial Intelligence</p>
+<p class="text-[18px] font-bold text-white max-w-xs leading-tight">Advanced spend analysis powered by Emerald AI.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar -->
+<footer class="bg-slate-950/80 backdrop-blur-xl fixed bottom-0 left-0 w-full flex justify-between items-center px-6 gap-4 h-20 border-t border-white/10 z-50 shadow-[0_-4px_20px_rgba(0,230,203,0.1)]">
+<!-- Close Button -->
+<button class="flex items-center justify-center text-slate-300 bg-white/5 rounded-lg px-8 py-3 w-full mx-2 font-manrope font-bold text-[14px] hover:brightness-110 transition-all active:scale-[0.98] duration-200">
+<span class="material-symbols-outlined mr-2" data-icon="close">close</span>
+      Close
+    </button>
+<!-- Apply Filters Button -->
+<button class="flex items-center justify-center bg-emerald-400 text-slate-950 rounded-lg px-8 py-3 w-full mx-2 font-manrope font-bold text-[14px] hover:brightness-110 transition-all active:scale-[0.98] duration-200">
+<span class="material-symbols-outlined mr-2" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+      Apply Filters
+    </button>
+</footer>
+</body></html>

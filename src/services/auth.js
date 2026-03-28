@@ -86,7 +86,7 @@ export const signInWithGoogle = async () => {
  */
 export const resetPasswordForEmail = async (email) => {
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${window.location.origin}/reset-password`,
+    redirectTo: `${cl.location.origin}/reset-password`,
   });
 
   if (error) {

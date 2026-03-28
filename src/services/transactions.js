@@ -17,11 +17,46 @@ export const transactionsService = {
           categories:category_id (name, emoji, type),
           accounts:account_id (name, type, currency)
         `)
-        .eq('user_id', userId)
-        .order('date', { ascending: false })
-        .order('time', { ascending: false });
+        .eq('user_id', userId);
 
-      if (filters.limit) {
+      // Apply Period Filter
+      if (filters?.period && filters.period !== 'all') {
+        const today = new Date();
+        let startDate = new Date();
+        
+        switch (filters.period) {
+          case 'week':
+            startDate.setDate(today.getDate() - 7);
+            break;
+          case 'month':
+            startDate.setMonth(today.getMonth() - 1);
+            break;
+          case '6m':
+            startDate.setMonth(today.getMonth() - 6);
+            break;
+          case 'year':
+            startDate.setFullYear(today.getFullYear() - 1);
+            break;
+        }
+        
+        query = query.gte('date', startDate.toISOString().split('T')[0]);
+      }
+
+      // Apply Type Filter
+      if (filters?.type && filters.type !== 'all') {
+        query = query.eq('type', filters.type);
+      }
+
+      // Apply Include/Exclude Transfers Filter
+      if (filters && filters.includeTransfers === false) {
+        query = query.eq('is_transfer', false);
+      }
+
+      // Order by date and time
+      query = query.order('date', { ascending: false })
+                   .order('time', { ascending: false });
+
+      if (filters?.limit) {
         query = query.limit(filters.limit);
       }
 
