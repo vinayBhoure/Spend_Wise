@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { PlanCard } from '../components/profile/PlanCard';
+import { PageHeader } from '../components/layout/PageHeader';
 
 const PLANS = [
   {
@@ -55,16 +56,11 @@ export default function Plans() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background-dark/80 backdrop-blur-md flex items-center px-6 h-16 border-b border-white/5">
-        <button
-          onClick={() => navigate('/profile')}
-          className="text-primary active:scale-95 transition-transform p-2 rounded-full"
-        >
-          <ChevronLeft className="size-5" strokeWidth={2.5} />
-        </button>
-        <h1 className="text-lg font-bold tracking-tight text-primary ml-2">Plans</h1>
-      </header>
+      <PageHeader 
+        title="Plans"
+        showBack={true}
+        onBack={() => navigate('/profile')}
+      />
 
       {/* Main Content */}
       <main className="flex-1 px-6 pt-6 pb-32 overflow-y-auto space-y-4">

@@ -12,6 +12,7 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 import { getCurrencySymbol } from '../utils/currency';
+import { PageHeader } from '../components/layout/PageHeader';
 
 import { AmountInput } from '../components/transactions/AmountInput';
 import { TransferAccountCard } from '../components/transactions/TransferAccountCard';
@@ -125,19 +126,19 @@ export default function TransferFunds() {
 
   return (
     <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col relative overflow-hidden">
-      {/* Header */}
-      <header className="flex items-center justify-between p-4 sticky top-0 z-10 bg-background-dark/80 backdrop-blur-md border-b border-slate-800/50">
-        <button 
-          onClick={() => navigate('/dashboard')}
-          className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-800 transition-colors"
-        >
-          <ChevronLeft className="text-slate-100" />
-        </button>
-        <h1 className="text-lg font-bold tracking-tight text-slate-100 uppercase">Transfer Funds</h1>
-        <button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-800 transition-colors">
-          <Info className="text-slate-100" size={20} />
-        </button>
-      </header>
+      <PageHeader 
+        title="Transfer Funds"
+        showBack={true}
+        onBack={() => navigate('/dashboard')}
+        rightElement={
+          <button 
+            aria-label="Info"
+            className="size-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-900 dark:text-slate-100 active:scale-95 transition-transform hover:bg-slate-300/50 dark:hover:bg-slate-700/50"
+          >
+            <Info className="size-5" />
+          </button>
+        }
+      />
 
       <main className="flex-1 flex flex-col px-6 pt-6 max-w-md mx-auto w-full pb-32">
         {/* Transaction Type Switcher */}

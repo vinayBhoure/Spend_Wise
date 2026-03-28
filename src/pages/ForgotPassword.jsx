@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { resetPasswordThunk } from '../store/slices/authSlice';
 import { Input } from '../components/ui/Input';
 import { toast } from 'react-toastify';
+import { PageHeader } from '../components/layout/PageHeader';
 
 const forgotPasswordSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email address'),
@@ -46,12 +47,11 @@ export default function ForgotPassword() {
     <div className="bg-background-dark text-slate-100 min-h-screen flex flex-col items-center justify-start font-body antialiased relative">
       <div className="w-full max-w-[430px] min-h-screen flex flex-col px-8 py-12 relative overflow-hidden z-10">
         
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <Link to="/auth" className="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors">
-            <ArrowLeft className="text-white w-6 h-6" />
-          </Link>
-        </div>
+        <PageHeader 
+          title=""
+          showBack={true}
+          onBack={() => navigate('/auth')}
+        />
 
         {/* Title */}
         <div className="flex flex-col mb-10">

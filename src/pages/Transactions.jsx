@@ -10,6 +10,8 @@ import {
   selectTransactionsFilters,
   setFilters
 } from '../store/slices/transactionsSlice';
+import { fetchCategoriesThunk, selectCategories } from '../store/slices/categoriesSlice';
+import { fetchAccountsData, selectAccounts } from '../store/slices/accountsSlice';
 import { TransactionsHeader } from '../components/transactions/TransactionsHeader';
 import { TransactionGroup } from '../components/transactions/TransactionGroup';
 import { TransactionFilter } from '../components/ui/TransactionFilter';
@@ -79,21 +81,28 @@ export const Transactions = () => {
   const error = useSelector(selectTransactionsError);
   const summary = useSelector(selectTransactionsSummary);
   const filters = useSelector(selectTransactionsFilters);
+  const categories = useSelector(selectCategories);
+  const accounts = useSelector(selectAccounts);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Calculate active filter count
   let activeFilterCount = 0;
-  if (filters.period !== 'all') activeFilterCount += 1;
+  if (filters.startDate || filters.endDate) activeFilterCount += 1;
   if (filters.type !== 'all') activeFilterCount += 1;
-  if (!filters.includeTransfers) activeFilterCount += 1;
+  if (filters.minAmount || filters.maxAmount) activeFilterCount += 1;
+  if (filters.categories && filters.categories.length > 0) activeFilterCount += 1;
+  if (filters.accounts && filters.accounts.length > 0) activeFilterCount += 1;
 
   useEffect(() => {
     if (user?.id) {
       dispatch(fetchTransactions({ userId: user.id, filters }));
       dispatch(fetchTransactionsSummary(user.id));
+      
+      if (categories.length === 0) dispatch(fetchCategoriesThunk(user.id));
+      if (accounts.length === 0) dispatch(fetchAccountsData(user.id));
     }
-  }, [dispatch, user, filters]);
+  }, [dispatch, user, filters]); // deliberately excluding categories/accounts to avoid over-fetching
 
   const groupedTransactions = groupTransactionsByDate(transactions);
 

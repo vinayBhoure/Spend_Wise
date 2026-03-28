@@ -19,27 +19,12 @@ export const transactionsService = {
         `)
         .eq('user_id', userId);
 
-      // Apply Period Filter
-      if (filters?.period && filters.period !== 'all') {
-        const today = new Date();
-        let startDate = new Date();
-        
-        switch (filters.period) {
-          case 'week':
-            startDate.setDate(today.getDate() - 7);
-            break;
-          case 'month':
-            startDate.setMonth(today.getMonth() - 1);
-            break;
-          case '6m':
-            startDate.setMonth(today.getMonth() - 6);
-            break;
-          case 'year':
-            startDate.setFullYear(today.getFullYear() - 1);
-            break;
-        }
-        
-        query = query.gte('date', startDate.toISOString().split('T')[0]);
+      // Apply Date Filter
+      if (filters?.startDate) {
+        query = query.gte('date', filters.startDate);
+      }
+      if (filters?.endDate) {
+        query = query.lte('date', filters.endDate);
       }
 
       // Apply Type Filter
@@ -47,9 +32,22 @@ export const transactionsService = {
         query = query.eq('type', filters.type);
       }
 
-      // Apply Include/Exclude Transfers Filter
-      if (filters && filters.includeTransfers === false) {
-        query = query.eq('is_transfer', false);
+      // Apply Amount Filter
+      if (filters?.minAmount) {
+        query = query.gte('amount', filters.minAmount);
+      }
+      if (filters?.maxAmount) {
+        query = query.lte('amount', filters.maxAmount);
+      }
+
+      // Apply Categories Filter
+      if (filters?.categories && filters.categories.length > 0) {
+        query = query.in('category_id', filters.categories);
+      }
+
+      // Apply Accounts Filter
+      if (filters?.accounts && filters.accounts.length > 0) {
+        query = query.in('account_id', filters.accounts);
       }
 
       // Order by date and time

@@ -7,6 +7,7 @@ import { AccountFilters } from '../components/accounts/AccountFilters';
 import { AccountCard } from '../components/accounts/AccountCard';
 import { AddAccountButton } from '../components/accounts/AddAccountButton';
 import { BottomNav } from '../components/layout/BottomNav';
+import { PageHeader } from '../components/layout/PageHeader';
 
 export default function Accounts() {
   const navigate = useNavigate();
@@ -77,16 +78,11 @@ export default function Accounts() {
 
   return (
     <div className="min-h-screen max-w-[430px] mx-auto bg-background-dark text-slate-100 pb-28 font-manrope antialiased overflow-x-hidden">
-      {/* Header */}
-      <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl px-6 pt-12 pb-4 flex items-center gap-4">
-        <button
-          onClick={() => navigate('/settings')}
-          className="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors"
-        >
-          <ArrowLeft className="size-6 text-slate-100" />
-        </button>
-        <h1 className="text-xl font-bold tracking-tight">Accounts</h1>
-      </nav>
+      <PageHeader 
+        title="Accounts"
+        showBack={true}
+        onBack={() => navigate('/settings')}
+      />
 
       <main className="px-6 pb-8">
         <NetWorthCard netWorth={netWorth} currency={selectedCurrency} status={netWorthStatus} />

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEditTransaction } from '../hooks/useEditTransaction';
-import { EditTransactionHeader } from '../components/edit-transaction/EditTransactionHeader';
 import { EditTransactionForm } from '../components/edit-transaction/EditTransactionForm';
+import { PageHeader } from '../components/layout/PageHeader';
+import { Loader2 } from 'lucide-react';
 
 /**
  * Interface definition for EditTransaction page
@@ -98,13 +99,24 @@ export const EditTransaction = () => {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
-      <EditTransactionHeader
-        onClose={onClose}
-        onSave={onSave}
-        saving={saveStatus === 'loading'}
-        loading={status === 'loading'}
-        error={status === 'failed'}
+    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-manrope">
+      <PageHeader 
+        title="Edit Transaction"
+        showBack={true}
+        onBack={onClose}
+        rightElement={
+          status === 'loading' ? (
+            <Loader2 className="size-5 animate-spin text-primary" />
+          ) : (
+            <button
+              onClick={onSave}
+              disabled={saveStatus === 'loading'}
+              className="text-primary font-bold text-base px-2 disabled:opacity-50 active:scale-95 transition-transform"
+            >
+              {saveStatus === 'loading' ? <Loader2 className="size-5 animate-spin" /> : 'Save'}
+            </button>
+          )
+        }
       />
 
       <div className="flex-1 flex flex-col overflow-y-auto">

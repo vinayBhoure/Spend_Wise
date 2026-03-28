@@ -4,6 +4,7 @@ import { ChevronLeft, Plus, Loader2, AlertCircle } from 'lucide-react';
 import { useCategories } from '../hooks/useCategories';
 import { CategoryRow } from '../components/categories/CategoryRow';
 import { CategoryModal } from '../components/categories/CategoryModal';
+import { PageHeader } from '../components/layout/PageHeader';
 
 export default function ManageCategories() {
   const navigate = useNavigate();
@@ -71,25 +72,20 @@ export default function ManageCategories() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background-dark/80 backdrop-blur-md flex items-center justify-between px-6 h-16 border-b border-white/5">
-        <div className="flex items-center gap-2">
+      <PageHeader 
+        title="Categories"
+        showBack={true}
+        onBack={() => navigate('/settings')}
+        rightElement={
           <button
-            onClick={() => navigate('/settings')}
-            className="text-primary active:scale-95 transition-transform p-2 rounded-full"
+            onClick={handleAddClick}
+            className="flex items-center gap-1.5 bg-primary text-background-dark px-4 py-2 rounded-xl text-sm font-bold active:scale-95 transition-transform"
           >
-            <ChevronLeft className="size-5" strokeWidth={2.5} />
+            <Plus className="size-4" strokeWidth={2.5} />
+            <span>Add</span>
           </button>
-          <h1 className="text-lg font-bold tracking-tight text-primary">Categories</h1>
-        </div>
-        <button
-          onClick={handleAddClick}
-          className="flex items-center gap-1.5 bg-primary text-background-dark px-4 py-2 rounded-xl text-sm font-bold active:scale-95 transition-transform"
-        >
-          <Plus className="size-4" strokeWidth={2.5} />
-          Add
-        </button>
-      </header>
+        }
+      />
 
       {/* Tabs */}
       <div className="flex px-6 pt-4 gap-2">

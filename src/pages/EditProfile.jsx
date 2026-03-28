@@ -4,6 +4,7 @@ import { ChevronLeft, Camera, Loader2, CheckCircle, AlertCircle, User, Pencil } 
 import { toast } from 'react-toastify';
 import { useProfile } from '../hooks/useProfile';
 import { useAuth } from '../hooks/useAuth';
+import { PageHeader } from '../components/layout/PageHeader';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
@@ -86,21 +87,14 @@ export default function EditProfile() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background-dark/80 backdrop-blur-md flex items-center justify-between px-6 h-16 border-b border-white/5">
-        <div className="flex items-center gap-4">
-          <button
-            id="edit-profile-back-btn"
-            onClick={() => navigate('/profile')}
-            disabled={profileUpdating}
-            className="text-primary active:scale-95 transition-transform p-2 rounded-full disabled:opacity-50"
-          >
-            <ChevronLeft className="size-5" strokeWidth={2.5} />
-          </button>
-          <h1 className="text-lg font-bold tracking-tight text-primary">Edit Profile</h1>
-        </div>
-        <div className="text-primary font-bold text-xl tracking-tight">SpendWise</div>
-      </header>
+      <PageHeader 
+        title="Edit Profile"
+        showBack={true}
+        onBack={() => navigate('/profile')}
+        rightElement={
+          <div className="text-primary font-bold text-xl tracking-tight pr-2">SpendWise</div>
+        }
+      />
 
       {/* Main Content */}
       <main className="flex-1 px-6 pt-8 pb-10 overflow-y-auto">

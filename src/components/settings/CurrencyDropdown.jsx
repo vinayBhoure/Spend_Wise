@@ -13,7 +13,8 @@ import { CURRENCIES } from '../../utils/currency';
 
 const currencyOptions = CURRENCIES.map((c) => ({
   value: c.code,
-  label: `${c.code} (${c.symbol}) — ${c.name}`,
+  label: c.code,
+  icon: c.symbol,
 }));
 
 export const CurrencyDropdown = ({ value, onChange, updating }) => {

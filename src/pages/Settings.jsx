@@ -20,6 +20,7 @@ import { BottomNav } from '../components/layout/BottomNav';
 import { Toggle } from '../components/ui/Toggle';
 import { SettingRow } from '../components/settings/SettingRow';
 import { SettingGroup } from '../components/settings/SettingGroup';
+import { PageHeader } from '../components/layout/PageHeader';
 import { ProfileHeader } from '../components/settings/ProfileHeader';
 import { CurrencyDropdown } from '../components/settings/CurrencyDropdown';
 
@@ -90,17 +91,11 @@ export default function Settings() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background-light dark:bg-background-dark font-manrope antialiased pb-32">
-      <header className="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 pt-10 pb-4 border-b border-white/5">
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={() => navigate('/dashboard')}
-            className="size-10 rounded-xl bg-card-dark border border-white/5 text-slate-400 flex items-center justify-center active:scale-95 transition-transform"
-          >
-            <ChevronLeft className="size-5" strokeWidth={2.5} />
-          </button>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Settings</h1>
-        </div>
-      </header>
+      <PageHeader 
+        title="Settings"
+        showBack={true}
+        onBack={() => navigate('/dashboard')}
+      />
 
       {/* Main scrollable content */}
       <main className="flex-1 px-6">

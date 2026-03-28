@@ -31,9 +31,13 @@ const initialState = {
     percentageUsed: 0
   },
   filters: {
-    period: 'all',
-    type: 'all',
-    includeTransfers: true
+    startDate: '', // YYYY-MM-DD string
+    endDate: '',   // YYYY-MM-DD string
+    type: 'all',   // 'all', 'income', 'expense', 'transfer'
+    minAmount: '',
+    maxAmount: '',
+    categories: [], // Array of category IDs
+    accounts: [],   // Array of account IDs
   },
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
