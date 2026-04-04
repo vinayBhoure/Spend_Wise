@@ -5,11 +5,17 @@ import { ChevronLeft, Calendar } from 'lucide-react';
 
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
-import { fetchTransactions, selectAllTransactions } from '../store/slices/transactionsSlice';
+import { usePlan } from '../hooks/usePlan';
+import { 
+  fetchTransactions, 
+  selectAllTransactions, 
+  selectTransactionsFilters 
+} from '../store/slices/transactionsSlice';
 import { fetchAccountsData, selectAccounts } from '../store/slices/accountsSlice';
 
 import { BottomNav } from '../components/layout/BottomNav';
 import { PageHeader } from '../components/layout/PageHeader';
+import { UpgradeModal } from '../components/ui/UpgradeModal';
 import { DonutChart } from '../components/statistics/DonutChart';
 import { CategoryBreakdown } from '../components/statistics/CategoryBreakdown';
 import { DetailedCategoryBreakdown } from '../components/statistics/DetailedCategoryBreakdown';
@@ -23,24 +29,42 @@ export default function Statistics() {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const { data: profileData } = useProfile(true);
+  const { isPlusUser } = usePlan();
   const currencyCode = profileData?.currency || 'INR';
+
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
   const transactions = useSelector(selectAllTransactions);
   const rawAccounts = useSelector(selectAccounts);
 
+  const { historyMonthsLimit } = usePlan();
+  const filters = useSelector(selectTransactionsFilters);
+
   useEffect(() => {
     if (user?.id) {
-      if (transactions.length === 0) dispatch(fetchTransactions(user.id));
-      if (rawAccounts.length === 0) dispatch(fetchAccountsData(user.id));
+      dispatch(fetchTransactions({ userId: user.id, filters: { ...filters, historyMonthsLimit } }));
+      dispatch(fetchAccountsData(user.id));
     }
-  }, [user?.id, dispatch, transactions.length, rawAccounts.length]);
+  }, [user?.id, dispatch, filters, historyMonthsLimit]);
+
+  // For Free plan, force current month. Plus defaults to current month until custom date range is selected.
+  const currentYearMonth = useMemo(() => new Date().toISOString().slice(0, 7), []);
+  
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter(tx => {
+      if (!isPlusUser) {
+         return String(tx.date).startsWith(currentYearMonth);
+      }
+      return String(tx.date).startsWith(currentYearMonth); // Defaults to current month for now
+    });
+  }, [transactions, isPlusUser, currentYearMonth]);
 
   // Compute category breakdown data
   const { categoryData, totalExpense } = useMemo(() => {
     let total = 0;
     const groups = {};
 
-    transactions.forEach(tx => {
+    filteredTransactions.forEach(tx => {
       // Look at expenses only
       if (tx.type !== 'expense') return;
       
@@ -74,7 +98,7 @@ export default function Statistics() {
     }));
 
     return { categoryData: coloredCats, totalExpense: total };
-  }, [transactions, currencyCode]);
+  }, [filteredTransactions, currencyCode]);
 
   // Compute account breakdown data
   const { accountsWithColors, totalBalance } = useMemo(() => {
@@ -107,12 +131,12 @@ export default function Statistics() {
 
   // Get last 3 records
   const recentTransactions = useMemo(() => {
-    return [...transactions].sort((a, b) => {
+    return [...filteredTransactions].sort((a, b) => {
       const dateA = new Date(`${a.date}T${a.time || '00:00:00'}`);
       const dateB = new Date(`${b.date}T${b.time || '00:00:00'}`);
       return dateB - dateA;
     }).slice(0, 3);
-  }, [transactions]);
+  }, [filteredTransactions]);
 
   return (
     <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display pb-32">
@@ -121,8 +145,17 @@ export default function Statistics() {
         showBack={true}
         rightElement={
           <button 
+            onClick={() => {
+              if (!isPlusUser) {
+                setUpgradeModalOpen(true);
+              }
+            }}
             aria-label="Calendar"
-            className="size-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-900 dark:text-slate-100 active:scale-95 transition-transform hover:bg-slate-300/50 dark:hover:bg-slate-700/50"
+            className={`size-10 rounded-xl flex items-center justify-center transition-transform ${
+              !isPlusUser 
+                ? 'bg-slate-200/50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 opacity-60'
+                : 'bg-slate-200/50 dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 active:scale-95 hover:bg-slate-300/50 dark:hover:bg-slate-700/50'
+            }`}
           >
             <Calendar className="size-5" />
           </button>
@@ -182,6 +215,12 @@ export default function Statistics() {
           </section>
         )}
       </main>
+
+      <UpgradeModal 
+        isOpen={upgradeModalOpen} 
+        onClose={() => setUpgradeModalOpen(false)} 
+        featureName="Custom Date Ranges"
+      />
 
       <BottomNav />
     </div>

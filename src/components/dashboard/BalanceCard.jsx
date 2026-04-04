@@ -5,15 +5,11 @@ import { formatCurrency } from '../../utils/currency';
 /**
  * @param {{
  *   balance: number,
- *   budgetTotal: number,
- *   budgetPercentage: number,
  *   currencyCode: string
  * }} props
  */
-export const BalanceCard = ({ balance, budgetTotal, budgetPercentage, currencyCode = 'INR' }) => {
+export const BalanceCard = ({ balance, currencyCode = 'INR' }) => {
   const formattedBalance = formatCurrency(balance, currencyCode);
-
-  const formattedBudget = formatCurrency(budgetTotal, currencyCode);
 
   return (
     <Card variant="emerald">
@@ -25,23 +21,7 @@ export const BalanceCard = ({ balance, budgetTotal, budgetPercentage, currencyCo
           </span>
         </div>
         
-        <h2 className="text-4xl font-bold tracking-tight mb-8">{formattedBalance}</h2>
-        
-        <div className="space-y-3">
-          <div className="flex justify-between text-[11px] font-semibold uppercase tracking-wider">
-            <span className="text-slate-500">Monthly Budget: {formattedBudget}</span>
-            <span className={budgetPercentage > 90 ? 'text-destructive' : 'text-primary'}>
-              {budgetPercentage}% used
-            </span>
-          </div>
-          
-          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-            <div 
-              className={`h-full rounded-full ${budgetPercentage > 90 ? 'bg-destructive shadow-[0_0_8px_rgba(255,90,126,0.5)]' : 'bg-primary shadow-[0_0_8px_rgba(0,230,203,0.5)]'}`}
-              style={{ width: `${Math.min(100, budgetPercentage)}%` }}
-            />
-          </div>
-        </div>
+        <h2 className="text-4xl font-bold tracking-tight mb-2">{formattedBalance}</h2>
       </div>
       
       {/* Glow effect */}

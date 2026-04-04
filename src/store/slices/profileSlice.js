@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchProfile, updateProfileCurrency, updateProfile, uploadAvatar, deleteUserAccount } from '../../services/profiles';
+import { fetchProfile, updateProfileCurrency, updateProfile, uploadAvatar, deleteUserAccount, markOnboardingComplete } from '../../services/profiles';
 
 const initialState = {
   data: null,
@@ -57,6 +57,17 @@ export const deleteUserAccountThunk = createAsyncThunk(
     try {
       await deleteUserAccount();
       return true;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const markOnboardingCompleteThunk = createAsyncThunk(
+  'profile/markOnboardingComplete',
+  async (userId, { rejectWithValue }) => {
+    try {
+      return await markOnboardingComplete(userId);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -127,6 +138,19 @@ const profileSlice = createSlice({
       .addCase(deleteUserAccountThunk.rejected, (state, action) => {
         state.deleting = false;
         state.error = action.payload;
+      })
+      // Mark onboarding complete
+      .addCase(markOnboardingCompleteThunk.pending, (state) => {
+        state.profileUpdating = true;
+        state.error = null;
+      })
+      .addCase(markOnboardingCompleteThunk.fulfilled, (state, action) => {
+        state.data = { ...state.data, ...action.payload };
+        state.profileUpdating = false;
+      })
+      .addCase(markOnboardingCompleteThunk.rejected, (state, action) => {
+        state.profileUpdating = false;
+        state.error = action.payload;
       });
   },
 });
@@ -139,5 +163,6 @@ export const selectProfileError = (state) => state.profile.error;
 export const selectCurrencyUpdating = (state) => state.profile.currencyUpdating;
 export const selectProfileUpdating = (state) => state.profile.profileUpdating;
 export const selectProfileDeleting = (state) => state.profile.deleting;
+export const selectIsOnboarded = (state) => state.profile.data?.is_onboarded ?? null;
 
 export default profileSlice.reducer;

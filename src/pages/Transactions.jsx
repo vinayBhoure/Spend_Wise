@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchTransactions,
-  fetchTransactionsSummary,
   selectAllTransactions,
   selectTransactionsStatus,
   selectTransactionsError,
-  selectTransactionsSummary,
   selectTransactionsFilters,
   setFilters
 } from '../store/slices/transactionsSlice';
@@ -15,11 +13,11 @@ import { fetchAccountsData, selectAccounts } from '../store/slices/accountsSlice
 import { TransactionsHeader } from '../components/transactions/TransactionsHeader';
 import { TransactionGroup } from '../components/transactions/TransactionGroup';
 import { TransactionFilter } from '../components/ui/TransactionFilter';
-import { SummaryCard } from '../components/ui/SummaryCard';
 import { BottomNav } from '../components/layout/BottomNav';
-import { TrendingUp, TrendingDown, ReceiptText } from 'lucide-react';
+import { ReceiptText } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
+import { usePlan } from '../hooks/usePlan';
 import { formatCurrency } from '../utils/currency';
 
 // Helper to group transactions by date
@@ -79,10 +77,10 @@ export const Transactions = () => {
   const transactions = useSelector(selectAllTransactions);
   const status = useSelector(selectTransactionsStatus);
   const error = useSelector(selectTransactionsError);
-  const summary = useSelector(selectTransactionsSummary);
   const filters = useSelector(selectTransactionsFilters);
   const categories = useSelector(selectCategories);
   const accounts = useSelector(selectAccounts);
+  const { historyMonthsLimit } = usePlan();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -96,13 +94,12 @@ export const Transactions = () => {
 
   useEffect(() => {
     if (user?.id) {
-      dispatch(fetchTransactions({ userId: user.id, filters }));
-      dispatch(fetchTransactionsSummary(user.id));
+      dispatch(fetchTransactions({ userId: user.id, filters: { ...filters, historyMonthsLimit } }));
       
       if (categories.length === 0) dispatch(fetchCategoriesThunk(user.id));
       if (accounts.length === 0) dispatch(fetchAccountsData(user.id));
     }
-  }, [dispatch, user, filters]); // deliberately excluding categories/accounts to avoid over-fetching
+  }, [dispatch, user, filters, historyMonthsLimit]); // deliberately excluding categories/accounts to avoid over-fetching
 
   const groupedTransactions = groupTransactionsByDate(transactions);
 
@@ -114,25 +111,6 @@ export const Transactions = () => {
       />
 
       <main className="flex-1 px-6 pb-32">
-        {/* Summary Mini-Cards */}
-        {/* <div className="flex gap-4 overflow-x-auto custom-scrollbar mb-10 -mx-1 px-1">
-          <SummaryCard 
-            title="Total Spent"
-            amount={formatCurrency(summary.totalSpent, currencyCode)}
-            variant="default"
-            trend={{
-              label: 'This Month',
-              isPositive: false,
-              icon: TrendingDown
-            }}
-          />
-          <SummaryCard 
-            title="Remaining"
-            amount={formatCurrency(summary.remaining, currencyCode)}
-            variant="primary"
-            progress={summary.percentageUsed}
-          />
-        </div> */}
 
         {/* State Handling */}
         {status === 'loading' && (
@@ -148,8 +126,7 @@ export const Transactions = () => {
             <p className="text-slate-400 text-sm">{error}</p>
             <button
               onClick={() => {
-                dispatch(fetchTransactions({ userId: user.id, filters }));
-                dispatch(fetchTransactionsSummary(user.id));
+                dispatch(fetchTransactions({ userId: user.id, filters: { ...filters, historyMonthsLimit } }));
               }}
               className="mt-4 px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-bold"
             >

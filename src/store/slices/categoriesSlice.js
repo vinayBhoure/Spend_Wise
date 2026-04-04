@@ -4,6 +4,7 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
+  ensureOtherCategory,
 } from '../../services/categories';
 
 const initialState = {
@@ -16,7 +17,10 @@ export const fetchCategoriesThunk = createAsyncThunk(
   'categories/fetchCategories',
   async (userId, { rejectWithValue }) => {
     try {
-      return await fetchCategories(userId);
+      const categories = await fetchCategories(userId);
+      // Ensure "Other" catch-all exists for both income & expense
+      const withOther = await ensureOtherCategory(userId, categories);
+      return withOther;
     } catch (error) {
       return rejectWithValue(error.message);
     }

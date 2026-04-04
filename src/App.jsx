@@ -14,6 +14,8 @@ import EmailVerification from './pages/EmailVerification'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import AddAccount from './pages/AddAccount'
+import SetupCurrency from './pages/SetupCurrency'
+import SetupAccount from './pages/SetupAccount'
 import { Dashboard } from './pages/Dashboard'
 import Transactions from './pages/Transactions'
 import AddTransaction from './pages/AddTransaction'
@@ -27,7 +29,7 @@ import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 import DeleteConfirmation from './pages/DeleteConfirmation'
 import Plans from './pages/Plans'
-import ManageCategories from './pages/ManageCategories'
+import { ManageCategories } from './pages/ManageCategories'
 
 function App() {
   const dispatch = useDispatch()
@@ -57,6 +59,8 @@ function App() {
           <Route path="/verify-email" element={<EmailVerification />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/setup-currency" element={<SetupCurrency />} />
+          <Route path="/setup-account" element={<SetupAccount />} />
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>

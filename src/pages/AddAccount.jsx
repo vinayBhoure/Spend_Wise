@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, Landmark, Banknote, QrCode, CreditCard, ArrowRight, Loader2, AlertCircle, Pencil, Wallet } from 'lucide-react';
 import { useAccounts } from '../hooks/useAccounts';
 import { useProfile } from '../hooks/useProfile';
+import { usePlan } from '../hooks/usePlan';
 import { getCurrencySymbol } from '../utils/currency';
 import { PageHeader } from '../components/layout/PageHeader';
 
@@ -15,9 +16,12 @@ const ACCOUNT_TYPES = [
 
 export default function AddAccount() {
   const navigate = useNavigate();
-  const { addAccount } = useAccounts();
+  const { addAccount, accounts } = useAccounts();
   const { data: profileData } = useProfile(true);
+  const { maxAccounts } = usePlan();
   const selectedCurrency = profileData?.currency || 'INR';
+
+  const isLimitReached = accounts.length >= maxAccounts;
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -69,6 +73,35 @@ export default function AddAccount() {
       />
 
       <main className="flex-1 px-6 pt-6 overflow-y-auto pb-32 no-scrollbar">
+        {loading && !accounts.length ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center mx-auto">
+            <Loader2 className="size-10 text-primary animate-spin mb-4" />
+            <p className="text-slate-400 text-sm font-medium">Checking account limits...</p>
+          </div>
+        ) : isLimitReached ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center max-w-[340px] mx-auto px-6">
+            <div className="size-20 rounded-[2rem] bg-gradient-to-br from-amber-400/20 to-amber-600/10 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(245,158,11,0.1)] border border-amber-500/20">
+              <AlertCircle size={40} className="text-amber-500" strokeWidth={1.5} />
+            </div>
+            <h3 className="text-2xl font-black text-white mb-3 tracking-tight leading-7">Account Limit <br/> Reached</h3>
+            <p className="text-slate-400 text-[15px] font-medium leading-relaxed mb-8">
+              The Free plan allows up to <span className="text-white font-bold">{maxAccounts} accounts</span>. Upgrade to Plus for unlimited institutional tracking.
+            </p>
+            <button
+              onClick={() => navigate('/plans')}
+              className="w-full h-14 bg-amber-500 text-amber-950 font-black text-sm uppercase tracking-widest rounded-2xl shadow-lg shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-3"
+            >
+              <span>Explore Plus Plan</span>
+              <ArrowRight className="size-5" strokeWidth={3} />
+            </button>
+            <button 
+              onClick={() => navigate('/accounts')}
+              className="mt-4 text-slate-500 font-bold text-xs uppercase tracking-widest hover:text-slate-300 transition-colors"
+            >
+              Go Back
+            </button>
+          </div>
+        ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-8 max-w-[400px] mx-auto">
           {/* Abstract Hero Pattern */}
           <div className="relative h-32 shrink-0 w-full rounded-2xl overflow-hidden bg-primary/5 border border-primary/10">
@@ -162,6 +195,7 @@ export default function AddAccount() {
             )}
           </button>
         </form>
+        )}
       </main>
 
       {/* Background Decorative Elements */}

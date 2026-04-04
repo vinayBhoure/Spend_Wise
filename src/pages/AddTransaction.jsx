@@ -11,6 +11,7 @@ import {
 } from '../store/slices/addTransactionSlice';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
+import { usePlan } from '../hooks/usePlan';
 
 import { AmountInput } from '../components/transactions/AmountInput';
 import { CategorySelect } from '../components/categories/CategorySelect';
@@ -27,6 +28,7 @@ export default function AddTransaction() {
   const { submitStatus, submitError } = useSelector(selectAddTransactionSubmitState);
   const { data: profileData } = useProfile(true);
   const selectedCurrency = profileData?.currency || 'INR';
+  const { canManageCustomCategories } = usePlan();
 
   const [type, setType] = useState('expense');
   const [amount, setAmount] = useState('');
@@ -54,7 +56,11 @@ export default function AddTransaction() {
     }
   }, [submitStatus, navigate, dispatch]);
 
-  const filteredCategories = categories.filter((cat) => cat.type === type);
+  // Free users only see system categories; Plus users see all
+  const planFilteredCategories = canManageCustomCategories
+    ? categories
+    : categories.filter((cat) => !cat.is_deletable);
+  const filteredCategories = planFilteredCategories.filter((cat) => cat.type === type);
 
   const accountOptions = accounts.map((acc) => ({
     value: acc.id,

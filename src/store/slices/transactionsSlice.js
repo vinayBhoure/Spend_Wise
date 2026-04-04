@@ -12,24 +12,9 @@ export const fetchTransactions = createAsyncThunk(
   }
 );
 
-export const fetchTransactionsSummary = createAsyncThunk(
-  'transactions/fetchSummary',
-  async (userId, { rejectWithValue }) => {
-    try {
-      return await transactionsService.fetchTransactionsSummary(userId);
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const initialState = {
   items: [],
-  summary: {
-    totalSpent: 0,
-    remaining: 0,
-    percentageUsed: 0
-  },
   filters: {
     startDate: '', // YYYY-MM-DD string
     endDate: '',   // YYYY-MM-DD string
@@ -65,10 +50,6 @@ const transactionsSlice = createSlice({
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
-      })
-      // fetchTransactionsSummary
-      .addCase(fetchTransactionsSummary.fulfilled, (state, action) => {
-        state.summary = action.payload;
       });
   },
 });
@@ -81,5 +62,4 @@ export default transactionsSlice.reducer;
 export const selectAllTransactions = (state) => state.transactions.items;
 export const selectTransactionsStatus = (state) => state.transactions.status;
 export const selectTransactionsError = (state) => state.transactions.error;
-export const selectTransactionsSummary = (state) => state.transactions.summary;
 export const selectTransactionsFilters = (state) => state.transactions.filters;

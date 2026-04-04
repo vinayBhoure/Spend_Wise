@@ -73,3 +73,40 @@ export async function deleteCategory(categoryId) {
 
   if (error) throw error;
 }
+
+/**
+ * Ensures default "Other" categories exist for both income and expense.
+ * Called after fetchCategories — if no "Other" category is found, inserts one.
+ * @param {string} userId
+ * @param {Array} existingCategories
+ * @returns {Promise<Array>}
+ */
+export async function ensureOtherCategory(userId, existingCategories) {
+  const types = ['income', 'expense'];
+  const missing = [];
+
+  for (const type of types) {
+    const hasOther = existingCategories.some(
+      (c) => c.name.toLowerCase() === 'other' && c.type === type
+    );
+    if (!hasOther) {
+      missing.push({
+        user_id: userId,
+        name: 'Other',
+        emoji: '📦',
+        type,
+        is_deletable: false,
+      });
+    }
+  }
+
+  if (missing.length === 0) return existingCategories;
+
+  const { data, error } = await supabase
+    .from('categories')
+    .insert(missing)
+    .select('id, name, emoji, type, is_deletable');
+
+  if (error) throw error;
+  return [...existingCategories, ...data];
+}

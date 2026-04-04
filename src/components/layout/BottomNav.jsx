@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Home, ReceiptText, PieChart, Settings, Plus } from 'lucide-react';
 
 const navItems = [
@@ -11,6 +11,10 @@ const navItems = [
 
 export const BottomNav = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const hideAddButtonPaths = ['/statistics', '/settings', '/transactions'];
+  const shouldHideAddButton = hideAddButtonPaths.includes(location.pathname);
 
   return (
     <nav className="fixed bottom-0 w-full max-w-[430px] left-1/2 -translate-x-1/2 flex justify-around items-center px-4 pb-[env(safe-area-inset-bottom)] h-[calc(5rem+env(safe-area-inset-bottom))] bg-slate-950/90 backdrop-blur-xl border-t border-white/5 z-50 shadow-[0_-4px_25px_rgba(0,0,0,0.5)]">
@@ -19,18 +23,21 @@ export const BottomNav = () => {
       {navItems.map((item, index) => {
         const Icon = item.icon;
 
-        // Insert FAB in the middle
+        // Condition for FAB insertion
         if (index === 2) {
           return (
-            <React.Fragment key="fab">
-              <div className="relative -top-6">
-                <button
-                  onClick={() => navigate('/add-transaction')}
-                  className="size-16 rounded-2xl bg-primary text-background-dark shadow-[0_8px_30px_rgb(0,230,203,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
-                >
-                  <Plus className="size-8" strokeWidth={3} />
-                </button>
-              </div>
+            <React.Fragment key={item.path}>
+              {!shouldHideAddButton && (
+                <div className="relative -top-6">
+                  <button
+                    onClick={() => navigate('/add-transaction')}
+                    className="size-16 rounded-2xl bg-primary text-background-dark shadow-[0_8px_30px_rgb(0,230,203,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
+                    aria-label="Add Transaction"
+                  >
+                    <Plus className="size-8" strokeWidth={3} />
+                  </button>
+                </div>
+              )}
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>

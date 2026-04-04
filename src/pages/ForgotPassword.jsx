@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Mail, ArrowLeft, KeyRound } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Mail, KeyRound } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetPasswordThunk } from '../store/slices/authSlice';
 import { Input } from '../components/ui/Input';
@@ -17,6 +17,7 @@ const forgotPasswordSchema = z.object({
 export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -60,14 +61,14 @@ export default function ForgotPassword() {
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Forgot Password</h1>
           <p className="text-slate-400 text-sm leading-relaxed">
-            Enter your username and we'll send you a link to reset your password.
+            Enter your email address and we'll send you a link to reset your password.
           </p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 flex-1">
           <Input
-            label="Username"
+            label="Email Address"
             icon={Mail}
             type="email"
             placeholder="johndoe@example.com"

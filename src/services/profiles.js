@@ -10,7 +10,7 @@ export async function fetchProfile(userId) {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, username, full_name, avatar_url, currency')
+    .select('id, username, full_name, avatar_url, currency, is_onboarded, plan')
     .eq('id', userId)
     .single();
 
@@ -91,4 +91,23 @@ export async function updateProfileCurrency(userId, currency) {
 export async function deleteUserAccount() {
   const { error } = await supabase.rpc('delete_user_account');
   if (error) throw error;
+}
+
+/**
+ * Marks the user's onboarding as complete.
+ * @param {string} userId
+ * @returns {Promise<object>}
+ */
+export async function markOnboardingComplete(userId) {
+  if (!userId) throw new Error('User ID is required');
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({ is_onboarded: true })
+    .eq('id', userId)
+    .select('id, username, full_name, avatar_url, currency, is_onboarded, plan')
+    .single();
+
+  if (error) throw error;
+  return data;
 }

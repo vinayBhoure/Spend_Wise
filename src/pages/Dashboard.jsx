@@ -7,10 +7,14 @@ import { BalanceCard } from '../components/dashboard/BalanceCard';
 import { HabitStreakTracker } from '../components/dashboard/HabitStreakTracker';
 import { SpendingTrendGraph } from '../components/dashboard/SpendingTrendGraph';
 import { RecentTransactionsList } from '../components/dashboard/RecentTransactionsList';
+import { IncomeExpenseCard } from '../components/dashboard/IncomeExpenseCard';
+import { DonutChart } from '../components/statistics/DonutChart';
 import { BottomNav } from '../components/layout/BottomNav';
-import { Loader2, WifiOff, AlertCircle } from 'lucide-react';
+import { Loader2, WifiOff, AlertCircle, PlusCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const Dashboard = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { data, loading, error, refreshData } = useDashboard();
   const { data: profileData, loading: profileLoading } = useProfile(true);
@@ -72,7 +76,35 @@ export const Dashboard = () => {
     );
   }
 
-  // Empty State handled implicitly if data exists but zero balance, etc.
+  // Empty State
+  if (data && data.recentLogs?.length === 0 && data.balance === 0) {
+    return (
+      <div className="min-h-screen bg-background-light dark:bg-background-dark font-manrope antialiased pb-28">
+        <DashboardHeader 
+          user={user} 
+          profile={profileData}
+          profileLoading={profileLoading}
+          notificationsCount={1}
+        />
+        <main className="px-6 flex flex-col items-center justify-center mt-20 text-center">
+          <div className="size-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <PlusCircle className="size-10 text-primary" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Welcome to SpendWise</h2>
+          <p className="text-slate-500 mb-8 max-w-xs mx-auto">
+            Your dashboard is looking a bit empty. Let's add your first transaction to get started!
+          </p>
+          <button 
+            onClick={() => navigate('/add-transaction')}
+            className="w-full bg-primary text-background-dark font-black tracking-tight py-4 rounded-xl active:scale-95 transition-transform shadow-[0_4px_20px_rgba(0,230,203,0.3)] mb-4"
+          >
+            Add First Transaction
+          </button>
+        </main>
+        <BottomNav />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 pb-28 font-manrope antialiased">
@@ -88,11 +120,24 @@ export const Dashboard = () => {
           <>
             <BalanceCard
               balance={data.balance}
-              budgetTotal={data.budget.total}
-              budgetUsed={data.budget.used}
-              budgetPercentage={data.budget.percentage}
               currencyCode={currencyCode}
             />
+
+            <IncomeExpenseCard
+              income={data.monthSummary.income}
+              expense={data.monthSummary.expense}
+              savings={data.monthSummary.savings}
+              currencyCode={currencyCode}
+            />
+
+            <section className="bg-card-dark/30 p-4 rounded-2xl border border-white/5 backdrop-blur-sm shadow-xl">
+              <h3 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 mb-2">Category Breakdown</h3>
+              <DonutChart 
+                totalSpent={data.monthSummary.expense} 
+                currencyCode={currencyCode} 
+                categories={data.categoryBreakdown} 
+              />
+            </section>
 
             <HabitStreakTracker
               streakDays={data.streak.days}

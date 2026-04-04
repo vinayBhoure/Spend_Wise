@@ -18,6 +18,7 @@ import {
   selectEditError
 } from '../store/slices/editTransactionSlice';
 import { useAuth } from './useAuth';
+import { usePlan } from './usePlan';
 
 /**
  * Hook to manage edit transaction state and actions
@@ -26,9 +27,15 @@ import { useAuth } from './useAuth';
 export const useEditTransaction = (id) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
+  const { canManageCustomCategories } = usePlan();
 
   const transaction = useSelector(selectCurrentTransaction);
-  const categories = useSelector(selectEditCategories);
+  const allCategories = useSelector(selectEditCategories);
+
+  // Free users only see system categories; Plus users see all
+  const categories = canManageCustomCategories
+    ? allCategories
+    : allCategories.filter((cat) => !cat.is_deletable);
   const accounts = useSelector(selectEditAccounts);
   const currency = useSelector(selectEditCurrency);
   const status = useSelector(selectEditStatus);

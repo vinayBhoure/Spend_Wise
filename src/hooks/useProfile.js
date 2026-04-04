@@ -5,12 +5,14 @@ import {
   updateCurrencyThunk,
   updateProfileThunk,
   deleteUserAccountThunk,
+  markOnboardingCompleteThunk,
   selectProfileData,
   selectProfileLoading,
   selectProfileError,
   selectCurrencyUpdating,
   selectProfileUpdating,
   selectProfileDeleting,
+  selectIsOnboarded,
   clearProfileError,
 } from '../store/slices/profileSlice';
 import { useAuth } from './useAuth';
@@ -25,6 +27,7 @@ export const useProfile = (autoFetch = false) => {
   const currencyUpdating = useSelector(selectCurrencyUpdating);
   const profileUpdating = useSelector(selectProfileUpdating);
   const deleting = useSelector(selectProfileDeleting);
+  const isOnboarded = useSelector(selectIsOnboarded);
 
   const fetchUserProfile = useCallback(() => {
     if (user?.id) {
@@ -66,6 +69,12 @@ export const useProfile = (autoFetch = false) => {
     dispatch(clearProfileError());
   }, [dispatch]);
 
+  const markOnboardingComplete = useCallback(() => {
+    if (user?.id) {
+      return dispatch(markOnboardingCompleteThunk(user.id)).unwrap();
+    }
+  }, [dispatch, user?.id]);
+
   return {
     data,
     loading,
@@ -73,10 +82,12 @@ export const useProfile = (autoFetch = false) => {
     currencyUpdating,
     profileUpdating,
     deleting,
+    isOnboarded,
     fetchUserProfile,
     updateCurrency,
     updateProfileDetails,
     deleteAccount,
     clearError,
+    markOnboardingComplete,
   };
 };
