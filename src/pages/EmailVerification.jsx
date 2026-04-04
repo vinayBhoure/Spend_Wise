@@ -44,9 +44,9 @@ export default function EmailVerification() {
         <div className="space-y-4">
           <h1 className="text-3xl font-bold tracking-tight text-white px-4 leading-tight">Check your email</h1>
           <p className="text-slate-400 font-medium px-2">
-            We've sent a verification link to <br/>
+            We've sent a verification link to <br />
             <span className="text-white font-bold">{user?.email || 'your email'}</span>.
-            <br/>Please verify to continue.
+            <br />Please verify to continue.
           </p>
         </div>
 

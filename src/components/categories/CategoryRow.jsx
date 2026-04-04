@@ -9,16 +9,17 @@ import { Pencil, Trash2 } from 'lucide-react';
  * @property {boolean} isDeletable
  * @property {function} [onEdit]
  * @property {function} [onDelete]
+ * @property {boolean} [readOnly]
  */
 
-export const CategoryRow = ({ emoji, name, isDeletable, onEdit, onDelete }) => {
+export const CategoryRow = ({ emoji, name, isDeletable, onEdit, onDelete, readOnly = false }) => {
   return (
     <div className="flex items-center justify-between py-3 px-4 group">
       <div className="flex items-center gap-3 min-w-0">
         <span className="text-2xl shrink-0">{emoji}</span>
         <span className="text-sm font-semibold text-slate-100 truncate">{name}</span>
       </div>
-      {isDeletable && (
+      {isDeletable && !readOnly && (
         <div className="flex items-center gap-1 shrink-0">
           <button
             onClick={onEdit}
@@ -46,4 +47,6 @@ CategoryRow.propTypes = {
   isDeletable: PropTypes.bool.isRequired,
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
+  readOnly: PropTypes.bool,
 };
+

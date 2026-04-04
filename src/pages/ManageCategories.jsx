@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Plus, Loader2, AlertCircle } from 'lucide-react';
+import { Plus, Loader2, AlertCircle } from 'lucide-react';
 import { useCategories } from '../hooks/useCategories';
+import { usePlan } from '../hooks/usePlan';
 import { CategoryRow } from '../components/categories/CategoryRow';
 import { CategoryModal } from '../components/categories/CategoryModal';
+import { UpgradePrompt } from '../components/categories/UpgradePrompt';
 import { PageHeader } from '../components/layout/PageHeader';
 
-export default function ManageCategories() {
+export function ManageCategories() {
   const navigate = useNavigate();
   const { categories, loading, error, addCategory, editCategory, removeCategory } = useCategories(true);
+  const { canManageCustomCategories } = usePlan();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
   const [activeCategoryType, setActiveCategoryType] = useState('expense');
   const [activeTab, setActiveTab] = useState('expense');
 
-  const expenseCategories = categories.filter((c) => c.type === 'expense');
-  const incomeCategories = categories.filter((c) => c.type === 'income');
+  // For Free users: hide custom (is_deletable) categories entirely
+  const visibleCategories = canManageCustomCategories
+    ? categories
+    : categories.filter((c) => !c.is_deletable);
+
+  const expenseCategories = visibleCategories.filter((c) => c.type === 'expense');
+  const incomeCategories = visibleCategories.filter((c) => c.type === 'income');
   const displayedCategories = activeTab === 'expense' ? expenseCategories : incomeCategories;
 
   const handleAddClick = () => {
@@ -77,13 +85,15 @@ export default function ManageCategories() {
         showBack={true}
         onBack={() => navigate('/settings')}
         rightElement={
-          <button
-            onClick={handleAddClick}
-            className="flex items-center gap-1.5 bg-primary text-background-dark px-4 py-2 rounded-xl text-sm font-bold active:scale-95 transition-transform"
-          >
-            <Plus className="size-4" strokeWidth={2.5} />
-            <span>Add</span>
-          </button>
+          canManageCustomCategories ? (
+            <button
+              onClick={handleAddClick}
+              className="flex items-center gap-1.5 bg-primary text-background-dark px-4 py-2 rounded-xl text-sm font-bold active:scale-95 transition-transform"
+            >
+              <Plus className="size-4" strokeWidth={2.5} />
+              <span>Add</span>
+            </button>
+          ) : null
         }
       />
 
@@ -111,18 +121,25 @@ export default function ManageCategories() {
         </button>
       </div>
 
+      {/* Upgrade Prompt for Free users */}
+      {!canManageCustomCategories && (
+        <UpgradePrompt onUpgrade={() => navigate('/plans')} />
+      )}
+
       {/* Main Content */}
       <main className="flex-1 px-6 pt-4 pb-10 overflow-y-auto">
         {/* Empty state */}
         {displayedCategories.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <p className="text-slate-500 text-sm font-medium mb-2">No {activeTab} categories yet</p>
-            <button
-              onClick={handleAddClick}
-              className="text-primary text-sm font-bold active:scale-95 transition-transform"
-            >
-              Add your first category
-            </button>
+            {canManageCustomCategories && (
+              <button
+                onClick={handleAddClick}
+                className="text-primary text-sm font-bold active:scale-95 transition-transform"
+              >
+                Add your first category
+              </button>
+            )}
           </div>
         )}
 
@@ -134,6 +151,7 @@ export default function ManageCategories() {
                 emoji={category.emoji}
                 name={category.name}
                 isDeletable={category.is_deletable}
+                readOnly={!canManageCustomCategories}
                 onEdit={() => handleEditClick(category)}
                 onDelete={() => handleDelete(category.id)}
               />
@@ -142,17 +160,19 @@ export default function ManageCategories() {
         )}
       </main>
 
-      {/* Category Modal */}
-      <CategoryModal
-        isOpen={modalOpen}
-        onClose={() => {
-          setModalOpen(false);
-          setEditingCategory(null);
-        }}
-        onSave={handleSave}
-        initialData={editingCategory}
-        categoryType={activeCategoryType}
-      />
+      {/* Category Modal — only render for Plus users */}
+      {canManageCustomCategories && (
+        <CategoryModal
+          isOpen={modalOpen}
+          onClose={() => {
+            setModalOpen(false);
+            setEditingCategory(null);
+          }}
+          onSave={handleSave}
+          initialData={editingCategory}
+          categoryType={activeCategoryType}
+        />
+      )}
     </div>
   );
 }

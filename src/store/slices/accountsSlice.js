@@ -17,8 +17,19 @@ export const fetchAccountsData = createAsyncThunk(
 
 export const addNewAccount = createAsyncThunk(
   'accounts/addNewAccount',
-  async ({ userId, accountData }, { rejectWithValue }) => {
+  async ({ userId, accountData }, { rejectWithValue, getState }) => {
     try {
+      // Plan-based limit enforcement
+      const state = getState();
+      const profile = state.profile.data;
+      const plan = profile?.plan ?? 'free';
+      const maxAccounts = plan === 'plus' ? Infinity : 3;
+      const currentCount = state.accounts.accounts.length;
+
+      if (currentCount >= maxAccounts) {
+        throw new Error(`You have reached the limit of ${maxAccounts} accounts for the Free plan.`);
+      }
+
       return await createAccount(userId, accountData);
     } catch (error) {
       return rejectWithValue(error.message);

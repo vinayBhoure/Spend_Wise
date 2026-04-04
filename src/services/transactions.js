@@ -19,10 +19,23 @@ export const transactionsService = {
         `)
         .eq('user_id', userId);
 
-      // Apply Date Filter
-      if (filters?.startDate) {
+      // Apply Date Filter & History Limit
+      if (filters?.historyMonthsLimit) {
+        const limitDate = new Date();
+        limitDate.setMonth(limitDate.getMonth() - filters.historyMonthsLimit);
+        const limitDateStr = limitDate.toISOString().split('T')[0];
+        
+        if (filters?.startDate) {
+          // Use the more restrictive of the two
+          const effectiveStart = filters.startDate > limitDateStr ? filters.startDate : limitDateStr;
+          query = query.gte('date', effectiveStart);
+        } else {
+          query = query.gte('date', limitDateStr);
+        }
+      } else if (filters?.startDate) {
         query = query.gte('date', filters.startDate);
       }
+      
       if (filters?.endDate) {
         query = query.lte('date', filters.endDate);
       }
@@ -67,45 +80,7 @@ export const transactionsService = {
     }
   },
 
-  /**
-   * Fetch summary data for transactions page (Total Spent, Remaining)
-   * @param {string} userId - User's UUID 
-   */
-  async fetchTransactionsSummary(userId) {
-    if (!userId) throw new Error('User ID is required');
 
-    try {
-      // 1. Fetch current month's transactions
-      const startOfMonth = new Date();
-      startOfMonth.setDate(1);
-      startOfMonth.setHours(0, 0, 0, 0);
-
-      const { data: monthTransactions, error: txError } = await supabase
-        .from('transactions')
-        .select('amount, type')
-        .eq('user_id', userId)
-        .gte('date', startOfMonth.toISOString().split('T')[0])
-        .eq('type', 'expense');
-
-      if (txError) throw txError;
-      
-      const totalSpent = monthTransactions?.reduce((sum, tx) => sum + Number(tx.amount), 0) || 0;
-      
-      // Using a predefined monthly budget for remaining calculation
-      const monthlyBudget = 3000;
-      const remaining = Math.max(0, monthlyBudget - totalSpent);
-      const percentageUsed = Math.min(100, Math.round((totalSpent / monthlyBudget) * 100));
-
-      return {
-        totalSpent,
-        remaining,
-        percentageUsed
-      };
-    } catch (error) {
-      console.error('Error fetching transactions summary:', error);
-      throw error;
-    }
-  },
 
   /**
    * Fetch a single transaction by its ID with joined category and account.

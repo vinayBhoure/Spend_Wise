@@ -11,10 +11,12 @@ import {
   clearCategoriesError,
 } from '../store/slices/categoriesSlice';
 import { useAuth } from './useAuth';
+import { usePlan } from './usePlan';
 
 export const useCategories = (autoFetch = false) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
+  const { canManageCustomCategories } = usePlan();
 
   const categories = useSelector(selectCategories);
   const loading = useSelector(selectCategoriesLoading);
@@ -34,25 +36,34 @@ export const useCategories = (autoFetch = false) => {
 
   const addCategory = useCallback(
     (categoryData) => {
+      if (!canManageCustomCategories) {
+        return Promise.reject(new Error('Custom categories require Plus plan'));
+      }
       if (user?.id) {
         return dispatch(createCategoryThunk({ userId: user.id, categoryData })).unwrap();
       }
     },
-    [dispatch, user?.id]
+    [dispatch, user?.id, canManageCustomCategories]
   );
 
   const editCategory = useCallback(
     (categoryId, updates) => {
+      if (!canManageCustomCategories) {
+        return Promise.reject(new Error('Editing categories requires Plus plan'));
+      }
       return dispatch(updateCategoryThunk({ categoryId, updates })).unwrap();
     },
-    [dispatch]
+    [dispatch, canManageCustomCategories]
   );
 
   const removeCategory = useCallback(
     (categoryId) => {
+      if (!canManageCustomCategories) {
+        return Promise.reject(new Error('Deleting categories requires Plus plan'));
+      }
       return dispatch(deleteCategoryThunk(categoryId)).unwrap();
     },
-    [dispatch]
+    [dispatch, canManageCustomCategories]
   );
 
   const clearError = useCallback(() => {
