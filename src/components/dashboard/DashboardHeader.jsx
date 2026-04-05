@@ -2,6 +2,8 @@ import React from 'react';
 import { Bell } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
 import { useNavigate } from 'react-router-dom';
+import { useNotifications } from '../../hooks/useNotifications';
+
 
 /**
  * @param {{
@@ -11,8 +13,10 @@ import { useNavigate } from 'react-router-dom';
  *   notificationsCount?: number
  * }} props
  */
-export const DashboardHeader = ({ user, profile, profileLoading = false, notificationsCount = 1 }) => {
+export const DashboardHeader = ({ user, profile, profileLoading = false }) => {
   const navigate = useNavigate();
+  const { unreadCount } = useNotifications();
+
   
   const fullName = profile?.full_name || user?.user_metadata?.full_name || user?.full_name || 'User';
   const avatarUrl = profile?.avatar_url || null;
@@ -41,14 +45,16 @@ export const DashboardHeader = ({ user, profile, profileLoading = false, notific
         <div className="relative">
           <button 
             aria-label="Notifications"
+            onClick={() => navigate('/notifications')}
             className="size-10 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 border border-white/5 active:scale-90 transition-transform hover:bg-slate-300/50 dark:hover:bg-slate-700/50"
           >
             <Bell className="size-5" />
           </button>
-          {notificationsCount > 0 && (
-            <span className="absolute top-2.5 right-2.5 size-2 bg-primary rounded-full ring-2 ring-background-light dark:ring-background-dark" />
+          {unreadCount > 0 && (
+            <span className="absolute top-2.5 right-2.5 size-2 bg-primary rounded-full ring-2 ring-background-light dark:ring-background-dark shadow-[0_0_8px_rgba(0,230,203,0.5)]" />
           )}
         </div>
+
       </div>
     </header>
   );

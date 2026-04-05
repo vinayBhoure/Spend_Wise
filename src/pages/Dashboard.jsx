@@ -84,8 +84,8 @@ export const Dashboard = () => {
           user={user} 
           profile={profileData}
           profileLoading={profileLoading}
-          notificationsCount={1}
         />
+
         <main className="px-6 flex flex-col items-center justify-center mt-20 text-center">
           <div className="size-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
             <PlusCircle className="size-10 text-primary" />
@@ -112,8 +112,8 @@ export const Dashboard = () => {
         user={user} 
         profile={profileData}
         profileLoading={profileLoading}
-        notificationsCount={1}
       />
+
 
       <main className="px-6 space-y-8 mt-2">
         {data ? (
