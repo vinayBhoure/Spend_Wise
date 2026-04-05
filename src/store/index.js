@@ -8,6 +8,8 @@ import transferFundsReducer from './slices/transferFundsSlice'
 import profileReducer from './slices/profileSlice'
 import accountsReducer from './slices/accountsSlice'
 import categoriesReducer from './slices/categoriesSlice'
+import notificationsReducer from './slices/notificationsSlice'
+
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ export const store = configureStore({
     profile: profileReducer,
     accounts: accountsReducer,
     categories: categoriesReducer,
+    notifications: notificationsReducer,
+
   },
 })
 

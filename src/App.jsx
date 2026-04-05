@@ -30,6 +30,8 @@ import EditProfile from './pages/EditProfile'
 import DeleteConfirmation from './pages/DeleteConfirmation'
 import Plans from './pages/Plans'
 import { ManageCategories } from './pages/ManageCategories'
+import { Notifications } from './pages/Notifications'
+
 
 function App() {
   const dispatch = useDispatch()
@@ -80,6 +82,8 @@ function App() {
             <Route path="/delete-confirmation" element={<DeleteConfirmation />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/manage-categories" element={<ManageCategories />} />
+            <Route path="/notifications" element={<Notifications />} />
+
           </Route>
 
           <Route path="*" element={<div>404 - Page Not Found</div>} />
