@@ -2,10 +2,7 @@ import PropTypes from 'prop-types';
 import { TransactionRow } from './TransactionRow';
 import { formatCurrency } from '../../utils/currency';
 
-import { useNavigate } from 'react-router-dom';
-
-export const TransactionGroup = ({ title, date, transactions, summaryTotal, currencyCode = 'INR' }) => {
-  const navigate = useNavigate();
+export const TransactionGroup = ({ title, date, transactions, summaryTotal, currencyCode = 'INR', onTransactionClick }) => {
   // Use generic formatting for the date, or use the provided title string directly (e.g. "Today")
   const displayTitle = title || date;
 
@@ -26,7 +23,7 @@ export const TransactionGroup = ({ title, date, transactions, summaryTotal, curr
             key={tx.id}
             transaction={tx}
             currencyCode={currencyCode}
-            onClick={() => navigate(`/edit-transaction/${tx.id}`)}
+            onClick={() => onTransactionClick ? onTransactionClick(tx) : null}
           />
         ))}
       </div>
@@ -38,5 +35,7 @@ TransactionGroup.propTypes = {
   title: PropTypes.string,
   date: PropTypes.string,
   transactions: PropTypes.array.isRequired,
-  summaryTotal: PropTypes.number
+  summaryTotal: PropTypes.number,
+  currencyCode: PropTypes.string,
+  onTransactionClick: PropTypes.func
 };

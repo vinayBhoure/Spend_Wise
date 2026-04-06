@@ -162,14 +162,14 @@ export default function Statistics() {
         }
       />
 
-      <main className="px-6 space-y-8 mt-4">
+      <main className="px-6 space-y-4 mt-4">
         <section className="flex flex-col items-center justify-center pt-4">
           <DonutChart 
             totalSpent={totalExpense} 
             currencyCode={currencyCode} 
             categories={categoryData} 
           />
-          <div className="w-full relative mt-8">
+          <div className="w-full relative mt-6">
             <CategoryBreakdown categories={categoryData} />
           </div>
         </section>

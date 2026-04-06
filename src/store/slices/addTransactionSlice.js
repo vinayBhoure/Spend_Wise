@@ -21,7 +21,7 @@ export const fetchFormData = createAsyncThunk(
 
 export const submitTransaction = createAsyncThunk(
   'addTransaction/submit',
-  async (payload, { rejectWithValue }) => {
+  async ({ payload }, { rejectWithValue }) => {
     try {
       const data = await transactionsService.createTransaction(payload);
       return data;

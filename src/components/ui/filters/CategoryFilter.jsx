@@ -1,19 +1,12 @@
 import { Search, Check } from 'lucide-react';
-import { usePlan } from '../../../hooks/usePlan';
 
 export const CategoryFilter = ({ filters, setFilters, categories, categorySearch, setCategorySearch }) => {
-  const { canMultiSelectFilters } = usePlan();
-
   const toggleArrayFilter = (id) => {
     const currentArray = filters.categories || [];
     if (currentArray.includes(id)) {
       setFilters({ ...filters, categories: currentArray.filter(i => i !== id) });
     } else {
-      if (canMultiSelectFilters) {
-        setFilters({ ...filters, categories: [...currentArray, id] });
-      } else {
-        setFilters({ ...filters, categories: [id] }); // Single select for free tier
-      }
+      setFilters({ ...filters, categories: [...currentArray, id] });
     }
   };
 
@@ -34,7 +27,7 @@ export const CategoryFilter = ({ filters, setFilters, categories, categorySearch
         />
       </div>
       {filteredCategories.length === 0 ? (
-        <p className="text-center text-slate-500 text-sm py-4">No categories found</p>
+        <p className="text-center text-slate-500 text-sm py-3">No categories found</p>
       ) : (
         <div className="space-y-1 pb-4">
           {filteredCategories.map(cat => {

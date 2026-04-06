@@ -46,7 +46,7 @@ export default function ForgotPassword() {
 
   return (
     <div className="bg-background-dark text-slate-100 min-h-screen flex flex-col items-center justify-start font-body antialiased relative">
-      <div className="w-full max-w-[430px] min-h-screen flex flex-col px-8 py-12 relative overflow-hidden z-10">
+      <div className="w-full max-w-[430px] min-h-screen flex flex-col px-5 py-12 relative overflow-hidden z-10">
         
         <PageHeader 
           title=""
@@ -55,7 +55,7 @@ export default function ForgotPassword() {
         />
 
         {/* Title */}
-        <div className="flex flex-col mb-10">
+        <div className="flex flex-col mb-6">
           <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 ring-1 ring-primary/20">
             <KeyRound className="text-primary w-8 h-8" strokeWidth={1.5} />
           </div>
@@ -66,7 +66,7 @@ export default function ForgotPassword() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 flex-1">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 flex-1">
           <Input
             label="Email Address"
             icon={Mail}
@@ -78,7 +78,7 @@ export default function ForgotPassword() {
           <button
             type="submit"
             disabled={isDisabled}
-            className="w-full bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-4 rounded-lg shadow-lg shadow-primary/10 transition-all active:scale-[0.98] mt-8 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed flex justify-center items-center"
+            className="w-full bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-3 rounded-lg shadow-lg shadow-primary/10 transition-all active:scale-[0.98] mt-6 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed flex justify-center items-center"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-background-dark border-t-transparent rounded-full animate-spin"></div>

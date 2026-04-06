@@ -7,7 +7,7 @@ import React from 'react';
  */
 export const CategoryBreakdown = ({ categories }) => {
   return (
-    <div className="flex gap-3 mt-8 overflow-x-auto no-scrollbar w-full pb-2">
+    <div className="flex gap-3 mt-6 overflow-x-auto no-scrollbar w-full pb-2">
       {categories.map((cat, index) => (
         <div 
           key={index}

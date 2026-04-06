@@ -27,6 +27,6 @@ export const usePlan = () => {
     canManageCustomCategories: isPlusUser,
     maxAccounts: isPlusUser ? Infinity : 3,
     historyMonthsLimit: isPlusUser ? null : 6,
-    canMultiSelectFilters: isPlusUser
+    canMultiSelectFilters: true
   };
 };

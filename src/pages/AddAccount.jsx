@@ -65,14 +65,14 @@ export default function AddAccount() {
   };
 
   return (
-    <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col font-manrope antialiased overflow-x-hidden">
+    <div className="h-[100dvh] bg-background-dark text-slate-100 flex flex-col font-manrope antialiased overflow-hidden">
       <PageHeader 
         title="Add New Account"
         showBack={true}
         onBack={() => navigate('/accounts')}
       />
 
-      <main className="flex-1 px-6 pt-6 overflow-y-auto pb-32 no-scrollbar">
+      <main className="flex-1 px-6 pt-4 pb-6 overflow-y-auto no-scrollbar">
         {loading && !accounts.length ? (
           <div className="flex flex-col items-center justify-center py-20 text-center mx-auto">
             <Loader2 className="size-10 text-primary animate-spin mb-4" />
@@ -84,7 +84,7 @@ export default function AddAccount() {
               <AlertCircle size={40} className="text-amber-500" strokeWidth={1.5} />
             </div>
             <h3 className="text-2xl font-black text-white mb-3 tracking-tight leading-7">Account Limit <br/> Reached</h3>
-            <p className="text-slate-400 text-[15px] font-medium leading-relaxed mb-8">
+            <p className="text-slate-400 text-[15px] font-medium leading-relaxed mb-6">
               The Free plan allows up to <span className="text-white font-bold">{maxAccounts} accounts</span>. Upgrade to Plus for unlimited institutional tracking.
             </p>
             <button
@@ -102,17 +102,18 @@ export default function AddAccount() {
             </button>
           </div>
         ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-8 max-w-[400px] mx-auto">
-          {/* Abstract Hero Pattern */}
-          <div className="relative h-32 shrink-0 w-full rounded-2xl overflow-hidden bg-primary/5 border border-primary/10">
-            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#00e6cb,transparent_70%)]"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Wallet className="size-12 text-primary opacity-80" />
+        <form id="add-account-form" onSubmit={handleSubmit} className="flex flex-col h-full justify-between max-w-[400px] mx-auto">
+          <div className="flex flex-col gap-5">
+            {/* Abstract Hero Pattern */}
+            <div className="relative h-24 shrink-0 w-full rounded-2xl overflow-hidden bg-primary/5 border border-primary/10">
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#00e6cb,transparent_70%)]"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Wallet className="size-10 text-primary opacity-80" />
+              </div>
             </div>
-          </div>
 
-          {/* Initial Balance Large Field */}
-          <div className="flex flex-col items-center gap-1 shrink-0 bg-card-dark p-6 rounded-2xl border border-white/5">
+            {/* Initial Balance Large Field */}
+            <div className="flex flex-col items-center gap-1 shrink-0 bg-card-dark p-4 rounded-2xl border border-white/5">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Initial Balance</p>
             <div className="flex items-baseline justify-center gap-2 w-full">
               <span className="text-3xl font-bold text-primary">{getCurrencySymbol(selectedCurrency)}</span>
@@ -127,7 +128,7 @@ export default function AddAccount() {
           </div>
 
           {/* Form Fields */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Account Name */}
             <div className="flex flex-col gap-2">
               <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Account Name</label>
@@ -157,7 +158,7 @@ export default function AddAccount() {
                       key={id}
                       type="button"
                       onClick={() => handleInputChange('type', id)}
-                      className={`flex items-center gap-3 p-4 rounded-xl border transition-all ${isActive
+                      className={`flex items-center gap-2 p-3 rounded-xl border transition-all ${isActive
                         ? 'border-primary bg-primary/10 text-primary shadow-[0_0_20px_rgba(0,230,203,0.1)]'
                         : 'border-white/5 bg-card-dark text-slate-400 hover:border-slate-700/50'
                         }`}
@@ -169,22 +170,24 @@ export default function AddAccount() {
                 })}
               </div>
             </div>
+            </div>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="flex items-center gap-3 text-rose-500 text-xs font-semibold bg-rose-500/10 p-4 rounded-xl border border-rose-500/20">
+            <div className="flex items-center gap-3 text-rose-500 text-xs font-semibold bg-rose-500/10 p-3 rounded-xl border border-rose-500/20 mt-4">
               <AlertCircle className="size-4" />
               <span>{error}</span>
             </div>
           )}
 
           {/* CTA Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full h-14 mt-4 bg-primary text-background-dark font-black text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-primary/10 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <div className="mt-6 mb-2">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full h-14 bg-primary text-background-dark font-black text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-primary/10 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
             {loading ? (
               <Loader2 className="size-6 animate-spin" />
             ) : (
@@ -193,7 +196,8 @@ export default function AddAccount() {
                 <ArrowRight className="size-5" strokeWidth={3} />
               </>
             )}
-          </button>
+            </button>
+          </div>
         </form>
         )}
       </main>

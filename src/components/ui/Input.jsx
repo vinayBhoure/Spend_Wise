@@ -40,7 +40,7 @@ export const Input = forwardRef(({
           type={inputType}
           placeholder={placeholder}
           className={`
-            w-full bg-surface border border-border-subtle rounded-lg py-4 text-slate-100 placeholder:text-slate-600 focus:outline-none transition-all
+            w-full bg-surface border border-border-subtle rounded-lg py-3 text-slate-100 placeholder:text-slate-600 focus:outline-none transition-all
             ${Icon ? 'pl-12' : 'pl-4'}
             ${isPassword ? 'pr-12' : 'pr-4'}
             ${error ? 'border-destructive' : ''}

@@ -23,7 +23,7 @@ export const Button = ({
   disabled = false,
   onClick,
 }) => {
-  const baseClasses = 'h-14 bg-primary text-background-dark font-extrabold text-base rounded-xl flex items-center justify-center gap-2 shadow-[0_8px_25px_rgba(0,230,203,0.25)] active:scale-[0.97] transition-all tracking-wide uppercase disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'h-12 bg-primary text-background-dark font-extrabold text-base rounded-xl flex items-center justify-center gap-2 shadow-[0_8px_25px_rgba(0,230,203,0.25)] active:scale-[0.97] transition-all tracking-wide uppercase disabled:opacity-50 disabled:cursor-not-allowed';
   
   return (
     <button

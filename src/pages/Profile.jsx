@@ -27,7 +27,7 @@ export default function Profile() {
   // Loading
   if (loading && !profile && !user) {
     return (
-      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-5">
         <Loader2 className="size-12 text-primary animate-spin mb-4" />
         <p className="text-slate-500 text-sm font-semibold tracking-wider uppercase">Loading Profile</p>
       </div>
@@ -37,7 +37,7 @@ export default function Profile() {
   // Error
   if (error && !user) {
     return (
-      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-5">
         <AlertCircle className="size-16 text-destructive mb-4" />
         <h2 className="text-xl font-bold mb-2 text-slate-100">Something went wrong</h2>
         <p className="text-slate-400 text-center text-sm mb-6">{error}</p>
@@ -69,7 +69,7 @@ export default function Profile() {
       {/* Main Content */}
       <main className="flex-1 px-6 pt-8 pb-32 overflow-y-auto">
         {/* Profile Header Section */}
-        <section className="flex flex-col items-center mb-10">
+        <section className="flex flex-col items-center mb-6">
           <div className="relative mb-6">
             <div className="w-32 h-32 rounded-full border-2 border-primary/20 p-1 bg-card-dark overflow-hidden">
               {avatarUrl ? (
@@ -166,7 +166,7 @@ export default function Profile() {
           </div>
 
           {/* Notifications & Privacy */}
-          <h3 className="text-[10px] uppercase tracking-widest font-bold text-slate-500 ml-2 mt-8 mb-2">
+          <h3 className="text-[10px] uppercase tracking-widest font-bold text-slate-500 ml-2 mt-6 mb-2">
             Notifications &amp; Privacy
           </h3>
           <div className="bg-card-dark rounded-xl overflow-hidden border border-white/5">
@@ -182,7 +182,7 @@ export default function Profile() {
           </div>
 
           {/* Danger Zone */}
-          <h3 className="text-[10px] uppercase tracking-widest font-bold text-destructive/60 ml-2 mt-8 mb-2">
+          <h3 className="text-[10px] uppercase tracking-widest font-bold text-destructive/60 ml-2 mt-6 mb-2">
             Danger Zone
           </h3>
           <div className="bg-destructive/5 border border-destructive/20 rounded-xl overflow-hidden p-1">

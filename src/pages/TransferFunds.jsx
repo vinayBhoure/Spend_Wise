@@ -142,7 +142,7 @@ export default function TransferFunds() {
 
       <main className="flex-1 flex flex-col px-6 pt-6 max-w-md mx-auto w-full pb-32">
         {/* Transaction Type Switcher */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="flex h-12 items-center justify-center rounded-xl bg-surface-dark border border-slate-800/50 p-1">
             <label className="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 text-slate-500 text-xs font-extrabold uppercase transition-all has-[:checked]:bg-slate-800/80 has-[:checked]:text-primary has-[:checked]:shadow-sm">
               <span>Income</span>
@@ -195,10 +195,10 @@ export default function TransferFunds() {
           />
         </div>
 
-        <div className="mt-8">
+        <div className="mt-6">
           <div className="relative">
             <input 
-              className="w-full bg-surface-dark border border-slate-800 rounded-lg py-4 px-5 pr-12 text-slate-200 placeholder-slate-600 focus:ring-0 focus:outline-none transition-all" 
+              className="w-full bg-surface-dark border border-slate-800 rounded-lg py-3 px-5 pr-12 text-slate-200 placeholder-slate-600 focus:ring-0 focus:outline-none transition-all" 
               placeholder="Add a note (e.g. Rent, Dinner)" 
               type="text"
               value={note}
@@ -219,11 +219,11 @@ export default function TransferFunds() {
       </main>
 
       {/* Primary Action Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent pt-10 z-20">
+      <div className="fixed bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent pt-10 z-20">
         <button 
           onClick={handleSubmit}
           disabled={submitStatus === 'loading'}
-          className="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 text-background-dark font-extrabold py-4 rounded-lg shadow-xl shadow-primary/10 transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-wider"
+          className="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 text-background-dark font-extrabold py-3 rounded-lg shadow-xl shadow-primary/10 transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-wider"
         >
           <span>{submitStatus === 'loading' ? 'Transferring...' : 'Transfer Funds'}</span>
           <Send size={20} />

@@ -7,7 +7,7 @@ export const ProfileHeader = ({ name, email, avatarUrl, isPro = true, onClick })
   return (
     <section 
       onClick={onClick}
-      className={`mt-4 mb-8 bg-white dark:bg-card-dark rounded-xl p-5 flex items-center justify-between border border-slate-200 dark:border-white/5 shadow-sm ${onClick ? 'cursor-pointer active:scale-[0.98] transition-all' : ''}`}
+      className={`mt-4 mb-6 bg-white dark:bg-card-dark rounded-xl p-5 flex items-center justify-between border border-slate-200 dark:border-white/5 shadow-sm ${onClick ? 'cursor-pointer active:scale-[0.98] transition-all' : ''}`}
     >
       <div className="flex items-center gap-4">
         <div className="relative">

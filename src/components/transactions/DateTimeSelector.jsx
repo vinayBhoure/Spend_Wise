@@ -23,7 +23,7 @@ export const DateTimeSelector = ({ datetime, onChange }) => {
   const timeStr = `${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}`;
 
   return (
-    <div className="px-6 mb-10">
+    <div className="px-6 mb-6">
       <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 ml-1">
         Date & Time
       </h3>

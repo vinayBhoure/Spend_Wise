@@ -77,7 +77,7 @@ export const CategorySelect = ({
   }
 
   return (
-    <div className="px-6 mb-10">
+    <div className="px-6 mb-6">
       <StyledSelect
         label={label}
         leftIcon={Tag}

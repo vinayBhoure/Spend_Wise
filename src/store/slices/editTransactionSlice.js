@@ -63,7 +63,7 @@ export const updateTransactionThunk = createAsyncThunk(
 
 export const deleteTransactionThunk = createAsyncThunk(
   'editTransaction/delete',
-  async (id, { rejectWithValue }) => {
+  async ({ id }, { rejectWithValue }) => {
     try {
       await transactionsService.deleteTransaction(id);
       return id;

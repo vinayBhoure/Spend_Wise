@@ -50,13 +50,13 @@ export default function SetupCurrency() {
 
       <div className="relative z-10 flex flex-col flex-1 w-full max-w-[430px] mx-auto px-6 py-12">
         {/* Step indicator */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-6">
           <div className="h-1 flex-1 rounded-full bg-primary"></div>
           <div className="h-1 flex-1 rounded-full bg-white/10"></div>
         </div>
 
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-10">
+        <div className="flex flex-col items-center text-center mb-6">
           <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mb-6 ring-1 ring-primary/20">
             <Coins className="text-primary" size={40} strokeWidth={1.5} />
           </div>
@@ -81,7 +81,7 @@ export default function SetupCurrency() {
         </div>
 
         {/* Currency list */}
-        <div className="flex-1 overflow-y-auto space-y-2 max-h-[320px] no-scrollbar mb-8">
+        <div className="flex-1 overflow-y-auto space-y-2 max-h-[320px] no-scrollbar mb-6">
           {filteredCurrencies.map((currency) => {
             const isSelected = selectedCurrency === currency.code;
             return (
@@ -116,7 +116,7 @@ export default function SetupCurrency() {
           })}
 
           {filteredCurrencies.length === 0 && (
-            <div className="text-center py-8 text-slate-500 text-sm">
+            <div className="text-center py-6 text-slate-500 text-sm">
               No currencies found for "{searchQuery}"
             </div>
           )}

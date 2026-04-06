@@ -11,7 +11,7 @@ export const AmountInput = forwardRef(({ value, onChange, currencyCode = 'INR' }
   };
 
   return (
-    <div className="flex flex-col items-center py-8 mb-4">
+    <div className="flex flex-col items-center py-6 mb-4">
       <span className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4">
         Enter Amount
       </span>

@@ -54,7 +54,7 @@ export function ManageCategories() {
   // Loading
   if (loading && categories.length === 0) {
     return (
-      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-5">
         <Loader2 className="size-12 text-primary animate-spin mb-4" />
         <p className="text-slate-500 text-sm font-semibold tracking-wider uppercase">Loading Categories</p>
       </div>
@@ -64,7 +64,7 @@ export function ManageCategories() {
   // Error
   if (error && categories.length === 0) {
     return (
-      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark flex flex-col items-center justify-center p-5">
         <AlertCircle className="size-16 text-destructive mb-4" />
         <h2 className="text-xl font-bold mb-2 text-slate-100">Something went wrong</h2>
         <p className="text-slate-400 text-center text-sm mb-6">{error}</p>

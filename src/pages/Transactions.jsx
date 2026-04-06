@@ -13,12 +13,14 @@ import { fetchAccountsData, selectAccounts } from '../store/slices/accountsSlice
 import { TransactionsHeader } from '../components/transactions/TransactionsHeader';
 import { TransactionGroup } from '../components/transactions/TransactionGroup';
 import { TransactionFilter } from '../components/ui/TransactionFilter';
+import { TransactionDetailModal } from '../components/transactions/TransactionDetailModal';
 import { BottomNav } from '../components/layout/BottomNav';
 import { ReceiptText } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 import { usePlan } from '../hooks/usePlan';
 import { formatCurrency } from '../utils/currency';
+import { useNavigate } from 'react-router-dom';
 
 // Helper to group transactions by date
 const groupTransactionsByDate = (transactions) => {
@@ -70,6 +72,7 @@ const groupTransactionsByDate = (transactions) => {
 
 export const Transactions = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { data: profileData } = useProfile(true);
   const currencyCode = profileData?.currency || 'INR';
@@ -83,6 +86,7 @@ export const Transactions = () => {
   const { historyMonthsLimit } = usePlan();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   // Calculate active filter count
   let activeFilterCount = 0;
@@ -121,7 +125,7 @@ export const Transactions = () => {
         )}
 
         {status === 'failed' && (
-          <div className="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-6 text-center">
+          <div className="bg-rose-500/10 border border-rose-500/20 rounded-2xl p-5 text-center">
             <p className="text-rose-500 font-bold mb-2">Failed to load data</p>
             <p className="text-slate-400 text-sm">{error}</p>
             <button
@@ -154,6 +158,7 @@ export const Transactions = () => {
                 transactions={group.transactions}
                 summaryTotal={group.totalBase}
                 currencyCode={currencyCode}
+                onTransactionClick={(tx) => setSelectedTransaction(tx)}
               />
             ))}
           </div>
@@ -168,6 +173,13 @@ export const Transactions = () => {
           dispatch(setFilters(newFilters));
           setIsFilterOpen(false);
         }}
+      />
+
+      <TransactionDetailModal 
+        transaction={selectedTransaction}
+        currencyCode={currencyCode}
+        onClose={() => setSelectedTransaction(null)}
+        onEdit={(id) => navigate(`/edit-transaction/${id}`)}
       />
 
       <BottomNav />

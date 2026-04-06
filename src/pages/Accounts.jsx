@@ -31,7 +31,7 @@ export default function Accounts() {
   // ---------- Offline ----------
   if (!isOnline && !filteredAccounts.length) {
     return (
-      <div className="min-h-screen max-w-[430px] mx-auto bg-background-dark text-slate-100 flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen max-w-[430px] mx-auto bg-background-dark text-slate-100 flex flex-col items-center justify-center p-5">
         <WifiOff className="size-16 text-slate-600 mb-4" />
         <h2 className="text-xl font-bold mb-2">You are offline</h2>
         <p className="text-slate-400 text-center text-sm mb-6">
@@ -50,7 +50,7 @@ export default function Accounts() {
   // ---------- Loading ----------
   if (loading && !filteredAccounts.length) {
     return (
-      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-5">
         <Loader2 className="size-12 text-primary animate-spin mb-4" />
         <p className="text-slate-400 text-sm font-semibold tracking-wider uppercase">
           Loading Accounts
@@ -62,7 +62,7 @@ export default function Accounts() {
   // ---------- Error ----------
   if (error && !filteredAccounts.length) {
     return (
-      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-5">
         <AlertCircle className="size-16 text-destructive mb-4" />
         <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
         <p className="text-slate-400 text-center text-sm mb-6">{error}</p>

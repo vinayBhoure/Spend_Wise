@@ -2,7 +2,7 @@ import React from 'react';
 
 export const SegmentedControl = ({ activeTab, onTabChange }) => {
   return (
-    <div className="bg-[rgba(17,24,39,0.6)] border border-white/10 p-1 rounded-xl flex mb-10 w-full">
+    <div className="bg-[rgba(17,24,39,0.6)] border border-white/10 p-1 rounded-xl flex mb-6 w-full">
       <button
         type="button"
         onClick={() => onTabChange('login')}

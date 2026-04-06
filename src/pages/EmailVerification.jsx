@@ -27,13 +27,13 @@ export default function EmailVerification() {
   };
 
   return (
-    <div className="bg-background-dark text-slate-100 min-h-screen flex flex-col items-center justify-center font-body antialiased p-8 relative overflow-hidden">
+    <div className="bg-background-dark text-slate-100 min-h-screen flex flex-col items-center justify-center font-body antialiased p-6 relative overflow-hidden">
 
       {/* Decorative background elements */}
       <div className="fixed top-[-15%] left-[-15%] w-[60%] h-[60%] bg-primary/10 blur-[120px] rounded-full pointer-events-none opacity-50 z-[-1]"></div>
       <div className="fixed bottom-[-15%] right-[-15%] w-[60%] h-[60%] bg-primary/5 blur-[120px] rounded-full pointer-events-none opacity-30 z-[-1]"></div>
 
-      <div className="w-full max-w-[430px] flex flex-col items-center text-center space-y-8">
+      <div className="w-full max-w-[430px] flex flex-col items-center text-center space-y-4">
 
         {/* Icon */}
         <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center ring-1 ring-primary/20 scale-110 mb-2">
@@ -54,7 +54,7 @@ export default function EmailVerification() {
         <div className="w-full space-y-4 pt-4">
           <button
             onClick={handleResend}
-            className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-4 rounded-xl shadow-lg shadow-primary/10 transition-all active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-3 rounded-xl shadow-lg shadow-primary/10 transition-all active:scale-[0.98]"
           >
             <RefreshCw size={18} />
             I've confirmed my email

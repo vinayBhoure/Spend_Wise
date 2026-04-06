@@ -59,11 +59,23 @@ export const useEditTransaction = (id) => {
   }, [dispatch, id, user?.id]);
 
   const handleUpdate = async (payload) => {
-    return dispatch(updateTransactionThunk({ id, payload })).unwrap();
+    // Construct optimistic projection
+    const selectedAccount = accounts.find(a => a.id === payload.account_id);
+    const selectedCategory = categories.find(c => c.id === payload.category_id);
+
+    const optimisticTx = {
+      ...transaction,
+      ...payload,
+      accounts: selectedAccount || transaction.accounts,
+      categories: selectedCategory || transaction.categories,
+      status: 'updating'
+    };
+
+    return dispatch(updateTransactionThunk({ id, payload, optimisticTx, oldTx: transaction })).unwrap();
   };
 
   const handleDelete = async () => {
-    return dispatch(deleteTransactionThunk(id)).unwrap();
+    return dispatch(deleteTransactionThunk({ id, oldTx: transaction })).unwrap();
   };
 
   return {

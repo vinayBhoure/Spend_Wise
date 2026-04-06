@@ -76,7 +76,7 @@ export const TransactionFilter = ({ isOpen, onClose, currentFilters, onApply }) 
         className={`fixed top-0 left-0 h-[100dvh] w-[90%] max-w-md bg-surface flex flex-col z-[70] transition-transform duration-300 ease-in-out border-r border-white/5 ${translateClass}`}
       >
         {/* Header */}
-        <header className="flex items-center justify-between px-4 py-4 border-b border-white/5 bg-background-dark/50">
+        <header className="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-background-dark/50">
           <h2 className="text-xl font-bold tracking-tight text-emerald-400">FILTERS</h2>
           <button 
             onClick={onClose}
@@ -122,7 +122,7 @@ export const TransactionFilter = ({ isOpen, onClose, currentFilters, onApply }) 
           </aside>
 
           {/* Right Panel (Detail) */}
-          <main className="flex-1 bg-surface overflow-y-auto px-4 py-4">
+          <main className="flex-1 bg-surface overflow-y-auto px-4 py-3">
             {activeTab === 'date' && <DateFilter filters={filters} setFilters={setFilters} />}
             {activeTab === 'type' && <TypeFilter filters={filters} setFilters={setFilters} />}
             {activeTab === 'amount' && <AmountFilter filters={filters} setFilters={setFilters} />}

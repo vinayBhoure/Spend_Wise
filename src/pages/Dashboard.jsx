@@ -33,7 +33,7 @@ export const Dashboard = () => {
   // Offline Fallback UI
   if (!isOnline && !data) {
     return (
-      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-5">
         <WifiOff className="size-16 text-slate-600 mb-4" />
         <h2 className="text-xl font-bold mb-2">You are offline</h2>
         <p className="text-slate-400 text-center text-sm mb-6">
@@ -52,7 +52,7 @@ export const Dashboard = () => {
   // Loading State
   if (loading && !data) {
     return (
-      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-5">
         <Loader2 className="size-12 text-primary animate-spin mb-4" />
         <p className="text-slate-400 text-sm font-semibold tracking-wider uppercase">Loading Dashboard</p>
       </div>
@@ -62,7 +62,7 @@ export const Dashboard = () => {
   // Error State
   if (error && !data) {
     return (
-      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-dark text-slate-100 flex flex-col items-center justify-center p-5">
         <AlertCircle className="size-16 text-destructive mb-4" />
         <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
         <p className="text-slate-400 text-center text-sm mb-6">{error}</p>
@@ -91,12 +91,12 @@ export const Dashboard = () => {
             <PlusCircle className="size-10 text-primary" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Welcome to SpendWise</h2>
-          <p className="text-slate-500 mb-8 max-w-xs mx-auto">
+          <p className="text-slate-500 mb-6 max-w-xs mx-auto">
             Your dashboard is looking a bit empty. Let's add your first transaction to get started!
           </p>
           <button 
             onClick={() => navigate('/add-transaction')}
-            className="w-full bg-primary text-background-dark font-black tracking-tight py-4 rounded-xl active:scale-95 transition-transform shadow-[0_4px_20px_rgba(0,230,203,0.3)] mb-4"
+            className="w-full bg-primary text-background-dark font-black tracking-tight py-3 rounded-xl active:scale-95 transition-transform shadow-[0_4px_20px_rgba(0,230,203,0.3)] mb-4"
           >
             Add First Transaction
           </button>
@@ -115,7 +115,7 @@ export const Dashboard = () => {
       />
 
 
-      <main className="px-6 space-y-8 mt-2">
+      <main className="px-6 space-y-4 mt-2">
         {data ? (
           <>
             <BalanceCard

@@ -15,7 +15,7 @@ export const RecentTransactionsList = ({ logs, currencyCode = 'INR' }) => {
     return (
       <section className="space-y-5">
         <h3 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Recent Logs</h3>
-        <Card variant="default" className="flex items-center justify-center p-8 text-slate-500 text-sm">
+        <Card variant="default" className="flex items-center justify-center p-5 text-slate-500 text-sm">
           No recent transactions found
         </Card>
       </section>

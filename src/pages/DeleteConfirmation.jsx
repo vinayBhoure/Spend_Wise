@@ -72,7 +72,7 @@ export default function DeleteConfirmation() {
           </div>
 
           {/* Content */}
-          <div className="text-center space-y-3 mb-8">
+          <div className="text-center space-y-3 mb-6">
             <h3 className="text-slate-100 text-2xl font-extrabold tracking-tight">
               {isUserDeletion ? 'Delete Your Account?' : 'Delete Account?'}
             </h3>
