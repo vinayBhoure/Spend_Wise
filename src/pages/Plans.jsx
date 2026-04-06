@@ -55,7 +55,7 @@ export default function Plans() {
   const showUpgradeButton = selected !== CURRENT_PLAN;
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased">
+    <div className="relative flex h-[100dvh] w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased overflow-hidden">
       <PageHeader 
         title="Plans"
         showBack={true}
@@ -85,7 +85,7 @@ export default function Plans() {
 
       {/* Sticky Upgrade Button */}
       {showUpgradeButton && (
-        <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto p-6 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent">
+        <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto p-5 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent">
           <button className="w-full h-14 rounded-2xl bg-primary text-background-dark font-bold text-base tracking-wide active:scale-[0.97] transition-all shadow-lg shadow-primary/20">
             Upgrade Now
           </button>

@@ -99,7 +99,7 @@ export const EditTransaction = () => {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-manrope">
+    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-[100dvh] overflow-hidden flex flex-col font-manrope">
       <PageHeader 
         title="Edit Transaction"
         showBack={true}

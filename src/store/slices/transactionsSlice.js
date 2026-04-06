@@ -50,7 +50,83 @@ const transactionsSlice = createSlice({
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
-      });
+      })
+      // submitTransaction (Optimistic)
+      .addMatcher(
+        (action) => action.type === 'addTransaction/submit/pending',
+        (state, action) => {
+          if (action.meta.arg.optimisticTx) {
+            state.items = [action.meta.arg.optimisticTx, ...state.items];
+          }
+        }
+      )
+      .addMatcher(
+        (action) => action.type === 'addTransaction/submit/fulfilled',
+        (state, action) => {
+          if (action.meta.arg.optimisticTx) {
+            // Replace the optimistic transaction with the actual one from server
+            state.items = state.items.map(item => 
+              item.id === action.meta.arg.optimisticTx.id ? action.payload : item
+            );
+          }
+        }
+      )
+      .addMatcher(
+        (action) => action.type === 'addTransaction/submit/rejected',
+        (state, action) => {
+          if (action.meta.arg.optimisticTx) {
+            // Remove the optimistic transaction on failure
+            state.items = state.items.filter(item => item.id !== action.meta.arg.optimisticTx.id);
+          }
+        }
+      )
+      // updateTransaction (Optimistic)
+      .addMatcher(
+        (action) => action.type === 'editTransaction/update/pending',
+        (state, action) => {
+          if (action.meta.arg.optimisticTx) {
+            state.items = state.items.map(item => 
+              item.id === action.meta.arg.id ? action.meta.arg.optimisticTx : item
+            );
+          }
+        }
+      )
+      .addMatcher(
+        (action) => action.type === 'editTransaction/update/fulfilled',
+        (state, action) => {
+          // Sync with server data (id is action.payload.id)
+          state.items = state.items.map(item => 
+            item.id === action.payload.id ? action.payload : item
+          );
+        }
+      )
+      .addMatcher(
+        (action) => action.type === 'editTransaction/update/rejected',
+        (state, action) => {
+          if (action.meta.arg.oldTx) {
+            // Revert to old transaction state on failure
+            state.items = state.items.map(item => 
+              item.id === action.meta.arg.id ? action.meta.arg.oldTx : item
+            );
+          }
+        }
+      )
+      // deleteTransaction (Optimistic)
+      .addMatcher(
+        (action) => action.type === 'editTransaction/delete/pending',
+        (state, action) => {
+          state.items = state.items.filter(item => item.id !== action.meta.arg.id);
+        }
+      )
+      .addMatcher(
+        (action) => action.type === 'editTransaction/delete/rejected',
+        (state, action) => {
+          if (action.meta.arg.oldTx) {
+            // Revert back by re-adding the deleted transaction (approximate position)
+            state.items = [action.meta.arg.oldTx, ...state.items];
+          }
+        }
+      );
   },
 });
 

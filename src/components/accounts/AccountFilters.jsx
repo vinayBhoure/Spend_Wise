@@ -17,7 +17,7 @@ const FILTERS = [
 
 export const AccountFilters = ({ activeFilter, onFilterChange }) => {
   return (
-    <section className="flex gap-3 overflow-x-auto no-scrollbar mb-8 -mx-6 px-6">
+    <section className="flex gap-3 overflow-x-auto no-scrollbar mb-6 -mx-6 px-6">
       {FILTERS.map(({ key, label, icon: Icon }) => {
         const isActive = activeFilter === key;
         return (

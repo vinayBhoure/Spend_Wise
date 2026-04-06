@@ -11,7 +11,7 @@ export const CategoryGrid = ({ categories, selectedCategoryId, onSelect }) => {
   };
 
   return (
-    <div className="px-6 mb-10">
+    <div className="px-6 mb-6">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
           Category
@@ -65,7 +65,7 @@ export const CategoryGrid = ({ categories, selectedCategoryId, onSelect }) => {
                 <X size={24} />
               </button>
             </div>
-            <div className="p-6 overflow-y-auto grid grid-cols-4 gap-x-4 gap-y-8 no-scrollbar">
+            <div className="p-5 overflow-y-auto grid grid-cols-4 gap-x-4 gap-y-8 no-scrollbar">
               {categories.map((cat) => {
                 const isSelected = selectedCategoryId === cat.id;
                 return (

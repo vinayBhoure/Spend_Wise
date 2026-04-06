@@ -26,13 +26,13 @@ export const NotificationsList = ({
 
   if (error) {
     return (
-      <div className="p-8 rounded-3xl bg-destructive/5 border border-destructive/10 flex flex-col items-center text-center animate-in zoom-in duration-300">
+      <div className="p-6 rounded-3xl bg-destructive/5 border border-destructive/10 flex flex-col items-center text-center animate-in zoom-in duration-300">
         <AlertCircle className="size-14 text-destructive mb-4" />
         <h3 className="text-lg font-bold text-slate-100 mb-2">Something went wrong</h3>
-        <p className="text-slate-400 text-sm mb-8 leading-relaxed max-w-xs">{error}</p>
+        <p className="text-slate-400 text-sm mb-6 leading-relaxed max-w-xs">{error}</p>
         <button 
           onClick={onRefresh}
-          className="bg-primary text-background-dark font-black px-8 py-3 rounded-2xl active:scale-95 transition-transform"
+          className="bg-primary text-background-dark font-black px-5 py-3 rounded-2xl active:scale-95 transition-transform"
         >
           Try Again
         </button>
@@ -43,7 +43,7 @@ export const NotificationsList = ({
   if (notifications.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-6 text-center animate-in slide-in-from-bottom duration-500">
-        <div className="size-24 rounded-full bg-slate-900/50 flex items-center justify-center mb-8 border border-white/5">
+        <div className="size-24 rounded-full bg-slate-900/50 flex items-center justify-center mb-6 border border-white/5">
           <BellOff className="size-10 text-slate-700" />
         </div>
         <h3 className="text-2xl font-black text-slate-100 mb-2">All caught up!</h3>

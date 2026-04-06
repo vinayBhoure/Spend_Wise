@@ -92,7 +92,7 @@ export const SpendingTrendGraph = ({ total, trendPercentage, isPositive, chartDa
 
   return (
     <Card variant="emerald">
-      <div className="flex justify-between items-start mb-8">
+      <div className="flex justify-between items-start mb-6">
         <div>
           <h3 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 mb-1">Weekly Activity</h3>
           <div className="flex items-baseline gap-2">

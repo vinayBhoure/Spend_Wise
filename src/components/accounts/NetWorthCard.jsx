@@ -12,8 +12,8 @@ import { getCurrencySymbol, formatCurrency } from '../../utils/currency';
 export const NetWorthCard = ({ netWorth, currency, status }) => {
   if (status === 'loading') {
     return (
-      <section className="mt-6 mb-8">
-        <div className="bg-card-dark border border-border-dark p-6 rounded-xl animate-pulse">
+      <section className="mt-6 mb-6">
+        <div className="bg-card-dark border border-border-dark p-5 rounded-xl animate-pulse">
           <div className="h-3 w-24 bg-white/10 rounded mb-3" />
           <div className="h-9 w-40 bg-white/10 rounded" />
         </div>
@@ -23,8 +23,8 @@ export const NetWorthCard = ({ netWorth, currency, status }) => {
 
   if (status === 'empty') {
     return (
-      <section className="mt-6 mb-8">
-        <div className="bg-card-dark border border-border-dark p-6 rounded-xl">
+      <section className="mt-6 mb-6">
+        <div className="bg-card-dark border border-border-dark p-5 rounded-xl">
           <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">
             Total Net Worth
           </p>
@@ -40,8 +40,8 @@ export const NetWorthCard = ({ netWorth, currency, status }) => {
   const formatted = formatCurrency(Math.abs(netWorth), currency || 'INR');
 
   return (
-    <section className="mt-6 mb-8">
-      <div className="bg-card-dark border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-6 rounded-xl">
+    <section className="mt-6 mb-6">
+      <div className="bg-card-dark border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-5 rounded-xl">
         <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">
           Total Net Worth
         </p>

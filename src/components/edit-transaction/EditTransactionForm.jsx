@@ -40,7 +40,7 @@ export const EditTransactionForm = ({
 }) => {
   if (loading) {
     return (
-      <main className="flex-1 px-4 py-4 max-w-md mx-auto w-full space-y-8 animate-pulse">
+      <main className="flex-1 px-4 py-3 max-w-md mx-auto w-full space-y-4 animate-pulse">
         <div className="h-32 bg-slate-800/10 rounded-xl mb-6"></div>
         <div className="grid grid-cols-2 gap-4">
           <div className="h-20 bg-slate-800 rounded-lg"></div>
@@ -54,7 +54,7 @@ export const EditTransactionForm = ({
 
   if (error) {
     return (
-      <main className="flex-1 px-4 py-8 max-w-md mx-auto w-full text-center flex flex-col items-center justify-center space-y-3">
+      <main className="flex-1 px-4 py-6 max-w-md mx-auto w-full text-center flex flex-col items-center justify-center space-y-3">
         <AlertCircle className="size-16 text-danger opacity-50" />
         <h3 className="text-slate-100 font-bold">Failed to Load Transaction</h3>
         <p className="text-slate-400 text-sm">Please try again later.</p>
@@ -75,7 +75,7 @@ export const EditTransactionForm = ({
   }));
 
   return (
-    <main className="flex-1 px-4 py-4 max-w-md mx-auto w-full space-y-8 pb-10">
+    <main className="flex-1 px-4 py-3 max-w-md mx-auto w-full space-y-4 pb-10">
       {/* Amount Section */}
       <div className="text-center py-6">
         <label className="block text-slate-400 text-sm font-medium mb-1">Amount</label>
@@ -93,7 +93,7 @@ export const EditTransactionForm = ({
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Category & Account */}
         <div className="grid grid-cols-2 gap-4">
           <StyledSelect
@@ -194,7 +194,7 @@ export const EditTransactionForm = ({
         <button
           onClick={onDelete}
           disabled={deleting}
-          className="w-full bg-destructive/10 hover:bg-destructive/20 border border-destructive/20 text-destructive font-bold py-4.5 rounded-xl flex items-center justify-center gap-2.5 transition-all disabled:opacity-50 active:scale-[0.98]"
+          className="w-full bg-destructive/10 hover:bg-destructive/20 border border-destructive/20 text-destructive font-bold py-3.5 rounded-xl flex items-center justify-center gap-2.5 transition-all disabled:opacity-50 active:scale-[0.98]"
         >
           {deleting ? (
             <Loader2 className="animate-spin size-5" />

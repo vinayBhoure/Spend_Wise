@@ -2,7 +2,7 @@ import { Wallet } from 'lucide-react';
 
 export const PaymentMethodSelector = ({ accounts, selectedAccountId, onSelect }) => {
   return (
-    <div className="px-6 mb-10">
+    <div className="px-6 mb-6">
       <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">
         Payment Method
       </h3>

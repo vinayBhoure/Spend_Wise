@@ -17,7 +17,6 @@ const loginSchema = z.object({
 });
 
 const signupSchema = z.object({
-  username: z.string().min(1, 'Username is required'),
   email: z.string().min(1, 'Email is required').email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters')
 });
@@ -57,14 +56,14 @@ export default function Auth() {
     formState: { errors: signupErrors },
   } = useForm({
     resolver: zodResolver(signupSchema),
-    defaultValues: { username: '', email: '', password: '' }
+    defaultValues: { email: '', password: '' }
   });
 
   const loginValues = watchLogin();
   const signupValues = watchSignup();
 
   const isLoginDisabled = !loginValues.email || !loginValues.password;
-  const isSignupDisabled = !signupValues.username || !signupValues.email || !signupValues.password;
+  const isSignupDisabled = !signupValues.email || !signupValues.password;
 
   const onLogin = async (data) => {
     if (authError) dispatch(clearAuthError());
@@ -80,7 +79,7 @@ export default function Auth() {
   const onSignup = async (data) => {
     if (authError) dispatch(clearAuthError());
     try {
-      await dispatch(signupUserThunk({ username: data.username, email: data.email, password: data.password })).unwrap();
+      await dispatch(signupUserThunk({ username: data.email.split('@')[0], email: data.email, password: data.password })).unwrap();
       toast.success('Account created successfully!');
       navigate('/verify-email');
     } catch (err) {
@@ -101,12 +100,12 @@ export default function Auth() {
   };
 
   return (
-    <div className="bg-background-dark text-slate-100 min-h-screen flex flex-col items-center justify-start font-body antialiased">
-      <div className="w-full max-w-[430px] min-h-screen flex flex-col px-8 py-16 relative overflow-hidden">
+    <div className="bg-background-dark text-slate-100 h-[100dvh] flex flex-col items-center justify-start font-body antialiased overflow-hidden">
+      <div className="w-full max-w-[430px] h-[100dvh] flex flex-col px-5 py-6 relative overflow-y-auto no-scrollbar">
 
         {/* Logo Section */}
-        <div className="flex flex-col items-center mb-12">
-          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 ring-1 ring-primary/20">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 ring-1 ring-primary/20">
             <Wallet className="text-primary" size={32} strokeWidth={1.5} />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-white mb-2">SpendWise</h1>
@@ -116,11 +115,11 @@ export default function Auth() {
         {/* Segmented Control */}
         <SegmentedControl activeTab={activeTab} onTabChange={handleTabChange} />
 
-        <div className="h-6"></div> {/* Spacer instead of error block */}
+        <div className="h-4 shrink-0"></div> {/* Spacer instead of error block */}
 
         {/* Form Section */}
         {activeTab === 'login' ? (
-          <form onSubmit={handleLoginSubmit(onLogin)} className="space-y-6">
+          <form onSubmit={handleLoginSubmit(onLogin)} className="space-y-4">
             <Input
               label="Email Address"
               icon={Mail}
@@ -141,7 +140,7 @@ export default function Auth() {
             <button
               type="submit"
               disabled={isLoginDisabled || authActionLoading}
-              className="w-full bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-4 rounded-lg shadow-lg shadow-primary/10 transition-all active:scale-[0.98] mt-4 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed flex justify-center items-center"
+              className="w-full bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-3 rounded-lg shadow-lg shadow-primary/10 transition-all active:scale-[0.98] mt-4 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed flex justify-center items-center"
             >
               {authActionLoading ? (
                 <div className="w-5 h-5 border-2 border-background-dark border-t-transparent rounded-full animate-spin"></div>
@@ -151,15 +150,7 @@ export default function Auth() {
             </button>
           </form>
         ) : (
-          <form onSubmit={handleSignupSubmit(onSignup)} className="space-y-6">
-            <Input
-              label="Username"
-              icon={UserIcon}
-              type="text"
-              placeholder="johndoe"
-              error={signupErrors.username?.message}
-              {...registerSignup('username')}
-            />
+          <form onSubmit={handleSignupSubmit(onSignup)} className="space-y-4">
             <Input
               label="Email Address"
               icon={Mail}
@@ -179,7 +170,7 @@ export default function Auth() {
             <button
               type="submit"
               disabled={isSignupDisabled || authActionLoading}
-              className="w-full bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-4 rounded-lg shadow-lg shadow-primary/10 transition-all active:scale-[0.98] mt-4 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed flex justify-center items-center"
+              className="w-full bg-primary hover:bg-[#00d1b8] text-background-dark font-bold py-3 rounded-lg shadow-lg shadow-primary/10 transition-all active:scale-[0.98] mt-4 disabled:opacity-50 disabled:active:scale-100 disabled:cursor-not-allowed flex justify-center items-center"
             >
               {authActionLoading ? (
                 <div className="w-5 h-5 border-2 border-background-dark border-t-transparent rounded-full animate-spin"></div>
@@ -191,7 +182,7 @@ export default function Auth() {
         )}
 
         {/* Divider */}
-        <div className="flex items-center gap-4 my-12">
+        <div className="flex items-center gap-4 my-6">
           <div className="h-px bg-border-subtle flex-1"></div>
           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Or continue with</span>
           <div className="h-px bg-border-subtle flex-1"></div>

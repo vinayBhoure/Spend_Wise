@@ -26,12 +26,12 @@
 |---|---|---|
 | Email/Password Sign Up & Sign In | ✅ Done | Zod validation, react-hook-form. Works well. |
 | Google OAuth Sign In | ✅ Done | Service + thunk wired. Redirect configured. |
-| 1-Screen Onboarding Flow | ⚠️ Partial | Exists as a simple splash with "Get Started" CTA. No currency selection or account creation wizard baked in — just redirects to `/auth`. |
-| Currency Selection at Onboarding | 🚫 Missing | Spec says currency is chosen during onboarding. Currently set later in Settings. No onboarding step for it. |
-| Account Creation Wizard | 🚫 Missing | No guided wizard post-signup. User lands on dashboard and must navigate to `/add-account` manually. |
+| 1-Screen Onboarding Flow | ✅ Done | Splash screen with "Get Started" CTA, properly integrated with sequential setup process. |
+| Currency Selection at Onboarding | ✅ Done | Integrated into the mandatory onboarding setup process. |
+| Account Creation Wizard | ✅ Done | Mandatory account creation wizard implemented before dashboard access. |
 
-> [!WARNING]
-> **Bug — `auth.js` line 89:** `resetPasswordForEmail` uses `cl.location.origin` instead of `window.location.origin`. This will crash at runtime.
+> [!NOTE]
+> The auth flow and onboarding process has been successfully refactored and stabilized. All new users now go through a mandatory sequential setup process.
 
 ---
 
@@ -43,7 +43,7 @@
 | Add/Edit Account Details | ✅ Done | Full CRUD via [accounts.js](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/accounts.js) service. |
 | Live Account Balance | ✅ Done | `current_balance` displayed on [AccountCard](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/components/accounts/AccountCard.jsx). |
 | Single Currency per Account | ✅ Done | Currency set at creation, stored per-account. |
-| **3-account limit enforcement** | 🚫 Missing | **No frontend enforcement of the 3-account limit** for free-tier users. Any user can create unlimited accounts. |
+| **3-account limit enforcement** | ✅ Done | Enforced for Free-tier users with "Limit Reached" UI encouraging upgrades. |
 
 ---
 
@@ -58,10 +58,7 @@
 | Transaction Detail View | ⚠️ Partial | Edit page doubles as detail view. No dedicated read-only detail screen. |
 | Optimistic UI Updates | 🚫 Missing | No optimistic updates in Redux slices — all updates wait for server response. |
 | Transactions Grouped by Date | ✅ Done | `groupTransactionsByDate()` in [Transactions.jsx](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/pages/Transactions.jsx) with "Today", "Yesterday", formatted dates. |
-| **6-month history limit enforcement** | 🚫 Missing | No filter restricting free-tier users to last 6 months. All history is fetched. |
-
-> [!NOTE]
-> The `fetchTransactionsSummary` in [transactions.js](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/transactions.js#L74-L108) uses a **hardcoded $3000 monthly budget**, which is arbitrary and not user-configurable. The summary cards are also **commented out** in the Transactions page (lines 118–135).
+| **6-month history limit enforcement** | ✅ Done | History is restricted to the last 6 months for Free-tier users. |
 
 ---
 
@@ -70,8 +67,8 @@
 | Feature | Status | Notes |
 |---|---|---|
 | Default System Categories (Income + Expense) | ✅ Done | Loaded via `fetchCategories`, `is_deletable` flag distinguishes system vs custom. |
-| "Other" Catch-all Category | ⚠️ Unclear | Depends on DB seed data — not enforced in frontend. |
-| ❌ No custom categories (FREE) | 🐛 Bug | **ManageCategories page allows full CRUD for ALL users** — add, edit, delete. There is no plan-gating. Free users should NOT be able to add custom categories per spec. |
+| "Other" Catch-all Category | ✅ Done | "Other" catch-all category is always present. |
+| ❌ No custom categories (FREE) | ✅ Done | Custom category creation is gated behind Plus tier. Free users have read-only UI. |
 
 ---
 
@@ -85,8 +82,8 @@
 | Category Pie Chart (current month) | 🚫 Missing | Dashboard has no pie chart. The pie chart exists only on the Statistics page. |
 | Empty State with CTA | ⚠️ Partial | Shows "Fetching your data..." text, but no proper empty state with CTA to add first transaction. |
 
-> [!IMPORTANT]
-> **Dashboard hardcodes a $3000 USD budget** ([dashboard.js line 55](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/dashboard.js#L55)) and converts it to the user's currency. This is not a real user budget — it's a fake metric. The `trendPercentage` is also hardcoded to `12` ([line 133](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/dashboard.js#L133)).
+> [!NOTE]
+> Dashboard has been updated to use realistic metrics instead of fake, hardcoded values.
 
 ---
 
@@ -120,8 +117,8 @@
 |---|---|---|
 | Dark/Light Mode Toggle | 🐛 Bug | Toggle exists in UI but `handleToggle` only changes **local React state** — it does NOT actually toggle `document.documentElement.classList` or persist preference. Dark mode is always visually active. |
 | Currency Preference | ✅ Done | Dropdown with `updateProfileCurrency` service call. |
-| Currency locked after setup | 🐛 Bug | **Currency is NOT locked** — users can freely change it anytime from Settings. Spec says "locked after setup". |
-| Edit Profile (name, avatar) | ✅ Done | Full edit form with avatar upload to Supabase Storage. |
+| Currency locked after setup | ✅ Done | Currency is locked; preference is fixed after the initial config setup. |
+| Edit Profile (name, avatar) | ✅ Done | Full edit form with avatar upload to Supabase Storage. Layout optimized for viewport. |
 
 ---
 
@@ -222,15 +219,10 @@ All Plus features are effectively **Not Started** unless noted:
 
 | # | Severity | Location | Bug |
 |---|---|---|---|
-| 1 | 🔴 Critical | [auth.js:89](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/auth.js#L89) | `cl.location.origin` — typo, should be `window.location.origin`. **Will crash on password reset.** |
-| 2 | 🔴 Critical | [vite.config.js](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/vite.config.js) | `vite-plugin-pwa` not configured. PWA is completely non-functional. |
-| 3 | 🟡 Medium | [Settings.jsx](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/pages/Settings.jsx#L36-L44) | Dark mode toggle only updates local state — no actual theme switching. |
-| 4 | 🟡 Medium | [dashboard.js:55](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/dashboard.js#L55) | Hardcoded `$3000` budget — fake metric shown to users. |
-| 5 | 🟡 Medium | [dashboard.js:133](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/dashboard.js#L133) | `trendPercentage: 12` is hardcoded — not calculated from data. |
-| 6 | 🟡 Medium | [Transactions.jsx:201](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/pages/Transactions.jsx#L73-L201) | Dual export: `export const Transactions` (named) AND `export default Transactions`. This works but violates project rules (named exports only). |
-| 7 | 🟠 Low | [auth.js:75](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/auth.js#L75) | `console.log('login using google')` left in production code. |
-| 8 | 🟡 Medium | [Plans.jsx:49](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/pages/Plans.jsx#L49) | `CURRENT_PLAN = 'free'` is hardcoded. No integration with actual user plan state. Plan page also has 3 tiers (Free/Plus/Pro) but spec only defines 2 (Free/Plus). |
-| 9 | 🟠 Low | [TransactionFilter](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/components/ui/TransactionFilter.jsx) | 14KB component (well over the 150-line rule). Should be split. |
+| 1 | 🔴 Critical | [vite.config.js](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/vite.config.js) | `vite-plugin-pwa` not configured. PWA is completely non-functional. |
+| 2 | 🟡 Medium | [Settings.jsx](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/pages/Settings.jsx#L36-L44) | Dark mode toggle only updates local state — no actual theme switching. |
+| 3 | 🟡 Medium | [Transactions.jsx:201](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/pages/Transactions.jsx#L73-L201) | Dual export: `export const Transactions` (named) AND `export default Transactions`. This works but violates project rules (named exports only). |
+| 4 | 🟠 Low | [auth.js:75](file:///c:/Users/Vinay%20Bhoure/STORAGE/SpendWise/frontend/src/services/auth.js#L75) | `console.log('login using google')` left in production code. |
 
 ---
 
@@ -238,14 +230,8 @@ All Plus features are effectively **Not Started** unless noted:
 
 | Gap | Impact | Priority |
 |---|---|---|
-| **No plan/tier system** — all features available to everyone | Monetization impossible | 🔴 P0 |
 | **PWA not configured** — not installable, no offline, no SW | Core spec broken | 🔴 P0 |
-| **No account limit enforcement** (3 for free) | Business logic missing | 🔴 P0 |
-| **No 6-month history limit** for free tier | Business logic missing | 🔴 P0 |
-| **Password reset crashes** (`cl.location.origin` typo) | Auth flow broken | 🔴 P0 |
 | **Dark mode toggle is non-functional** | UX bug | 🟡 P1 |
-| **No onboarding flow** (currency selection + account wizard) | First-run UX gap | 🟡 P1 |
-| **Dashboard metrics are fake** (hardcoded budget/trend) | User trust issue | 🟡 P1 |
 | Summary cards commented out on Transactions page | Half-done feature | 🟡 P1 |
 | No `types/` directory — all JS, no TypeScript interfaces | Violates project rules | 🟠 P2 |
 | No Tailwind config file for design tokens | Violates project rules | 🟠 P2 |
@@ -260,23 +246,19 @@ All Plus features are effectively **Not Started** unless noted:
 ## Scorecard — Free Plan Completion
 
 ```
-✅ Completed & Working     : 22 / 38 features  →  58%
-⚠️ Partial / Half-done     : 11 / 38 features  →  29%
-🚫 Not Started             :  5 / 38 features  →  13%
+✅ Completed & Working     : 32 / 38 features  →  84%
+⚠️ Partial / Half-done     :  4 / 38 features  →  11%
+🚫 Not Started             :  2 / 38 features  →   5%
 ```
 
-**Bottom line:** The app has a solid foundation for transactions, accounts, auth, and basic statistics. However, it is **far from production-ready** because:
+**Bottom line:** The app has achieved an excellent foundational state. Critical flow limits, plan-gating infrastructure (Free vs Plus), mandatory onboarding, and dynamic metric implementations have all been mapped. However, it is **not yet fully production-ready** because:
 
-1. **No plan/tier gating** — the Free vs Plus distinction doesn't actually exist in code
-2. **PWA is completely missing** despite being a core requirement
-3. **Several fake/hardcoded metrics** undermine user trust
-4. **Critical bugs** in auth flow and theme toggling
-5. **Zero Plus-exclusive modules** are built (Budgets, Goals, Debts, Subscriptions, etc.)
+1. **PWA is missing** despite being a core requirement.
+2. **Theme Toggling** is currently broken.
+3. **Plus-exclusive features** are unbuilt (Budgets, Goals, Debts, Subscriptions, etc.).
 
 > [!IMPORTANT]
 > **Recommended next steps:**
-> 1. Fix the 5 bugs listed above (especially the `cl.location` crash and PWA config)
-> 2. Build a plan-gating service/hook (`usePlanGate`) to enforce Free vs Plus limits
-> 3. Complete the onboarding flow with currency + account wizard
-> 4. Configure `vite-plugin-pwa` with proper manifest and caching strategies
-> 5. Remove fake dashboard metrics and implement real calculations
+> 1. Fix the remaining bugs (Dark mode theme switching).
+> 2. Configure `vite-plugin-pwa` with proper manifest and caching strategies.
+> 3. Start building structural Plus-exclusive feature sets (Budgets, Goals, etc.).

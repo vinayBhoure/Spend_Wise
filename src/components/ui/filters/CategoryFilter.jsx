@@ -34,7 +34,7 @@ export const CategoryFilter = ({ filters, setFilters, categories, categorySearch
         />
       </div>
       {filteredCategories.length === 0 ? (
-        <p className="text-center text-slate-500 text-sm py-4">No categories found</p>
+        <p className="text-center text-slate-500 text-sm py-3">No categories found</p>
       ) : (
         <div className="space-y-1 pb-4">
           {filteredCategories.map(cat => {

@@ -86,7 +86,7 @@ export default function EditProfile() {
     profile?.full_name || profile?.username || user?.user_metadata?.full_name || 'User';
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased">
+    <div className="relative flex h-[100dvh] overflow-hidden w-full flex-col max-w-[430px] mx-auto bg-background-dark font-manrope antialiased">
       <PageHeader 
         title="Edit Profile"
         showBack={true}
@@ -97,11 +97,12 @@ export default function EditProfile() {
       />
 
       {/* Main Content */}
-      <main className="flex-1 px-6 pt-8 pb-10 overflow-y-auto">
-        <form id="edit-profile-form" onSubmit={handleSubmit} noValidate>
-          {/* Avatar Picker */}
-          <section className="flex flex-col items-center mb-10">
-            <div className="relative group mb-4">
+      <main className="flex-1 px-6 pt-6 pb-6 overflow-y-auto">
+        <form id="edit-profile-form" onSubmit={handleSubmit} noValidate className="flex flex-col h-full justify-between">
+          <div>
+            {/* Avatar Picker */}
+            <section className="flex flex-col items-center mb-6">
+              <div className="relative group mb-3">
               <div className="w-28 h-28 rounded-full border-2 border-primary/30 p-1 bg-card-dark overflow-hidden">
                 {currentAvatarUrl ? (
                   <div
@@ -157,7 +158,7 @@ export default function EditProfile() {
           </section>
 
           {/* Fields */}
-          <section className="space-y-5">
+          <section className="space-y-4">
             <h3 className="text-[10px] uppercase tracking-widest font-bold text-slate-500 ml-1">
               Personal Info
             </h3>
@@ -225,8 +226,8 @@ export default function EditProfile() {
           </section>
 
           {/* Email (read-only) */}
-          <section className="mt-8 space-y-2">
-            <h3 className="text-[10px] uppercase tracking-widest font-bold text-slate-500 ml-1 mb-3">
+          <section className="mt-6 space-y-2">
+            <h3 className="text-[10px] uppercase tracking-widest font-bold text-slate-500 ml-1 mb-2">
               Account
             </h3>
             <div className="bg-card-dark border border-white/5 rounded-xl px-4 py-3.5 flex items-center gap-3">
@@ -242,14 +243,15 @@ export default function EditProfile() {
               </span>
             </div>
           </section>
-
+          </div>
+          
           {/* Save Button */}
-          <div className="mt-10">
+          <div className="mt-6">
             <button
               id="edit-profile-save-btn"
               type="submit"
               disabled={profileUpdating}
-              className="w-full bg-primary text-background-dark font-extrabold text-sm rounded-xl py-4 flex items-center justify-center gap-2.5 active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-primary text-background-dark font-extrabold text-sm rounded-xl py-3 flex items-center justify-center gap-2.5 active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {profileUpdating ? (
                 <>

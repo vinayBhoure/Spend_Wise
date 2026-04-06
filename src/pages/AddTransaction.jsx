@@ -93,7 +93,19 @@ export default function AddTransaction() {
       is_transfer: false
     };
 
-    dispatch(submitTransaction(payload));
+    // Construct optimisticTx for UI
+    const selectedAccount = accounts.find(a => a.id === accountId);
+    const selectedCategory = categories.find(c => c.id === categoryId);
+
+    const optimisticTx = {
+      ...payload,
+      id: `temp-${Date.now()}`,
+      status: 'pending',
+      accounts: selectedAccount,
+      categories: selectedCategory
+    };
+
+    dispatch(submitTransaction({ payload, optimisticTx }));
   };
 
   const handleTypeChange = (newType) => {
@@ -194,7 +206,7 @@ export default function AddTransaction() {
           </label>
           <div className="relative">
             <input 
-              className="w-full bg-surface-dark border border-slate-800 rounded-lg py-4 px-5 text-slate-200 placeholder-slate-600 focus:ring-0 focus:outline-none transition-all text-[13px]" 
+              className="w-full bg-surface-dark border border-slate-800 rounded-lg py-3 px-5 text-slate-200 placeholder-slate-600 focus:ring-0 focus:outline-none transition-all text-[13px]" 
               placeholder="Add a note (e.g. Rent, Dinner)" 
               type="text"
               value={note}
@@ -204,7 +216,7 @@ export default function AddTransaction() {
         </div>
 
         {/* Account Selector */}
-        <div className="px-6 mb-10">
+        <div className="px-6 mb-6">
           <StyledSelect
             label="Account"
             leftIcon={Wallet}
@@ -224,7 +236,7 @@ export default function AddTransaction() {
       </main>
 
       {/* Fixed Bottom Action */}
-      <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent pt-10 z-20">
+      <div className="fixed bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-background-dark via-background-dark/95 to-transparent pt-10 z-20">
         <button 
           onClick={handleSubmit} 
           disabled={submitStatus === 'loading'}

@@ -12,7 +12,7 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden p-6 safe-area-inset bg-background-dark font-body text-slate-100 antialiased">
+    <div className="relative flex h-screen w-full flex-col overflow-hidden p-5 safe-area-inset bg-background-dark font-body text-slate-100 antialiased">
 
       {/* Main Content Area */}
       <main className="flex flex-1 flex-col items-center justify-center">

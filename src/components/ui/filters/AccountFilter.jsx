@@ -20,7 +20,7 @@ export const AccountFilter = ({ filters, setFilters, accounts }) => {
   return (
     <div className="space-y-1">
       {accounts.length === 0 ? (
-        <p className="text-center text-slate-500 text-sm py-4">No accounts found</p>
+        <p className="text-center text-slate-500 text-sm py-3">No accounts found</p>
       ) : (
         accounts.map(acc => {
           const isSelected = filters.accounts?.includes(acc.id);

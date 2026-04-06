@@ -84,13 +84,13 @@ export default function SetupAccount() {
 
       <div className="relative z-10 flex flex-col flex-1 w-full max-w-[430px] mx-auto px-6 py-12">
         {/* Step indicator */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-6">
           <div className="h-1 flex-1 rounded-full bg-primary"></div>
           <div className="h-1 flex-1 rounded-full bg-primary"></div>
         </div>
 
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-8">
+        <div className="flex flex-col items-center text-center mb-6">
           <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mb-6 ring-1 ring-primary/20">
             <Wallet className="text-primary" size={40} strokeWidth={1.5} />
           </div>
@@ -103,9 +103,9 @@ export default function SetupAccount() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6 flex-1">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1">
           {/* Balance */}
-          <div className="flex flex-col items-center gap-1 bg-card-dark p-6 rounded-2xl border border-white/5">
+          <div className="flex flex-col items-center gap-1 bg-card-dark p-5 rounded-2xl border border-white/5">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Initial Balance</p>
             <div className="flex items-baseline justify-center gap-2 w-full">
               <span className="text-3xl font-bold text-primary">{getCurrencySymbol(selectedCurrency)}</span>

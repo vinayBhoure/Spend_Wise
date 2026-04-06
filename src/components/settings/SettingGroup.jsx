@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const SettingGroup = ({ title, children, className = '' }) => {
   return (
-    <div className={`mb-8 ${className}`}>
+    <div className={`mb-6 ${className}`}>
       {title && (
         <h3 className="px-2 text-[10px] font-semibold text-slate-500 uppercase tracking-[0.2em] mb-4">
           {title}

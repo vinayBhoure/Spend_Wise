@@ -9,7 +9,7 @@ export const UpgradeModal = ({ isOpen, onClose, featureName }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-5">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -38,7 +38,7 @@ export const UpgradeModal = ({ isOpen, onClose, featureName }) => {
             Plus Plan Required
           </h3>
           
-          <p className="text-sm text-slate-400 leading-relaxed mb-8">
+          <p className="text-sm text-slate-400 leading-relaxed mb-6">
             {featureName ? `Unlock ${featureName} and other advanced features by upgrading to Plus.` : 'Upgrade to Plus to unlock advanced features and take full control of your finances.'}
           </p>
 

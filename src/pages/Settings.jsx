@@ -60,7 +60,7 @@ export default function Settings() {
   // Explicit Loading State
   if (profileLoading && !profileTemplate && !user) {
     return (
-      <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col items-center justify-center p-5">
         <Loader2 className="size-12 text-primary animate-spin mb-4" />
         <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold tracking-wider uppercase">Loading Settings</p>
       </div>
@@ -70,7 +70,7 @@ export default function Settings() {
   // Explicit Error State
   if (profileError && !user) {
     return (
-      <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col items-center justify-center p-6">
+      <div className="min-h-screen bg-background-light dark:bg-background-dark flex flex-col items-center justify-center p-5">
         <AlertCircle className="size-16 text-destructive mb-4" />
         <h2 className="text-xl font-bold mb-2 text-slate-900 dark:text-slate-100">Something went wrong</h2>
         <p className="text-slate-500 dark:text-slate-400 text-center text-sm mb-6">{profileError}</p>
@@ -169,7 +169,7 @@ export default function Settings() {
           />
         </SettingGroup>
 
-        <div className="mt-16 px-2 mb-10">
+        <div className="mt-16 px-2 mb-6">
           <button
             onClick={handleLogout}
             className="w-full h-14 text-rose-500 font-extrabold text-sm bg-rose-500/10 rounded-2xl border border-rose-500/20 active:scale-[0.97] transition-all uppercase tracking-[0.15em] shadow-[0_4px_15px_rgba(255,90,126,0.1)]"
