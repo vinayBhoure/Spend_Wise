@@ -141,13 +141,13 @@ export default function Settings() {
         </SettingGroup>
 
         <SettingGroup title="App Experience">
-          <SettingRow
+          {/* <SettingRow
             icon={Zap}
             title="Quick Logging"
             subtitle={toggles.quickLogging ? 'Frictionless entry enabled' : 'Require full details'}
             rightElement={<Toggle checked={toggles.quickLogging} onChange={() => handleToggle('quickLogging')} />}
             showChevron={false}
-          />
+          /> */}
           <SettingRow
             icon={Moon}
             title="Dark Mode"
@@ -155,18 +155,18 @@ export default function Settings() {
             rightElement={<Toggle checked={toggles.darkMode} onChange={() => handleToggle('darkMode')} />}
             showChevron={false}
           />
-          <SettingRow
+          {/* <SettingRow
             icon={Vibrate}
             title="Haptic Feedback"
             rightElement={<Toggle checked={toggles.hapticFeedback} onChange={() => handleToggle('hapticFeedback')} />}
             showChevron={false}
-          />
-          <SettingRow
+          /> */}
+          {/* <SettingRow
             icon={ScanFace}
             title="Biometric Unlock"
             rightElement={<Toggle checked={toggles.biometricUnlock} onChange={() => handleToggle('biometricUnlock')} />}
             showChevron={false}
-          />
+          /> */}
         </SettingGroup>
 
         <div className="mt-16 px-2 mb-6">
