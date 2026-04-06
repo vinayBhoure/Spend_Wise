@@ -12,7 +12,7 @@ export default function EmailVerification() {
   // If user is already verified or session updated, take them to dashboard
   useEffect(() => {
     if (user?.email_confirmed_at) {
-      navigate('/dashboard');
+      navigate('/setup-currency');
     }
   }, [user, navigate]);
 
